@@ -9,8 +9,8 @@ We will summarize this new data set in a paper for the NeurIPS 2025 Datasets and
 
 If you want to contribute an experiment, please make a pull request. To do so, first create a new folder with a meaningful name. This folder should contain:
 
-* a README.md file with a paper reference and a like to the original data.
-* prompts.jsonl file where each line corresponds to one participant. Each line should have the following three fields:
+* a README.md file with a paper reference and a link to the original data.
+* a prompts.jsonl file where each line corresponds to one participant. Each line should have the following three fields:
     - "text": Natural language transcription of the experiment.
     - "experiment": Identifier for the experiment.
     - "participant": Identifier for the participant.
@@ -23,11 +23,11 @@ XXX provides an example for structuring.
 ## Prompt formatting
 
 * Each prompt corresponds to an entire experiment from one participant.
-* It should contain data on the trial-by-trial level and start with the instructions.
+* It should contain data on a trial-by-trial level and start with the instructions.
 * Use the cover story and instructions from the original paper if possible.
-* 32K tokens per prompt is the length limit.
+* 32K tokens per participant is the length limit.
 * Mark the parts that should be finetuned (i.e., human choices) with “<<“ and “>>”. Do not use these symbols for other parts of the prompt.
-* For discrete choice options, randomize the names of choice options (example in XXX/generate_prompts.py)
+* For discrete choice options, randomize the names of choice options for each participant (example in XXX/generate_prompts.py)
 
 Example prompt:
 
