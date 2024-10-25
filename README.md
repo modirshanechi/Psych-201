@@ -7,7 +7,7 @@ We will summarize this new data set in a paper for the NeurIPS 2025 Datasets and
 
 ## Repository structure
 
-If you want to contribute an experiment, please make a pull a request. To do so, first create a new folder with a meaningful name. This folder should contain:
+If you want to contribute an experiment, please make a pull request. To do so, first create a new folder with a meaningful name. This folder should contain:
 
 * a README.md file with a paper reference and a like to the original data.
 * prompts.jsonl file where each line corresponds to one participant. Each line should have the following three fields:
