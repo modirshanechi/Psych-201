@@ -18,7 +18,7 @@ If you want to contribute an experiment, please make a pull request. To do so, f
 
 Please do not upload the original data files to this repository.
 
-XXX provides an example for structuring.
+[This folder](https://github.com/marcelbinz/Psych-201/tree/main/binz2022heuristics) provides an example for structuring.
 
 ## Prompt formatting
 
@@ -27,7 +27,7 @@ XXX provides an example for structuring.
 * Use the cover story and instructions from the original paper if possible.
 * 32K tokens per participant is the length limit.
 * Mark the parts that should be finetuned (i.e., human choices) with “<<“ and “>>”. Do not use these symbols for other parts of the prompt.
-* For discrete choice options, randomize the names of choice options for each participant (example in XXX/generate_prompts.py)
+* For discrete choice options, randomize the names of choice options for each participant [binz2022heuristics/generate_prompts.py](https://github.com/marcelbinz/Psych-201/tree/main/binz2022heuristics/generate_prompts.py).
 
 Example prompt:
 
