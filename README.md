@@ -5,6 +5,8 @@ We aim to collect a data set 10x the size of Psych-101, meaning that Psych-201 w
 
 We will summarize this new data set in a paper for the NeurIPS 2025 Datasets and Benchmarks Track (or a similar venue). Every contributor will be eligible for co-authorship on this paper. If you want to contribute, please follow the instructions below. In case you are unsure whether the experiment you have in mind is suitable for Psych-201, please [reach out](mailto:marcel.binz@helmholtz-munich.de) first.
 
+
+
 ## Repository structure
 
 If you want to contribute an experiment, please make a pull request. To do so, first create a new folder with a meaningful name. This folder should contain:
@@ -20,9 +22,11 @@ Please do not upload the original data files to this repository.
 
 [This folder](https://github.com/marcelbinz/Psych-201/tree/main/binz2022heuristics) provides an example for structuring.
 
+More detailed instructions to follow in the near future.
+
 ## Prompt formatting
 
-* Each prompt corresponds to an entire experiment from one participant.
+* Each prompt corresponds to an entire experimental session from one participant.
 * It should contain data on a trial-by-trial level and start with the instructions.
 * Use the cover story and instructions from the original paper if possible.
 * 32K tokens per participant is the length limit.
