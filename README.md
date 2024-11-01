@@ -6,12 +6,13 @@ We aim to collect a data set 10x the size of Psych-101, meaning that Psych-201 w
 We will summarize this new data set in a paper for the NeurIPS 2025 Datasets and Benchmarks Track (or a similar venue). Every contributor will be eligible for co-authorship on this paper. If you want to contribute, please follow the instructions below. In case you are unsure whether the experiment you have in mind is suitable for Psych-201, please [reach out](mailto:marcel.binz@helmholtz-munich.de) first.
 
 
+## How to contribute
 
-## Repository structure
+### Repository structure
 
-If you want to contribute an experiment, please make a pull request. To do so, first create a new folder with a meaningful name. This folder should contain:
+If you want to contribute an experiment, please make a pull request (more on this below). For this, first create a new folder with a meaningful name. This folder should contain:
 
-* a README.md file with a paper reference and a link to the original data.
+* a README.md file with a paper reference and a link to the original data (if no paper or preprint is available, please add an extended description of the experiment and a statement regarding IRB approval).
 * a prompts.jsonl file where each line corresponds to one participant. Each line should have the following three fields:
     - "text": Natural language transcription of the experiment.
     - "experiment": Identifier for the experiment.
@@ -22,15 +23,26 @@ Please do not upload the original data files to this repository.
 
 [This folder](https://github.com/marcelbinz/Psych-201/tree/main/binz2022heuristics) provides an example for structuring.
 
+### Setup
+
 More detailed instructions to follow in the near future.
 
-## Prompt formatting
+### Review process
+
+There will be a lightweight review process ensuring that requirements are fulfilled. The communication for this will be done via the corresponding pull request.
+
+We accept experiments that fulfill the following requirements:
+* Data comes from an experiment with human subjects.
+* Data is given on a trial-by-trial level (i.e., no aggregated data).
+* Experiment can be translated into language without a major loss of information.
+
+## Formatting
 
 * Each prompt corresponds to an entire experimental session from one participant.
 * It should contain data on a trial-by-trial level and start with the instructions.
 * Use the cover story and instructions from the original paper if possible.
 * 32K tokens per participant is the length limit.
-* Mark the parts that should be finetuned (i.e., human choices) with “<<“ and “>>”. Do not use these symbols for other parts of the prompt.
+* Mark the parts that should be finetuned (i.e., human responses) with “<<“ and “>>”. Do not use these symbols for other parts of the prompt.
 * For discrete choice options, randomize the names of choice options for each participant [binz2022heuristics/generate_prompts.py](https://github.com/marcelbinz/Psych-201/tree/main/binz2022heuristics/generate_prompts.py).
 
 Example prompt:
