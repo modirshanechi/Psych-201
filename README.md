@@ -35,6 +35,7 @@ We accept experiments that fulfill the following requirements:
 * Data comes from an experiment with human subjects.
 * Data is given on a trial-by-trial level (i.e., no aggregated data).
 * Experiment can be translated into language without a major loss of information.
+* Temporal ordering should follow the original experiment.
 
 ## Formatting
 
