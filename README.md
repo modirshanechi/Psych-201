@@ -25,7 +25,9 @@ Please do not upload the original data files to this repository.
 
 ### Setup
 
-1. Fork the repository.
+1. Fork the repository:
+
+<img src="https://github.com/marcelbinz/Psych-201/blob/main/screenshots/1.png" width="400"/>
    
 2. Clone the forked repository:
 ~~~
@@ -41,6 +43,10 @@ git push
 ~~~
 
 4. On https://github.com/YOUR-USERNAME/Psych-201 click on "Pull requests", then "New pull request", finally "Create pull request".
+
+<img src="https://github.com/marcelbinz/Psych-201/blob/main/screenshots/2.png" width="400"/>
+<img src="https://github.com/marcelbinz/Psych-201/blob/main/screenshots/3.png" width="400"/>
+<img src="https://github.com/marcelbinz/Psych-201/blob/main/screenshots/4.png" width="400"/>
 
 ### Review process
 
