@@ -25,7 +25,22 @@ Please do not upload the original data files to this repository.
 
 ### Setup
 
-More detailed instructions to follow in the near future.
+1. Fork the repository.
+   
+2. Clone the forked repository:
+~~~
+git clone https://github.com/YOUR-USERNAME/Psych-201
+~~~
+
+3. Add your experiments and push:
+
+~~~
+cd Psych-201/
+(add your experiments)
+git push
+~~~
+
+4. On https://github.com/YOUR-USERNAME/Psych-201 click on "Pull requests", then "New pull request", finally "Create pull request".
 
 ### Review process
 
