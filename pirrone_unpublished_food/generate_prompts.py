@@ -25,7 +25,7 @@ for dataset in datasets:
         num_features_str = 'two'
 
         prompts = [
-            'You will choose from two items to consume, each has a different value from ratings that you previously assigned to the items idividually.\n'
+            'You will choose from two items to consume, each has a different value from ratings that you previously assigned to the items individually.\n'
         ]
 
         for task in range(num_tasks):
