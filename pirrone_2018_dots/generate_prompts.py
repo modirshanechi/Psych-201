@@ -78,7 +78,7 @@ for dataset in datasets:
         print(full_prompt)
         all_prompts.append({
             'text': full_prompt,
-            'experiment': 'pirrone2018dots/' + dataset,
+            'experiment': 'pirrone_2018_dots/' + dataset,
             'participant': participant
         })
 
