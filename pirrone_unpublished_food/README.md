@@ -6,6 +6,8 @@ This was a decision-making study using a classical experiment in value based dec
 
 Participants rated images of food and subsequently they had to perform a 2AFC task between alternatives presented at random. Participants repeated the exact same experiment twice (trials in the same order), so that we could estimate choice consistency for low and high-value pairs.
 
+Ethical approval was granted by the Ethics Committee at The University of Liverpool.
+
 Pirrone, A. (2024). Clarifying the role of processing noise in value-based decision-making. Unpublished Manuscript.
 
 
