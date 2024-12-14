@@ -38,10 +38,10 @@ for par_no, par in enumerate(exp.participant.unique()):
         image = clean_name(row.image.split("/")[1])
         if row.choice:
             choice = right_key
-            choice_dino, no_choice_dino = "Julty", "Folty"
+            choice_dino, no_choice_dino = "Folty", "Julty"
         else:
             choice = left_key
-            choice_dino, no_choice_dino = "Folty", "Julty"
+            choice_dino, no_choice_dino = "Julty", "Folty"
 
         feedback_text = f"{choice_dino} loves the image!\n" if row.correct else f"{choice_dino} does not like the image. It was meant for {no_choice_dino}.\n"
         current_prompt += f"You were shown {image}. You press <<{choice}>> to deliver the image to {choice_dino}. {feedback_text}"
