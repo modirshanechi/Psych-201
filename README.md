@@ -1,7 +1,7 @@
 # Psych-201
 
 Psych-201 is a collaborative data set currently under construction. It extends [Psych-101](https://huggingface.co/datasets/marcelbinz/Psych-101), a large-scale data set containing natural language transcriptions of human psychology experiments.
-We aim to collect a data set 10x the size of Psych-101, meaning that Psych-201 would cover 100,000,000 human choices from nearly 1,000,000 participants. 
+We aim to collect a data set 10x the size of Psych-101, meaning that Psych-201 would cover 100,000,000 human choices from nearly 1,000,000 participants.
 
 We will summarize this new data set in a paper for the NeurIPS 2025 Datasets and Benchmarks Track (or a similar venue). Every contributor will be eligible for co-authorship on this paper. If you want to contribute, please follow the instructions below. In case you are unsure whether the experiment you have in mind is suitable for Psych-201, please [reach out](mailto:marcel.binz@helmholtz-munich.de) first.
 
@@ -13,7 +13,7 @@ We will summarize this new data set in a paper for the NeurIPS 2025 Datasets and
 If you want to contribute an experiment, please make a pull request (more on this below). For this, first create a new folder with a meaningful name. This folder should contain:
 
 * a README.md file with a paper reference and a link to the original data (if no paper or preprint is available, please add an extended description of the experiment and a statement regarding IRB approval).
-* a prompts.jsonl file where each line corresponds to one participant. Each line should have the following three fields:
+* a **zipped** prompts.jsonl file where each line corresponds to one participant. Each line should have the following three fields:
     - "text": Natural language transcription of the experiment.
     - "experiment": Identifier for the experiment.
     - "participant": Identifier for the participant.
@@ -28,7 +28,7 @@ Please do not upload the original data files to this repository.
 1. Fork the repository:
 
 <img src="https://github.com/marcelbinz/Psych-201/blob/main/screenshots/1.png" width="400"/>
-   
+
 2. Clone the forked repository:
 ~~~
 git clone https://github.com/YOUR-USERNAME/Psych-201
@@ -117,4 +117,3 @@ Alien A scores 0.24 higher on attribute 1. Alien V scores 0.48 higher on attribu
 Alien V scores 0.7 higher on attribute 1. Alien V scores 1.43 higher on attribute 2. You press <<V>>. Alien V wins.
 Alien V scores 0.7 higher on attribute 1. Alien A scores 0.39 higher on attribute 2. You press <<A>>. Alien A wins.
 ~~~
-  
