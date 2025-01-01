@@ -9,6 +9,7 @@
 | Optimal stopping | - | ? | [Link](https://google.com) | Brian Christian |
 | Spatially-correlated | anxiety | ? | [Link](https://google.com) | Kristin Witte |
 | Probabilistic reversal learning | ? | 161,600 | [Link](https://www.nature.com/articles/s41562-021-01176-8) | Huadong Xiong |
+| SWOW | ? | 3,000,000 | [Link](https://smallworldofwords.org/en/project/research) | Shane Lindsay |
 
 # List of open data sets
 
