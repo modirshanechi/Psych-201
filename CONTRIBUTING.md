@@ -54,7 +54,7 @@
 | Decisions from description | age (10-26) | 23,904 | [Link](https://osf.io/preprints/psyarxiv/73dja) |
 | Decisions from description  (social) | age (12-22) | 34,200 | [Link](https://bpb-us-e1.wpmucdn.com/sites.harvard.edu/dist/b/261/files/2023/02/Braams_et_al-2018-Developmental_Science.pdf) |
 | Intertemporal choice | age (14-24) | 68,280 | [Link](https://www.nature.com/articles/s41467-021-23671-2) |
-| N-back | age 18-80) | 24,800 | [Link]https://academic.oup.com/psychsocgerontology/article/78/1/40/6761668?login=false() |
+| N-back | age 18-80) | 24,800 | [Link](https://academic.oup.com/psychsocgerontology/article/78/1/40/6761668?login=false) |
 | Motivated encoding paradigm | age (8-25) | 34,176 | [Link](https://github.com/hartleylabnyu/reward_memories_influence_learning?tab=readme-ov-file) |
 | Semantic similarity | age (5-24) | ? | [Link](https://bpb-us-e1.wpmucdn.com/sites.harvard.edu/dist/b/261/files/2023/02/NookSasseLambertMcLaughlinSomerville_NHB_2017.pdf) |
 | Repeated risky choice | age (3-X) | 30,100 | [Link](https://pubmed.ncbi.nlm.nih.gov/39631217/) |
