@@ -10,6 +10,9 @@
 | Spatially-correlated | anxiety | ? | [Link](https://google.com) | Kristin Witte |
 | Probabilistic reversal learning | ? | 161,600 | [Link](https://www.nature.com/articles/s41562-021-01176-8) | Huadong Xiong |
 | SWOW | ? | 3,000,000 | [Link](https://smallworldofwords.org/en/project/research) | Shane Lindsay |
+| Two-step task | age (8-25) | 16,000 | [Link](https://github.com/hartleylabnyu/online_two_step_replication/tree/master/analysis_code_and_data/data/decker) | Kate Nussenbaum |
+| Two-step task, statistical learning, matrix reasoning | age (9-25) | 19,251 | [Link](https://pubmed.ncbi.nlm.nih.gov/27825732/) | Kate Nussenbaum |
+| Two-step task, matrix reasoning | age (8-25) | 42,280 | [Link](https://online.ucpress.edu/collabra/article/6/1/17213/114338/Moving-Developmental-Research-Online-Comparing-In) | Kate Nussenbaum |
 
 # List of open data sets
 
@@ -26,11 +29,8 @@
 | Decision-making | ? | 23,000 | [Link](www.pnas.org/doi/epub/10.1073/pnas.2400215121) |
 | Decision-making | - | 19,760 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010176) |
 | Decision-making | - | ? | [Link](https://osf.io/preprints/psyarxiv/8egxh) |
-| Two-step task | age (8-25) | 16,000 | [Link](https://github.com/hartleylabnyu/online_two_step_replication/tree/master/analysis_code_and_data/data/decker) |
-| Two-step task, statistical learning, matrix reasoning | age (9-25) | 19,251 | [Link](https://pubmed.ncbi.nlm.nih.gov/27825732/) |
 | Two-step task | age (14-24) | 110,800 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006803#sec020) |
 | Two-step task | age (18-20) | 39,680 | [Link](https://elifesciences.org/articles/49154) |
-| Two-step task, matrix reasoning | age (8-25) | 42,280 | [Link](https://online.ucpress.edu/collabra/article/6/1/17213/114338/Moving-Developmental-Research-Online-Comparing-In) |
 | Two-step | age (5-X) | 16,660 | [Link](https://onlinelibrary.wiley.com/doi/10.1111/desc.13295) |
 | Spatial bandit | age (7-55) | 28,800 | [Link](https://journals.sagepub.com/doi/10.1177/0956797619863663) |
 | Spatial bandit | age (5-55) | 56,200 | [Link](https://www.nature.com/articles/s41562-023-01662-1) |
