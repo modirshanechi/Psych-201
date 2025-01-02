@@ -3,6 +3,8 @@
 Psych-201 is a collaborative data set currently under construction. It extends [Psych-101](https://huggingface.co/datasets/marcelbinz/Psych-101), a large-scale data set containing natural language transcriptions of human psychology experiments.
 We aim to collect a data set 10x the size of Psych-101, meaning that Psych-201 would cover 100,000,000 human choices from nearly 1,000,000 participants.
 
+**Important:** If you would like to contribute an experiment, please verify first [here](https://github.com/marcelbinz/Psych-201/blob/main/CONTRIBUTING.md) that it is not already work in progress! You can also find a list of experiments up for grabs on this link.
+
 Current progress: **16,106,681/100,000,000** human choices
 
 We will summarize this new data set in a paper for the **NeurIPS 2025 Datasets and Benchmarks Track** (or a similar venue). Every contributor will be eligible for co-authorship on this paper. If you want to contribute, please follow the instructions below. In case you are unsure whether the experiment you have in mind is suitable for Psych-201, please [reach out](mailto:marcel.binz@helmholtz-munich.de) first.
