@@ -5,6 +5,7 @@
 | Little alchemy  | - | 4,691,033 | [Link](https://google.com) | Franziska Brändle |
 | RPS | - | ? | [Link](https://google.com) | Elif Akata |
 | Economic games | - | ? | [Link](https://google.com) | Elif Akata |
+| Economic games | - | 90,000 | [Link](https://arxiv.org/pdf/2408.07865) | Jianqiao Zhu |
 | Naturalistic decision-making | - | 200,000 | [Link](https://google.com) | Marcel Binz |
 | Optimal stopping | - | ? | [Link](https://google.com) | Brian Christian |
 | Spatially-correlated | anxiety | ? | [Link](https://google.com) | Kristin Witte |
