@@ -14,6 +14,7 @@
 | Two-step task | age (8-25) | 16,000 | [Link](https://github.com/hartleylabnyu/online_two_step_replication/tree/master/analysis_code_and_data/data/decker) | Kate Nussenbaum |
 | Two-step task, statistical learning, matrix reasoning | age (9-25) | 19,251 | [Link](https://pubmed.ncbi.nlm.nih.gov/27825732/) | Kate Nussenbaum |
 | Two-step task, matrix reasoning | age (8-25) | 42,280 | [Link](https://online.ucpress.edu/collabra/article/6/1/17213/114338/Moving-Developmental-Research-Online-Comparing-In) | Kate Nussenbaum |
+| Basel risk norms | - | 197,800 | [Link]([https://smallworldofwords.org/en/project/research](https://link.springer.com/content/pdf/10.1140/epjds/s13688-024-00478-x.pdf)) | Dirk Wulff and Zak Hussain |
 
 # List of open data sets
 
