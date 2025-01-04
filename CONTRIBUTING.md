@@ -86,7 +86,6 @@
 | Two-armed bandit | paranoia | 89,520 | [Link](https://osf.io/ku8ma) |
 | Dynamic trust game | anxiety (G) | ? | [Link](https://journals.sagepub.com/doi/10.1177/0956797620910993) |
 | Intertemporal choice | anxiety (G) | 80,388 | [Link](https://haines-lab.com/publication/haines_cps_2020/) |
-| Two-armed bandit | anxiety (Q) | 295,500 | [Link](https://www.nature.com/articles/s41562-022-01455-y) |
 | Simple two-step task | OCD, anxiety (G) | 244,800 | [Link](https://www.nature.com/articles/s41562-022-01346-2) |
 | Belief updating | anxiety (Q) | 2,670 | [Link](https://www.nature.com/articles/s41467-023-39825-3) |
 
