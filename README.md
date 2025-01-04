@@ -21,6 +21,12 @@ If you want to contribute an experiment, please make a pull request (more on thi
     - "text": Natural language transcription of the experiment.
     - "experiment": Identifier for the experiment.
     - "participant": Identifier for the participant.
+* The following fields are optional and may be used to include meta-information if it is available (an example of an experiment with such information can be found [here](https://github.com/marcelbinz/Psych-201/blob/main/fan2022trait/generate_prompts.py)):
+    - "RTs": list of reaction times after stimulus onset (in ms). The length of this list should match the number of choices made by the participant.
+    - "age": Age of the participant.
+    - "diagnosis": Clinical diagnosis of the participant.
+    - "nationality": Nationality of the participant.
+    - any statistics derived from a questionaire, e.g., "STICSA-T somatic", "STICSA-T cognitive", etc.
 * a generate_prompts.py file that reads in the original data and produces prompts.jsonl  
 
 Please do not upload the original data files to this repository.
