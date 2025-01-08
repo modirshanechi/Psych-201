@@ -14,7 +14,16 @@
 | Two-step task | age (8-25) | 16,000 | [Link](https://github.com/hartleylabnyu/online_two_step_replication/tree/master/analysis_code_and_data/data/decker) | Kate Nussenbaum |
 | Two-step task, statistical learning, matrix reasoning | age (9-25) | 19,251 | [Link](https://pubmed.ncbi.nlm.nih.gov/27825732/) | Kate Nussenbaum |
 | Two-step task, matrix reasoning | age (8-25) | 42,280 | [Link](https://online.ucpress.edu/collabra/article/6/1/17213/114338/Moving-Developmental-Research-Online-Comparing-In) | Kate Nussenbaum |
-| Basel risk norms | - | 197,800 | [Link]([https://smallworldofwords.org/en/project/research](https://link.springer.com/content/pdf/10.1140/epjds/s13688-024-00478-x.pdf)) | Dirk Wulff and Zak Hussain |
+| Basel risk norms | - | 197,800 | [Link](https://link.springer.com/content/pdf/10.1140/epjds/s13688-024-00478-x.pdf) | Dirk Wulff and Zak Hussain |
+| Grammaticality judgments | - | 8,800 | [Link](https://doi.org/10.1073/pnas.2309583120) | Fritz Günther |
+| Sentence comprehension | - | 26,466 | [Link](https://doi.org/10.1038/s41598-024-79531-8) | Fritz Günther |
+| Lexical decisions | - | 75,870 | [Link](https://doi.org/10.1177/1747021820902019) | Fritz Günther |
+| Sensibility judgments | - | 75,356 | [Link](https://doi.org/10.1016/j.jml.2020.104104) | Fritz Günther |
+| Relational judgments for novel compounds | - | 22,000 | [Link](https://doi.org/10.1016/j.cogpsych.2022.101471) | Fritz Günther |
+| Maxdiff judgments for visual similarity | - | 33,055 | [Link](https://doi.org/10.1037/rev0000392) | Fritz Günther |
+| Word substitutions | - | 18,216 | [Link](https://doi.org/10.1016/j.jml.2023.104477) | Fritz Günther |
+
+
 
 # List of open data sets
 
