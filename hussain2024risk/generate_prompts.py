@@ -2,6 +2,9 @@ import pandas as pd
 import json
 import zipfile
 
+# List to store all prompts (each prompt is a dictionary)
+all_prompts = []
+
 ##################### Extracting Psychometric Rating Prompts (Experiment 1) #####################
 
 # Load experiment 1 data (ratings on 9 psychometric dimensions of risk perception)
@@ -37,7 +40,6 @@ exp_1_item_temp = {
 }
 
 # Iterate over participants to generate prompts
-all_prompts = []
 for participant_i in range(len(exp_1)):
     dat_i = exp_1.iloc[participant_i]
 
@@ -137,6 +139,8 @@ for participant_i in range(len(exp_2)):
         'nationality': nationality,
         'experiment': exp,
     })
+
+##################### Save Prompts to JSONL File #####################
 
 # Save all_prompts to a JSONL file
 with open("prompts.jsonl", "w", encoding="utf-8") as f:
