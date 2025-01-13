@@ -22,6 +22,13 @@
 | Relational judgments for novel compounds | - | 22,000 | [Link](https://doi.org/10.1016/j.cogpsych.2022.101471) | Fritz Günther |
 | Maxdiff judgments for visual similarity | - | 33,055 | [Link](https://doi.org/10.1037/rev0000392) | Fritz Günther |
 | Word substitutions | - | 18,216 | [Link](https://doi.org/10.1016/j.jml.2023.104477) | Fritz Günther |
+| Reinforcement learning and decision-making | - | ? | [Link](https://www.nature.com/articles/s41562-024-01894-9) | Stefano Palminteri and Isabelle Hoxha |
+| Reinforcement learning and decision-making | - | ? | [Link](https://www.nature.com/articles/s41467-018-06781-2) | Stefano Palminteri and Isabelle Hoxha |
+| Reinforcement learning and decision-making | - | ? | [Link]([https://doi.org/10.1177/1747021820902019](https://hal.science/hal-04224767/document)) | Stefano Palminteri and Isabelle Hoxha |
+| Reinforcement learning and decision-making | - | ? | [Link](https://www.nature.com/articles/s41562-020-0919-5) | Stefano Palminteri and Isabelle Hoxha |
+| Reinforcement learning and decision-making | - | ? | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005684) | Stefano Palminteri and Isabelle Hoxha |
+| Reinforcement learning and decision-making | - | ? | [Link](https://www.science.org/doi/full/10.1126/sciadv.abe0340?rfr_dat=cr_pub++0pubmed&url_ver=Z39.88-2003&rfr_id=ori%3Arid%3Acrossref.org) | Stefano Palminteri and Isabelle Hoxha |
+| Reinforcement learning and decision-making | - | ? | [Link](https://osf.io/preprints/psyarxiv/aw2x7) | Stefano Palminteri and Antonios Nasioulas |
 
 
 
