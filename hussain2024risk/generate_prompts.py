@@ -5,16 +5,17 @@ import zipfile
 # Load the risk rating data
 risk = pd.read_csv('risk_individual.csv')
 
+# Define high-level prompt components
 risk_instructs = 'Dear participant, thank you for your interest in our study. This study aims to investigate how people perceive various potential sources of risk. You will be asked to judge the riskiness of 100 of these potential risk sources. The study will take about 9 minutes.\n'
-
 risk_item = 'On a scale from -100 (Safe) to 100 (Risky), how risky is the following?: '
 experiment = 'riskRatings'
 
+# Iterate over participants to generate prompts
 all_prompts = []
 for participant_i in range(len(risk)):
     dat_i = risk.iloc[participant_i]
 
-    # Getting ordered risk stimuli
+    # Get ordered risk stimuli
     ordered_risks_1 = dat_i['Multi-Choice Hack 1 - Display Order'].split('|')
     ordered_risks_2 = dat_i['Multi-Choice Hack 2 - Display Order'].split('|')
     block_randomizer = dat_i['FL_26 - Block Randomizer - Display Order'].split('|')
@@ -23,7 +24,7 @@ for participant_i in range(len(risk)):
     else:
         ordered_stimuli = ordered_risks_2 + ordered_risks_1
 
-    # Extracting text and RT data
+    # Extract text and RT data
     text, RTs = [], []
     for stimulus in ordered_stimuli:
         rating = dat_i[
@@ -35,12 +36,12 @@ for participant_i in range(len(risk)):
     text = '\n'.join(text)  # Joining each line
     text = risk_instructs + '\n' + text
 
-    # Participant data
+    # Extract participant data
     participant = f'riskRatings{participant_i}'
     age = dat_i['Age']
     nationality = dat_i['Nationality']
 
-    # Appending
+    # Append to all_prompts
     all_prompts.append({
         'text': text,
         'participant': participant,
