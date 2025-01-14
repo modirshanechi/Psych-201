@@ -68,10 +68,10 @@ for participant_i in range(len(exp_1)):
     texts = []
     for stimulus in ordered_stimuli:
         for item in ordered_items:
-            rating = dat_i[exp_1_item_temp[item].format(stimulus)]  # Accessing item-stimulus pair
-            if isinstance(rating, str):
-                rating = rating.split('=')[0]
-            texts.append(exp_1_items[item] + stimulus + '. ' + f'<<{int(rating)}>>.')
+            choice = dat_i[exp_1_item_temp[item].format(stimulus)]  # Accessing item-stimulus pair
+            if isinstance(choice, str):
+                choice = choice.split('=')[0]
+            texts.append(exp_1_items[item] + stimulus + '. ' + f'<<{int(choice)}>>.')
     text = '\n'.join(texts)
     text = exp_1_instructs + '\n' + text
 
@@ -92,7 +92,7 @@ for participant_i in range(len(exp_1)):
 
 ##################### Extract Risk Rating Prompts (Experiment 2) #####################
 
-# Load the risk rating data (ratings on 1 dimension: risk)
+# Load the risk choice data (ratings on 1 dimension: risk)
 exp_2 = pd.read_csv('risk_individual.csv')
 exp = 'riskRatings'
 
@@ -116,11 +116,11 @@ for participant_i in range(len(exp_2)):
     # Extract text and RT data
     texts, RTs = [], []
     for stimulus in ordered_stimuli:
-        rating = dat_i[
+        choice = dat_i[
             f'[Field-counter] / 100 Questions Complete   How safe or risky is the following?:    [Field-1] - {stimulus} - 1'
         ]
         RT = dat_i[f'Timing - {stimulus} - Timing - Page Submit']
-        texts.append(exp_2_item + stimulus + '. ' + f'<<{int(rating)}>>.')
+        texts.append(exp_2_item + stimulus + '. ' + f'<<{int(choice)}>>.')
         RTs.append(RT)
     text = '\n'.join(texts)  # Joining each line
     text = exp_2_instructs + '\n' + text
