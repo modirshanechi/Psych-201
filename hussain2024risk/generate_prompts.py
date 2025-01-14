@@ -5,7 +5,7 @@ import zipfile
 # List to store all prompts (each prompt is a dictionary)
 all_prompts = []
 
-##################### Extracting Psychometric Rating Prompts (Experiment 1) #####################
+##################### Extract Psychometric Rating Prompts (Experiment 1) #####################
 
 # Load experiment 1 data (ratings on 9 psychometric dimensions of risk perception)
 exp_1 = pd.read_csv('psych_individual.csv', low_memory=False)
@@ -90,7 +90,7 @@ for participant_i in range(len(exp_1)):
     })
 
 
-##################### Extracting Risk Rating Prompts (Experiment 2) #####################
+##################### Extract Risk Rating Prompts (Experiment 2) #####################
 
 # Load the risk rating data (ratings on 1 dimension: risk)
 exp_2 = pd.read_csv('risk_individual.csv')
