@@ -6,5 +6,5 @@ Hussain, Z., Mata, R., & Wulff, D. U. (2024). Novel embeddings improve the predi
 
 https://osf.io/gu9df/ (`risk_individual.csv`, `psych_individual.csv`)
 
-Note: Unfortunately, we do not have RT data at the stimulus level for `psych_individual.csv`. We do nevertheless include RT data for `risk_individual.csv`. 
+Note: Unfortunately, we do not have RT data at the choice level for `psych_individual.csv`. We do nevertheless include RT data for `risk_individual.csv`. 
 
