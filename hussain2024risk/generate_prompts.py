@@ -12,7 +12,7 @@ exp_1 = pd.read_csv('psych_individual.csv', low_memory=False)
 exp = 'psychRatings'
 
 # Define high-level prompt components
-exp_1_instructs = 'Dear participant, thank you for your interest in our study. This study aims to investigate how people judge various aspects of potential sources of risk. We hope that this research will help policymakers, industry, and individual citizens take actions that better respect people’s risk preferences, and help people communicate more effectively about risk. The study will take about 19 minutes.\n'
+exp_1_instructs = 'This study aims to investigate how people judge various aspects of potential sources of risk.\n'
 exp_1_items = {
     # Participants either received the psychometric items in this order (FL_10) or the reverse (FL_23)
     'voluntary': 'On a scale from 1 (Voluntary) to 7 (Involuntary), how voluntarily are individuals exposed to this risk?: ',
@@ -97,7 +97,7 @@ exp_2 = pd.read_csv('risk_individual.csv')
 exp = 'riskRatings'
 
 # Define high-level prompt components
-exp_2_instructs = 'Dear participant, thank you for your interest in our study. This study aims to investigate how people perceive various potential sources of risk. You will be asked to judge the riskiness of 100 of these potential risk sources. The study will take about 9 minutes.\n'
+exp_2_instructs = 'This study aims to investigate how people perceive various potential sources of risk.\n'
 exp_2_item = 'On a scale from -100 (Safe) to 100 (Risky), how risky is the following?: '
 
 # Iterate over participants to generate prompts
@@ -141,6 +141,12 @@ for participant_i in range(len(exp_2)):
     })
 
 ##################### Save Prompts to JSONL File #####################
+
+# Print the number of participants (lines)
+print(f"Number of participants: {len(all_prompts)}")
+
+# Print the number of choices
+print("Number of choices: ", sum([prompt['text'].count("<<") for prompt in all_prompts]))
 
 # Save all_prompts to a JSONL file
 with open("prompts.jsonl", "w", encoding="utf-8") as f:
