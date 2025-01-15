@@ -127,6 +127,7 @@ for participant in tqdm(df.submission_id.unique()):
 
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instuction + "\n"
+        par_dict["RTs"] = trial["responseTime"]
 
     # check that the prompt is not too long
     assert (
