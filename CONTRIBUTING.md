@@ -29,6 +29,8 @@
 | Reinforcement learning and decision-making | - | ? | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1005684) | Stefano Palminteri and Isabelle Hoxha |
 | Reinforcement learning and decision-making | - | ? | [Link](https://www.science.org/doi/full/10.1126/sciadv.abe0340?rfr_dat=cr_pub++0pubmed&url_ver=Z39.88-2003&rfr_id=ori%3Arid%3Acrossref.org) | Stefano Palminteri and Isabelle Hoxha |
 | Reinforcement learning and decision-making | - | ? | [Link](https://osf.io/preprints/psyarxiv/aw2x7) | Stefano Palminteri and Antonios Nasioulas |
+| Reinforcement learning and decision-making | age | 202,245 | [Link](https://elifesciences.org/articles/75474) | Maria Eckstein |
+| Large-scale bandit data set | - | ? | [Link](https://osf.io/preprints/psyarxiv/u9ks4) | Maria Eckstein |
 
 
 
