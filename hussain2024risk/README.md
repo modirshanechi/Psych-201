@@ -4,7 +4,7 @@ Hussain, Z., Mata, R., & Wulff, D. U. (2024). Novel embeddings improve the predi
 
 ### Data source:
 
-https://osf.io/gu9df/ (`risk_individual.csv`, `psych_individual.csv`)
+https://osf.io/gu9df/ (`risk_individual.csv`: 150,600 choices, `psych_individual.csv`: 424,800 choices)
 
 ### Notes 
 
