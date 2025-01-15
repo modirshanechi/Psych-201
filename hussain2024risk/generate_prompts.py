@@ -47,7 +47,7 @@ for participant_i in range(len(exp_1)):
     stimuli_blk_1 = dat_i['Multi-Choice Hack 1 - Display Order'].split('|')
     stimuli_blk_2 = dat_i['Multi-Choice Hack 2 - Display Order'].split('|')
 
-    if isinstance(dat_i['FL_10 - Block Randomizer - Display Order'], str):  # If not NaN
+    if isinstance(dat_i['FL_10 - Block Randomizer - Display Order'], str):  # If not np.nan
         blk_randomizer = dat_i['FL_10 - Block Randomizer - Display Order']
     else:
         blk_randomizer = dat_i['FL_23 - Block Randomizer - Display Order']
