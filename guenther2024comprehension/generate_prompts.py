@@ -32,10 +32,8 @@ participants_exp1 = exp1["participant"].unique()
 trials_exp1 = range(exp1["trial_index"].max() + 1)
 
 # define initial prompt
-instruction1 = """
-In the following study, you will see 66 sentences with questions. Your task is to read these sentences carefully and then answer the questions. Please answer using only one word. \n
-You can work at your own pace, and make pauses whenever you want to. \n
-"""
+instruction1 = 'In the following study, you will see 66 sentences with questions. Your task is to read these sentences carefully and then answer the questions. Please answer using only one word.\n'\
+'You can work at your own pace, and make pauses whenever you want to.\n'\
 
 
 # Experiment1: Generate individual prompts for participants
@@ -49,9 +47,8 @@ for participant in participants_exp1:
         if not exp1_trial.empty:  # Only process if trial exists for this participant
             stimulus = exp1_trial["stimulus"].iloc[0]
             response = exp1_trial["response"].iloc[0]
-            datapoint = f"{stimulus}. You enter <<{response}>>.\n "
+            datapoint = f"{stimulus.strip()}. You enter <<{response}>>.\n"
             individual_prompt += datapoint
-    individual_prompt += "\n"
     all_prompts.append(
         {
             "text": individual_prompt,
@@ -69,10 +66,8 @@ participants_exp2 = exp2["participant"].unique()
 trials_exp2 = range(exp2["trial_index"].max() + 1)
 
 # Define initial prompt for experiment 2
-instruction2 = """
-In the following study, you will see 66 sentences with questions. Your task is to read these sentences carefully and then answer the questions. \n
-You can work at your own pace, and make pauses whenever you want to. \n
-"""
+instruction2 = 'In the following study, you will see 66 sentences with questions. Your task is to read these sentences carefully and then answer the questions.\n'\
+'You can work at your own pace, and make pauses whenever you want to.\n'
 
 # Experiment2: Generate individual prompts for participants
 for participant in participants_exp2:
@@ -85,9 +80,11 @@ for participant in participants_exp2:
         if not exp2_trial.empty:  # Only process if trial exists for this participant
             stimulus = exp2_trial["stimulus"].iloc[0]
             response = exp2_trial["response"].iloc[0]
-            datapoint = f"{stimulus}. You enter <<{response}>>.\n "
+            datapoint = f"{stimulus.strip()}. You enter <<{response}>>.\n"
             individual_prompt += datapoint
-    individual_prompt += "\n"
+    prompt += '\n'
+    
+    # Store complete prompt with metadata
     all_prompts.append(
         {
             "text": individual_prompt,
