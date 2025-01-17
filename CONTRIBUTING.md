@@ -31,6 +31,8 @@
 | Reinforcement learning and decision-making | - | ? | [Link](https://osf.io/preprints/psyarxiv/aw2x7) | Stefano Palminteri and Antonios Nasioulas |
 | Reinforcement learning and decision-making | age | 202,245 | [Link](https://elifesciences.org/articles/75474) | Maria Eckstein |
 | Large-scale bandit data set | - | ? | [Link](https://osf.io/preprints/psyarxiv/u9ks4) | Maria Eckstein |
+| Risk preferences | - | ? | [Link](https://www.science.org/doi/full/10.1126/sciadv.1701381) | Taisiia Tikhomirova and Dirk Wulff |
+| Exploration tasks | - | ? | [Link](https://www.nature.com/articles/s41467-024-51685-z) | Valentin Kriegmair and Dirk Wulff |
 
 
 
