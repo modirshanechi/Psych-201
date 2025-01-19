@@ -55,7 +55,7 @@ instructions_listener = (
 
 for participant in tqdm(df.submission_id.unique()):
     par_dict = {"text": task_instructions, "experiment": 'franke2024bayesian/data-raw-human.csv', "participant": str(participant)}
-
+    par_RTs = []
     # generate by-participant randomization of keys that correspond to the forced-choice options
     (
         obj_1,
@@ -124,10 +124,11 @@ for participant in tqdm(df.submission_id.unique()):
             )
         else:
             continue
-
+        par_RTs.append(trial["responseTime"])
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instuction + "\n"
-        par_dict["RTs"] = trial["responseTime"]
+    # append reaction times    
+    par_dict["RTs"] = par_RTs
 
     # check that the prompt is not too long
     assert (
