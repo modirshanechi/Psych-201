@@ -57,7 +57,6 @@
 | Economic games | - | 31,372 | [Link](https://www.nature.com/articles/s41467-022-29372-8#data-availability) |
 | Decision-making | ? | 23,000 | [Link](www.pnas.org/doi/epub/10.1073/pnas.2400215121) |
 | Decision-making | - | 19,760 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010176) |
-(https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006803#sec020) |
 | Two-step task | age (18-20) | 39,680 | [Link](https://elifesciences.org/articles/49154) |
 | Two-step | age (5-X) | 16,660 | [Link](https://onlinelibrary.wiley.com/doi/10.1111/desc.13295) |
 | Two-armed bandit | age (12-32) | 4,000 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004953) |
