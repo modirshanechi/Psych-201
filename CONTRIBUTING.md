@@ -29,7 +29,6 @@
 | Memory | - | - | [Link](https://github.com/susanneharidi/memoryscaling) | Susanne Haridi |
 | Function learning | - | - | [Link](https://github.com/knowlabUnimelb/FUNCTION_ESTIMATION) | Akshay Jagadish |
 | Decisions from description | age (10-26) | 23,904 | [Link](https://osf.io/preprints/psyarxiv/73dja) | Alireza Modirshanechi |
-| Intertemporal choice | age (14-24) | 68,280 | [Link](https://www.nature.com/articles/s41467-021-23671-2) | Can Demircan |
 | Go-NoGo | age (14-24) | 80,064 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006679) | Kozzy Voudouris |
 | Two-armed bandit | age (8-28) | 76,230 | [Link](https://github.com/hartleylabnyu/value_of_choice?tab=readme-ov-file) | Mirko Thalmann |
 | Two-armed bandit | age (8-27) | 11,346 | [Link](https://elifesciences.org/articles/64620) | Marvin Mathony |
