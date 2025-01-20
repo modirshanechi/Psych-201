@@ -26,10 +26,14 @@
 | Large-scale bandit data set | - | ? | [Link](https://osf.io/preprints/psyarxiv/u9ks4) | Maria Eckstein |
 | Risk preferences | - | ? | [Link](https://www.science.org/doi/full/10.1126/sciadv.1701381) | Taisiia Tikhomirova and Dirk Wulff |
 | Exploration tasks | - | ? | [Link](https://www.nature.com/articles/s41467-024-51685-z) | Valentin Kriegmair and Dirk Wulff |
-| Reinforcement learning | age (8-30) | 104,760 | [Link](https://elifesciences.org/articles/75474) | Milena Rmus |
 | Memory | - | - | [Link](https://github.com/susanneharidi/memoryscaling) | Susanne Haridi |
-
-
+| Semantic similarity | age (5-24) | ? | [Link](https://bpb-us-e1.wpmucdn.com/sites.harvard.edu/dist/b/261/files/2023/02/NookSasseLambertMcLaughlinSomerville_NHB_2017.pdf) | Milena Rmus |
+| Function learning | - | - | [Link](https://github.com/knowlabUnimelb/FUNCTION_ESTIMATION) | Akshay Jagadish |
+| Decisions from description | age (10-26) | 23,904 | [Link](https://osf.io/preprints/psyarxiv/73dja) | Alireza Modirshanechi |
+| Intertemporal choice | age (14-24) | 68,280 | [Link](https://www.nature.com/articles/s41467-021-23671-2) | Can Demircan |
+| Go-NoGo | age (14-24) | 80,064 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006679) | Kozzy Voudouris |
+| Two-armed bandit | age (8-28) | 76,230 | [Link](https://github.com/hartleylabnyu/value_of_choice?tab=readme-ov-file) | Mirko Thalmann |
+| Two-armed bandit | age (8-27) | 11,346 | [Link](https://elifesciences.org/articles/64620) | Marvin Mathony |
 # List of open data sets
 
 | Task | Individual Differences | Number of Choices | Link |
@@ -52,8 +56,6 @@
 | Spatial bandit | age (5-55) | 56,200 | [Link](https://www.nature.com/articles/s41562-023-01662-1) |
 | Spatial bandit | age (4-9) | 10,200 | [Link](https://hcai-munich.com/pubs/meder2021development.pdf) |
 | Two-armed bandit | age (12-32) | 4,000 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004953) |
-| Two-armed bandit | age (8-28) | 76,230 | [Link](https://github.com/hartleylabnyu/value_of_choice?tab=readme-ov-file) |
-| Two-armed bandit | age (8-27) | 11,346 | [Link](https://elifesciences.org/articles/64620) |
 | Two-armed bandit | age (8-27) | 18,300 | [Link](https://elifesciences.org/articles/84260) |
 | Two-alternative forced choice | age (3-50+) | ? | [Link](https://osf.io/preprints/psyarxiv/kvu7c) |
 | Iowa Gambling Task | age (4-13) | 30,400 | [Link](https://journals.sagepub.com/doi/10.1177/09567976211042007) |
@@ -61,18 +63,14 @@
 | Information search | age (2-5) | ? | [Link](https://hcai-munich.com/pubs/Ruggeri2023InfoMotivation.pdf) |
 | Twenty questions game | age (8-X) | 2,340 | [Link](https://pubmed.ncbi.nlm.nih.gov/31415923/) |
 | Causal inference | age (7-25) | 13,500 | [Link](https://www.nature.com/articles/s41539-020-00075-3) |
-| Go-NoGo | age (14-24) | 80,064 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006679) |
 | Go-NoGo | age (9-18) | 59,360 | [Link](https://www.biorxiv.org/content/10.1101/2022.05.05.490578v1.full.pdf) |
 | Go-NoGo | age (8-27) | 32,400 | [Link](https://github.com/hartleylabnyu/controllability-PIT?tab=readme-ov-file) |
 | Go-NoGo | age (8-25) | 10,980 | [Link](https://www.nature.com/articles/s41598-020-72628-w) |
 | Decisions from description | age (18-88) | 13,054 | [Link](https://journals.sagepub.com/doi/10.1177/0956797616687729) |
-| Decisions from description | age (10-26) | 23,904 | [Link](https://osf.io/preprints/psyarxiv/73dja) |
 | Decisions from description  (social) | age (12-22) | 34,200 | [Link](https://bpb-us-e1.wpmucdn.com/sites.harvard.edu/dist/b/261/files/2023/02/Braams_et_al-2018-Developmental_Science.pdf) |
-| Intertemporal choice | age (14-24) | 68,280 | [Link](https://www.nature.com/articles/s41467-021-23671-2) |
 | N-back | age 18-80) | 24,800 | [Link](https://academic.oup.com/psychsocgerontology/article/78/1/40/6761668?login=false) |
 | Motivated encoding paradigm | age (8-25) | 34,176 | [Link](https://github.com/hartleylabnyu/reward_memories_influence_learning?tab=readme-ov-file) |
-| Semantic similarity | age (5-24) | ? | [Link](https://bpb-us-e1.wpmucdn.com/sites.harvard.edu/dist/b/261/files/2023/02/NookSasseLambertMcLaughlinSomerville_NHB_2017.pdf) |
-| Repeated risky choice | age (3-X) | 30,100 | [Link](https://pubmed.ncbi.nlm.nih.gov/39631217/) |
+| Repeated risky choice | age (3-X) | data available upon request | [Link](https://pubmed.ncbi.nlm.nih.gov/39631217/) |
 | Two-step | OCD (Q) | 392,200 | [Link](https://elifesciences.org/articles/11305#s4) |
 | Go-NoGo | anxiety (G) | 48,480 | [Link](https://linkinghub.elsevier.com/retrieve/pii/S0006322317300914) |
 | Risky choice | depression (G) | 10,080 | [Link](https://www.cambridge.org/core/journals/psychological-medicine/article/abs/hyperresponsivity-to-losses-in-the-anterior-insula-during-economic-choice-scales-with-depression-severity/AA03DC9771C2EA53FBF67A208F49697D) |
