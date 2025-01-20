@@ -39,6 +39,9 @@
 | Two-armed bandit | age (8-27) | 18,300 | [Link](https://elifesciences.org/articles/84260) | Johannes Schubert |
 | Intertemporal choice | anxiety (G) | 80,388 | [Link](https://haines-lab.com/publication/haines_cps_2020/) | Milena Rmus | 
 | Two-armed bandit | paranoia | 89,520 | [Link](https://osf.io/ku8ma) | Can Demircan |
+| Spatial bandit | age (7-55) | 28,800 | [Link](https://journals.sagepub.com/doi/10.1177/0956797619863663) | Kristin Witte |
+| Spatial bandit | age (5-55) | 56,200 | [Link](https://www.nature.com/articles/s41562-023-01662-1) | Kristin Witte |
+| Spatial bandit | age (4-9) | 10,200 | [Link](https://hcai-munich.com/pubs/meder2021development.pdf) | Kristin Witte |
 
 # List of open data sets
 
@@ -57,9 +60,6 @@
 (https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006803#sec020) |
 | Two-step task | age (18-20) | 39,680 | [Link](https://elifesciences.org/articles/49154) |
 | Two-step | age (5-X) | 16,660 | [Link](https://onlinelibrary.wiley.com/doi/10.1111/desc.13295) |
-| Spatial bandit | age (7-55) | 28,800 | [Link](https://journals.sagepub.com/doi/10.1177/0956797619863663) |
-| Spatial bandit | age (5-55) | 56,200 | [Link](https://www.nature.com/articles/s41562-023-01662-1) |
-| Spatial bandit | age (4-9) | 10,200 | [Link](https://hcai-munich.com/pubs/meder2021development.pdf) |
 | Two-armed bandit | age (12-32) | 4,000 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004953) |
 | Maggie’s farm | age (8-17) | 9,312 | [Link](https://link.springer.com/article/10.3758/s13415-022-01009-9) |
 | Information search | age (2-5) | ? | [Link](https://hcai-munich.com/pubs/Ruggeri2023InfoMotivation.pdf) |
