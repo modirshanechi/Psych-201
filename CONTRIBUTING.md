@@ -38,7 +38,7 @@
 | Two-step task | age (14-24) | 110,800 | [Link] | Julian Coda-Forno |
 | Two-armed bandit | age (8-27) | 18,300 | [Link](https://elifesciences.org/articles/84260) | Johannes Schubert |
 | Intertemporal choice | anxiety (G) | 80,388 | [Link](https://haines-lab.com/publication/haines_cps_2020/) | Milena Rmus | 
-
+| Two-armed bandit | paranoia | 89,520 | [Link](https://osf.io/ku8ma) | Can Demircan |
 
 # List of open data sets
 
@@ -95,7 +95,6 @@
 | Patent race game | anxiety (Q) | 78,160 | [Link](https://www.nature.com/articles/s41562-021-01180-y) |
 | Pavlovian-instrumental transfer task | OCD (G)  | 12,600 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009945) |
 | Go-NoGo | schizotypy (G) | 14,400 | [Link](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0152781) |
-| Two-armed bandit | paranoia | 89,520 | [Link](https://osf.io/ku8ma) |
 | Dynamic trust game | anxiety (G) | ? | [Link](https://journals.sagepub.com/doi/10.1177/0956797620910993) |
 | Simple two-step task | OCD, anxiety (G) | 244,800 | [Link](https://www.nature.com/articles/s41562-022-01346-2) |
 | Belief updating | anxiety (Q) | 2,670 | [Link](https://www.nature.com/articles/s41467-023-39825-3) |
