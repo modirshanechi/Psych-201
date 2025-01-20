@@ -34,6 +34,9 @@
 | Go-NoGo | age (14-24) | 80,064 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006679) | Kozzy Voudouris |
 | Two-armed bandit | age (8-28) | 76,230 | [Link](https://github.com/hartleylabnyu/value_of_choice?tab=readme-ov-file) | Mirko Thalmann |
 | Two-armed bandit | age (8-27) | 11,346 | [Link](https://elifesciences.org/articles/64620) | Marvin Mathony |
+| Causal inference | age (7-25) | 13,500 | [Link](https://www.nature.com/articles/s41539-020-00075-3) | Luca Schulze Buschoff |
+| Iowa Gambling Task | age (4-13) | 30,400 | [Link](https://journals.sagepub.com/doi/10.1177/09567976211042007) | Tankred Saanum |
+
 # List of open data sets
 
 | Task | Individual Differences | Number of Choices | Link |
@@ -57,12 +60,9 @@
 | Spatial bandit | age (4-9) | 10,200 | [Link](https://hcai-munich.com/pubs/meder2021development.pdf) |
 | Two-armed bandit | age (12-32) | 4,000 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004953) |
 | Two-armed bandit | age (8-27) | 18,300 | [Link](https://elifesciences.org/articles/84260) |
-| Two-alternative forced choice | age (3-50+) | ? | [Link](https://osf.io/preprints/psyarxiv/kvu7c) |
-| Iowa Gambling Task | age (4-13) | 30,400 | [Link](https://journals.sagepub.com/doi/10.1177/09567976211042007) |
 | Maggie’s farm | age (8-17) | 9,312 | [Link](https://link.springer.com/article/10.3758/s13415-022-01009-9) |
 | Information search | age (2-5) | ? | [Link](https://hcai-munich.com/pubs/Ruggeri2023InfoMotivation.pdf) |
 | Twenty questions game | age (8-X) | 2,340 | [Link](https://pubmed.ncbi.nlm.nih.gov/31415923/) |
-| Causal inference | age (7-25) | 13,500 | [Link](https://www.nature.com/articles/s41539-020-00075-3) |
 | Go-NoGo | age (9-18) | 59,360 | [Link](https://www.biorxiv.org/content/10.1101/2022.05.05.490578v1.full.pdf) |
 | Go-NoGo | age (8-27) | 32,400 | [Link](https://github.com/hartleylabnyu/controllability-PIT?tab=readme-ov-file) |
 | Go-NoGo | age (8-25) | 10,980 | [Link](https://www.nature.com/articles/s41598-020-72628-w) |
