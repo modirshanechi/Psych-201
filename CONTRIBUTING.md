@@ -15,13 +15,6 @@
 | Two-step task, statistical learning, matrix reasoning | age (9-25) | 19,251 | [Link](https://pubmed.ncbi.nlm.nih.gov/27825732/) | Kate Nussenbaum |
 | Two-step task, matrix reasoning | age (8-25) | 42,280 | [Link](https://online.ucpress.edu/collabra/article/6/1/17213/114338/Moving-Developmental-Research-Online-Comparing-In) | Kate Nussenbaum |
 | Basel risk norms | - | 197,800 | [Link](https://link.springer.com/content/pdf/10.1140/epjds/s13688-024-00478-x.pdf) | Dirk Wulff and Zak Hussain |
-| Grammaticality judgments | - | 8,800 | [Link](https://doi.org/10.1073/pnas.2309583120) | Fritz Günther |
-| Sentence comprehension | - | 26,466 | [Link](https://doi.org/10.1038/s41598-024-79531-8) | Fritz Günther |
-| Lexical decisions | - | 75,870 | [Link](https://doi.org/10.1177/1747021820902019) | Fritz Günther |
-| Sensibility judgments | - | 75,356 | [Link](https://doi.org/10.1016/j.jml.2020.104104) | Fritz Günther |
-| Relational judgments for novel compounds | - | 22,000 | [Link](https://doi.org/10.1016/j.cogpsych.2022.101471) | Fritz Günther |
-| Maxdiff judgments for visual similarity | - | 33,055 | [Link](https://doi.org/10.1037/rev0000392) | Fritz Günther |
-| Word substitutions | - | 18,216 | [Link](https://doi.org/10.1016/j.jml.2023.104477) | Fritz Günther |
 | Reinforcement learning and decision-making | - | ? | [Link](https://www.nature.com/articles/s41562-024-01894-9) | Stefano Palminteri and Isabelle Hoxha |
 | Reinforcement learning and decision-making | - | ? | [Link](https://www.nature.com/articles/s41467-018-06781-2) | Stefano Palminteri and Isabelle Hoxha |
 | Reinforcement learning and decision-making | - | ? | [Link]([https://doi.org/10.1177/1747021820902019](https://hal.science/hal-04224767/document)) | Stefano Palminteri and Isabelle Hoxha |
@@ -33,7 +26,8 @@
 | Large-scale bandit data set | - | ? | [Link](https://osf.io/preprints/psyarxiv/u9ks4) | Maria Eckstein |
 | Risk preferences | - | ? | [Link](https://www.science.org/doi/full/10.1126/sciadv.1701381) | Taisiia Tikhomirova and Dirk Wulff |
 | Exploration tasks | - | ? | [Link](https://www.nature.com/articles/s41467-024-51685-z) | Valentin Kriegmair and Dirk Wulff |
-
+| Reinforcement learning | age (8-30) | 104,760 | [Link](https://elifesciences.org/articles/75474) | Milena Rmus |
+| Memory | - | - | [Link](https://github.com/susanneharidi/memoryscaling) | Susanne Haridi |
 
 
 # List of open data sets
@@ -62,7 +56,6 @@
 | Two-armed bandit | age (8-27) | 11,346 | [Link](https://elifesciences.org/articles/64620) |
 | Two-armed bandit | age (8-27) | 18,300 | [Link](https://elifesciences.org/articles/84260) |
 | Two-alternative forced choice | age (3-50+) | ? | [Link](https://osf.io/preprints/psyarxiv/kvu7c) |
-| Reinforcement learning | age (8-30) | 104,760 | [Link](https://elifesciences.org/articles/75474) |
 | Iowa Gambling Task | age (4-13) | 30,400 | [Link](https://journals.sagepub.com/doi/10.1177/09567976211042007) |
 | Maggie’s farm | age (8-17) | 9,312 | [Link](https://link.springer.com/article/10.3758/s13415-022-01009-9) |
 | Information search | age (2-5) | ? | [Link](https://hcai-munich.com/pubs/Ruggeri2023InfoMotivation.pdf) |
@@ -110,3 +103,12 @@
 | Belief updating | anxiety (Q) | 2,670 | [Link](https://www.nature.com/articles/s41467-023-39825-3) |
 
 # List of completed data sets
+
+| Task | Individual Differences | Number of Choices | Link | Person |
+| Grammaticality judgments | - | 8,800 | [Link](https://doi.org/10.1073/pnas.2309583120) | Fritz Günther |
+| Sentence comprehension | - | 26,466 | [Link](https://doi.org/10.1038/s41598-024-79531-8) | Fritz Günther |
+| Lexical decisions | - | 75,870 | [Link](https://doi.org/10.1177/1747021820902019) | Fritz Günther |
+| Sensibility judgments | - | 75,356 | [Link](https://doi.org/10.1016/j.jml.2020.104104) | Fritz Günther |
+| Relational judgments for novel compounds | - | 22,000 | [Link](https://doi.org/10.1016/j.cogpsych.2022.101471) | Fritz Günther |
+| Maxdiff judgments for visual similarity | - | 33,055 | [Link](https://doi.org/10.1037/rev0000392) | Fritz Günther |
+| Word substitutions | - | 18,216 | [Link](https://doi.org/10.1016/j.jml.2023.104477) | Fritz Günther |
