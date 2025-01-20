@@ -27,7 +27,6 @@
 | Risk preferences | - | ? | [Link](https://www.science.org/doi/full/10.1126/sciadv.1701381) | Taisiia Tikhomirova and Dirk Wulff |
 | Exploration tasks | - | ? | [Link](https://www.nature.com/articles/s41467-024-51685-z) | Valentin Kriegmair and Dirk Wulff |
 | Memory | - | - | [Link](https://github.com/susanneharidi/memoryscaling) | Susanne Haridi |
-| Semantic similarity | age (5-24) | ? | [Link](https://bpb-us-e1.wpmucdn.com/sites.harvard.edu/dist/b/261/files/2023/02/NookSasseLambertMcLaughlinSomerville_NHB_2017.pdf) | Milena Rmus |
 | Function learning | - | - | [Link](https://github.com/knowlabUnimelb/FUNCTION_ESTIMATION) | Akshay Jagadish |
 | Decisions from description | age (10-26) | 23,904 | [Link](https://osf.io/preprints/psyarxiv/73dja) | Alireza Modirshanechi |
 | Intertemporal choice | age (14-24) | 68,280 | [Link](https://www.nature.com/articles/s41467-021-23671-2) | Can Demircan |
@@ -36,6 +35,11 @@
 | Two-armed bandit | age (8-27) | 11,346 | [Link](https://elifesciences.org/articles/64620) | Marvin Mathony |
 | Causal inference | age (7-25) | 13,500 | [Link](https://www.nature.com/articles/s41539-020-00075-3) | Luca Schulze Buschoff |
 | Iowa Gambling Task | age (4-13) | 30,400 | [Link](https://journals.sagepub.com/doi/10.1177/09567976211042007) | Tankred Saanum |
+| Decision-making | - | ? | [Link](https://osf.io/preprints/psyarxiv/8egxh) |
+| Two-step task | age (14-24) | 110,800 | [Link] | Julian Coda-Forno |
+| Two-armed bandit | age (8-27) | 18,300 | [Link](https://elifesciences.org/articles/84260) | Johannes Schubert |
+| Intertemporal choice | anxiety (G) | 80,388 | [Link](https://haines-lab.com/publication/haines_cps_2020/) | Milena Rmus | 
+
 
 # List of open data sets
 
@@ -51,15 +55,13 @@
 | Economic games | - | 31,372 | [Link](https://www.nature.com/articles/s41467-022-29372-8#data-availability) |
 | Decision-making | ? | 23,000 | [Link](www.pnas.org/doi/epub/10.1073/pnas.2400215121) |
 | Decision-making | - | 19,760 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010176) |
-| Decision-making | - | ? | [Link](https://osf.io/preprints/psyarxiv/8egxh) |
-| Two-step task | age (14-24) | 110,800 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006803#sec020) |
+(https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006803#sec020) |
 | Two-step task | age (18-20) | 39,680 | [Link](https://elifesciences.org/articles/49154) |
 | Two-step | age (5-X) | 16,660 | [Link](https://onlinelibrary.wiley.com/doi/10.1111/desc.13295) |
 | Spatial bandit | age (7-55) | 28,800 | [Link](https://journals.sagepub.com/doi/10.1177/0956797619863663) |
 | Spatial bandit | age (5-55) | 56,200 | [Link](https://www.nature.com/articles/s41562-023-01662-1) |
 | Spatial bandit | age (4-9) | 10,200 | [Link](https://hcai-munich.com/pubs/meder2021development.pdf) |
 | Two-armed bandit | age (12-32) | 4,000 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1004953) |
-| Two-armed bandit | age (8-27) | 18,300 | [Link](https://elifesciences.org/articles/84260) |
 | Maggie’s farm | age (8-17) | 9,312 | [Link](https://link.springer.com/article/10.3758/s13415-022-01009-9) |
 | Information search | age (2-5) | ? | [Link](https://hcai-munich.com/pubs/Ruggeri2023InfoMotivation.pdf) |
 | Twenty questions game | age (8-X) | 2,340 | [Link](https://pubmed.ncbi.nlm.nih.gov/31415923/) |
@@ -96,7 +98,6 @@
 | Go-NoGo | schizotypy (G) | 14,400 | [Link](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0152781) |
 | Two-armed bandit | paranoia | 89,520 | [Link](https://osf.io/ku8ma) |
 | Dynamic trust game | anxiety (G) | ? | [Link](https://journals.sagepub.com/doi/10.1177/0956797620910993) |
-| Intertemporal choice | anxiety (G) | 80,388 | [Link](https://haines-lab.com/publication/haines_cps_2020/) |
 | Simple two-step task | OCD, anxiety (G) | 244,800 | [Link](https://www.nature.com/articles/s41562-022-01346-2) |
 | Belief updating | anxiety (Q) | 2,670 | [Link](https://www.nature.com/articles/s41467-023-39825-3) |
 
