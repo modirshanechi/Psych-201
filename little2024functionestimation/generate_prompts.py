@@ -17,16 +17,16 @@ for dataset in datasets:
     for participant in range(1, num_participants+1):
         df_participant = df[(df['participant'] == participant)]
 
-        prompt =  'In this experiment, you will be shown a series of graphs containing some data points. Your task is to'\
-            'estimate the function that generated the data points.'\
-            'Each graph gives data from a different fictional experiment. These data are not real but you should treat'\
-            'them as if they were data from an actual scientific experiment. You can think of each set of data as'\
-            'caused by some underlying process which relates the X‐axis (the input) to the Y‐axis (the output).  In the'\
-            'data that you will see, the exact causal relationship is unknown, but you will try to guess it solely on the'\
-            'basis of the data we provide you in the graph.'\
-            'It is important to note that, as in all science, the observations are not always accurate. We say the'\
-            'data are ‘noisy’.  Hence, the data can be thought of as being sampled from some underlying process but'\
-            'won’t necessarily match that process exactly.'\
+        prompt =  'In this experiment, you will be shown a series of graphs containing some data points. Your task is to '\
+            'estimate the function that generated the data points. '\
+            'Each graph gives data from a different fictional experiment. These data are not real but you should treat '\
+            'them as if they were data from an actual scientific experiment. You can think of each set of data as '\
+            'caused by some underlying process which relates the X‐axis (the input) to the Y‐axis (the output).  In the '\
+            'data that you will see, the exact causal relationship is unknown, but you will try to guess it solely on the '\
+            'basis of the data we provide you in the graph. '\
+            'It is important to note that, as in all science, the observations are not always accurate. We say the '\
+            'data are ‘noisy’.  Hence, the data can be thought of as being sampled from some underlying process but '\
+            'won’t necessarily match that process exactly. '\
             'Your task is predict the output, y values, for different inputs, x values, based on what you believe to be the true function which generated the data. \n'  
         
         for task in range(1, num_tasks+1):
