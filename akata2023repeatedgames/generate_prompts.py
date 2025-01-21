@@ -69,7 +69,7 @@ for dataset in datasets:
                 action_other = action if coordination == 1 else 1 - action
                 score_other = calculate_other_score(task, action, coordination)
 
-                prompt += f"In round {trial+1}, you chose Option <<" + choice_options[action] + ">> and the other player chose Option <<" + choice_options[action_other] + f">>. Thus, you won {score} points and the other player won {score_other} points.\n"
+                prompt += f"In round {trial+1}, you chose Option <<" + choice_options[action] + ">> and the other player chose Option " + choice_options[action_other] + f". Thus, you won {score} points and the other player won {score_other} points.\n"
 
             prompt += '\n'
 
