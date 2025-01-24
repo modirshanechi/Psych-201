@@ -16,9 +16,10 @@ for participant in range(num_participants):
     df_participant = df[(df['subject_id'] == participant + 1)]
     age = df_participant.age.iloc[0]
     num_trials = len(df_participant)
-    stage1_choice_options = randomized_choice_options(num_choices=2)
-    stage2_choice_options = randomized_choice_options(num_choices=2)
-    stage2_aliens = randomized_choice_options(num_choices=4)
+    all_choices = randomized_choice_options(num_choices=8)
+    stage1_choice_options = all_choices[0:2] 
+    stage2_choice_options = all_choices[2:4] 
+    stage2_aliens = all_choices[4:8]
 
     prompt = 'In this game, you will be taking a spaceship from earth to look for space treasure on two different planets. \n'
     prompt += 'Each planet has two aliens on it. And each alien has its own space treasure mine. \n'
@@ -71,15 +72,18 @@ for participant in range(num_participants):
                 
         if not isinstance(c1, (int, float)) or (isinstance(c1, float) and math.isnan(c1)):
             prompt += 'You were too slow to select a spaceship. \n'
-        else: 
+        elif not isinstance(state, (int, float)) or (isinstance(state, float) and math.isnan(state)): 
             c1 = int(c1)
-            prompt += 'You press <<' + stage1_choice_options[c1] + '>>  and arrive at planet ' + str(int(state)) + '.' + '\n'
+            prompt += 'You press <<' + stage1_choice_options[c1] + '>> but you were too slow to select a spaceship so you did not see the planet you arrived at. \n'
+        else:
+            c1 = int(c1)
+            prompt += 'You press <<' + stage1_choice_options[c1] + '>> and arrive at planet ' + str(int(state)) + '.' + '\n'
             
         if not isinstance(c2, (int, float)) or (isinstance(c2, float) and math.isnan(c2)):
             prompt += 'You were too slow to select an alien. \n'
         else:
             c2 = int(c2)
-            prompt += 'You press <<' + stage2_choice_options[c2] + '>>  to ask alien ' + stage2_aliens[alien_choice] + ' for space treasure. \n'
+            prompt += 'You press <<' + stage2_choice_options[c2] + '>> to ask alien ' + stage2_aliens[alien_choice] + ' for space treasure. \n'
         
         if not isinstance(reward, (int, float)) or (isinstance(reward, float) and math.isnan(reward)):
             prompt += 'You were too slow to select an alien so you did not see the treasure you received. \n'
