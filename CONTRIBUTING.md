@@ -42,6 +42,7 @@
 | Spatial bandit | age (7-55) | 28,800 | [Link](https://journals.sagepub.com/doi/10.1177/0956797619863663) | Kristin Witte |
 | Spatial bandit | age (5-55) | 56,200 | [Link](https://www.nature.com/articles/s41562-023-01662-1) | Kristin Witte |
 | Spatial bandit | age (4-9) | 10,200 | [Link](https://hcai-munich.com/pubs/meder2021development.pdf) | Kristin Witte |
+| Belief updating | - | ? | [Link](https://www.sciencedirect.com/science/article/pii/S0010027721003620) | Jason Burton |
 
 # List of open data sets
 
