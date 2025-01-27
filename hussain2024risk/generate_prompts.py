@@ -121,7 +121,7 @@ for participant_i in range(len(exp_2)):
         ]
         RT = dat_i[f'Timing - {stimulus} - Timing - Page Submit']
         texts.append(exp_2_item + stimulus + '. ' + f'<<{int(choice)}>>.')
-        RTs.append(RT)
+        RTs.append(float(RT) * 1000)    # Convert from s to ms
     text = '\n'.join(texts)  # Joining each line
     text = exp_2_instructs + '\n' + text
 
