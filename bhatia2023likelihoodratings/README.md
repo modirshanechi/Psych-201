@@ -8,5 +8,5 @@ https://osf.io/3y6ku/
 
 ### Description: 
 
-- The code uses two datasets: `Study 1/data - full clean.csv` and `Study 2/data - full clean.csv`, each with 22,500 choices
+In two studies, a total of 300 U.S. participants rate their likelihood to engage in 150 behaviors on a scale from 0 (less likely than others) to 100 (more likely than others). A rating of 50 means that participants are equally likely as others to engage in the behavior. The behaviors span five domains: health (e.g., "Buying an illegal drug for your own use"), recreation (e.g., "Whitewater rafting"), social behavior (e.g., "Ending a friendship"), ethical behavior (e.g., "Cheating on an exam"), and financial decision-making (e.g., "Betting on a poker game"). These items were drawn from DOSPERT 40, 30, and supplemented with new items. The data include 2 x 150 x 150 = 45,000 decisions. The studies were approved by the UPenn Institutional Review Board.
 
