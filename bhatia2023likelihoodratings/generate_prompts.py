@@ -9,6 +9,7 @@ datasets = ["Study 1/data - full clean.csv", "Study 2/data - full clean.csv"]
 instructions = """For each of the following statements, you indicate your likelihood of engaging in each behavior. 
 Provide a rating 0 (less likely than others) to 100 (more likely than others). A rating of 50 means that participants are equally likely as others to engage in the behavior.
 
+
 """
 
 # Initialize list to store prompts
@@ -31,20 +32,22 @@ for dataset in datasets:
 
         # Get behavior and participant's likelihood ratings
         responses = df[['ITEM', participant_id]]
+
+        responses_as_text = ""
         
         # Iterate over participants' responses
         for _, row in responses.iterrows():
             
             # Construct prompt for LLM
-            prompt = instructions + "'" + str(row['ITEM']) + ".'" + " You indicate a rating of <<" + str(row[participant_id]) + ">>.\n\n"
-
-            # Append prompt to list
-            all_prompts.append({
-                'text': prompt, 
-                'experiment': 'bhatia2023likelihoodratings/' + dataset, 
-                'participant': participant_id,
-                'nationality': 'United States'
-            })
+            responses_as_text += "'" + str(row['ITEM']) + ".'" + " You indicate a rating of <<" + str(row[participant_id]) + ">>.\n"
+        
+        # Append prompt to list
+        all_prompts.append({
+            'text': instructions + responses_as_text, 
+            'experiment': 'bhatia2023likelihoodratings/' + dataset, 
+            'participant': participant_id,
+            'nationality': 'United States'
+        })
 
 # Get the absolute path of this Python script
 script_dir = os.path.dirname(os.path.abspath(__file__))
