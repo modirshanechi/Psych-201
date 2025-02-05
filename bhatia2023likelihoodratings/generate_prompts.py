@@ -6,8 +6,9 @@ import os
 datasets = ["Study 1/data - full clean.csv", "Study 2/data - full clean.csv"]
 
 # Instructions for LLM
-instructions = """For each of the following statements, you indicate your likelihood of engaging in each behavior. 
-Provide a rating 0 (less likely than others) to 100 (more likely than others). A rating of 50 means that you are equally likely as others to engage in the behavior.
+instructions = """You will be given a list of behaviors or activities.
+Your task is to rate how likely you are to do these behaviors or activities on a scale from 0 to 100. 
+A rating closer 0 means that you are LESS LIKELY than others to do the behavior or activity. A rating closer 100 means that you are MORE LIKELY than others do the behavior or activity.
 
 
 """
