@@ -45,7 +45,7 @@ for dataset in datasets:
         # Append prompt to list
         all_prompts.append({
             'text': instructions + responses_as_text, 
-            'experiment': 'bhatia2023likelihoodratings/' + dataset, 
+            'experiment': 'bhatia2024likelihoodratings/' + dataset, 
             'participant': participant_id,
             'nationality': 'United States'
         })
