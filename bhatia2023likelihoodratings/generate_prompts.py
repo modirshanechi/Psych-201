@@ -7,7 +7,7 @@ datasets = ["Study 1/data - full clean.csv", "Study 2/data - full clean.csv"]
 
 # Instructions for LLM
 instructions = """For each of the following statements, you indicate your likelihood of engaging in each behavior. 
-Provide a rating 0 (less likely than others) to 100 (more likely than others). A rating of 50 means that participants are equally likely as others to engage in the behavior.
+Provide a rating 0 (less likely than others) to 100 (more likely than others). A rating of 50 means that you are equally likely as others to engage in the behavior.
 
 
 """
