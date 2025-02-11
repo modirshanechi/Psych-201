@@ -6,19 +6,7 @@ import os
 
 # Link to data hosted on GitHub
 path = 'https://raw.githubusercontent.com/jpheffne/NC_emotion_classify/refs/heads/main/data/behavioral/'
-
 # Codebook https://github.com/jpheffne/NC_emotion_classify/blob/main/analysis/emo_classify_supp.Rmd
-
-
-# prisoner's dilemma
-prd = pd.read_csv('https://raw.githubusercontent.com/jpheffne/NC_emotion_classify/refs/heads/main/data/behavioral/pd_data.csv')
-# public goods game
-pgg = pd.read_csv('https://raw.githubusercontent.com/jpheffne/NC_emotion_classify/refs/heads/main/data/behavioral/pgg_data.csv')
-
-
-ulg = pd.read_csv('https://raw.githubusercontent.com/jpheffne/NC_emotion_classify/refs/heads/main/data/behavioral/ug_data.csv')
-
-
 
 
 ################
@@ -97,17 +85,6 @@ for participant_id in participant_ids:
 
 
 
-ulg["accept"] = np.where(ulg["decision"] == "accept", 1, 0)
-import statsmodels.api as sm
-import statsmodels.formula.api as smf
-
-# Option A: Using the formula API
-ols_model = smf.ols('accept ~ offer', data=ulg)
-ols_results = ols_model.fit()
-print(ols_results.summary())
-
-
-
 
 
 
@@ -173,6 +150,9 @@ for participant_id in participant_ids:
         'experiment': 'heffner2022economicgames/prd_data.csv', 
         'participant': str(participant_id),
     })
+
+
+
 
 
 ###################
@@ -252,5 +232,3 @@ filename = os.path.join(script_dir, 'prompts.jsonl')
 # Write json file
 with jsonlines.open(filename, 'w') as writer:
     writer.write_all(all_prompts)
-
-
