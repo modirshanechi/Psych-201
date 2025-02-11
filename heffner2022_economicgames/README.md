@@ -8,3 +8,4 @@ https://github.com/jpheffne/NC_emotion_classify/tree/main
 
 ### Description:
 
+The contains decisions from three experiments: ultimatum game, prisoners dilemma, and a public goods game.
