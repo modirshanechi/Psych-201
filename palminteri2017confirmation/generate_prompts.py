@@ -27,7 +27,8 @@ for participant in subjects:
     dataset1 = spio.loadmat(datasets_path+f'Test{participant}_Session1.mat')['data']
     dataset2 = spio.loadmat(datasets_path+f'Test{participant}_Session2.mat')['data']
     df_participant = pd.DataFrame(data=np.concatenate([dataset1, dataset2]))
-    rts = df_participant[6].astype(float)
+    # rts = df_participant[6].astype(float)
+    rts = []
     df_participant[7][df_participant[7]==0]=-1 #negative outcomes have value -1
     
     # df.Stimuli = [[int(x[0]), int(x[1])] for x in df.Stimuli.str.split(';')]
@@ -42,6 +43,7 @@ for participant in subjects:
     # prompt += '\nYou are now in a learning phase.\n'
             
     for index, row in df_participant.iterrows():
+        rts.append(row[6].item())
         if not (row[3]==4 and row[2]>12):
             stims = [(row[3]-1)*2+1, row[3]*2] #wrong and right stimulus in one context
         else:
@@ -73,7 +75,7 @@ for participant in subjects:
     #%% Finalize prompt
     prompt = prompt[:-1]
     print(prompt)
-    all_prompts.append({'text': prompt, 'experiment': 'palminteri2017confirmation', 'participant': str(participant),'RTs':json.dumps(list(rts))})
+    all_prompts.append({'text': prompt, 'experiment': 'palminteri2017confirmation', 'participant': str(participant),'RTs':rts})
 
 with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)

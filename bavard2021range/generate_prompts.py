@@ -35,7 +35,7 @@ for dataset in datasets:
         df_participant = df[(df['participant'] == participant)]
         choice_options = randomized_choice_options(num_choices=9)
         prompt = 'You have to repeatedly choose between multiple stimuli by pressing their corresponding key.\nEach stimulus delivers a reward (0, 1 or 10) once it is selected.'
-        
+        RTs = []
         
             
         for phase in range(3):
@@ -65,7 +65,7 @@ for dataset in datasets:
                     prompt += '\nYou are now in a transfer phase where you are presented with pairs of stimuli taken from the learning phase. Not all pairs would have been necessarily displayed together before. No more feedback is provided. Please indicate which of the stimuli was the one with the highest value by pressing the corresponding key:\n'
                     
             for index, row in df_phase.iterrows():
-                
+                RTs.append(row.rt.item())
                 available_options = ''
                 stimulus0 = '' if math.isnan(row.left_option.item()) else choice_options[int(row.left_option)]
                 stimulus1 = '' if math.isnan(row.right_option.item()) else choice_options[int(row.right_option)]
@@ -96,7 +96,7 @@ for dataset in datasets:
 
         prompt = prompt[:-1]
         print(prompt)
-        all_prompts.append({'text': prompt, 'experiment': 'bavard2021range/' + json.dumps(float(df_participant.experiment.iloc[0])), 'participant': str(participant), 'RTs':json.dumps(list(df_participant['rt'].astype(float)))})
+        all_prompts.append({'text': prompt, 'experiment': 'bavard2021range/' + json.dumps(float(df_participant.experiment.iloc[0])), 'participant': str(participant), 'RTs':RTs})
 
 with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)

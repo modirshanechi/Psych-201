@@ -28,14 +28,14 @@ for participant in subjects:
     dataset1 = pd.read_csv(datasets_path+f'Test{participant}_Session1.csv', header=None)
     dataset2 = pd.read_csv(datasets_path+f'Test{participant}_Session2.csv', header=None)
     df_participant = pd.concat([dataset1, dataset2])
-    rts = df_participant[6].astype(float)
+    df_participant[6] = df_participant[6].astype(float)
     df_participant[7][df_participant[7]==0]=-1 #negative outcomes have value -1
-    
+    RTs = []
     # df.Stimuli = [[int(x[0]), int(x[1])] for x in df.Stimuli.str.split(';')]
     # df.Outcomes = [[float(x[0]), float(x[1])] for x in df.Outcomes.str.split(';')]
 
     choice_options = randomized_choice_options(num_choices=8)
-    prompt = 'You have to repeatedly choose between multiple stimuli by pressing their corresponding key.\nEach stimulus delivers a reward (0 or 1), once it is selected. Your goal is to gather as many rewards as possible.'
+    prompt = 'You have to repeatedly choose between multiple stimuli by pressing their corresponding key.\nEach stimulus delivers a reward (1) or a punishment (-1), once it is selected. Your goal is to gather as many rewards as possible.'
     prompt += '\nYou get feedback about the value of the chosen stimulus after each choice.\n'
     prompt += '\nYou are now in a learning phase.\n'
        
@@ -43,10 +43,10 @@ for participant in subjects:
         #     prompt += '\nYou are now in a transfer phase where you are presented with pairs of stimuli taken from the learning phase. Not all pairs would have been necessarily displayed together before. No more feedback is provided. Please indicate which of the stimuli was the one with the highest value by pressing the corresponding key:\n'
                 
     for index, row in df_participant.iterrows():
-        
-        stims = [(row[3]-1)*2+1, row[3]*2] #wrong and right stimulus in one context
+        RTs.append(row[6].item())
+        stims = [int((row[3]-1)*2+1), int(row[3]*2)] #wrong and right stimulus in one context
         choice_idx = row[4]/2+0.5 #0 left, 1 right
-        choice_cor = row[5]
+        choice_cor = int(row[5])
         
         choice = choice_options[stims[choice_cor]-1]
         
@@ -59,27 +59,28 @@ for participant in subjects:
         out = str(row[7])
         prompt += 'You encounter stimuli ' + ', '.join(stimulus0 + stimulus1) + '. You press <<' + choice + '>>. You receive a reward of ' + out + '.\n'
 
-
+        # print(out)
     #%% Then add the transfer phase
     prompt += '\nYou are now in a transfer phase where you are presented with pairs of stimuli taken from the learning phase. Not all pairs would have been necessarily displayed together before. No more feedback is provided. Please indicate which of the stimuli was the one with the highest value by pressing the corresponding key:\n'
     
     df_participant = pd.read_csv(datasets_path+f'PostTraining{participant}.csv', header=None)
-    rts = np.concatenate((rts,df_participant[6].astype(float)))
+    
     for index, row in df_participant.iterrows():
+        RTs.append(row[6].item())
         stimulus0 = '' if math.isnan(row[2]) else choice_options[int(row[2])-1]
         stimulus1 = '' if math.isnan(row[3]) else choice_options[int(row[3])-1]
         choice_idx = int(row[5]/2+0.5)
         stims = [stimulus0,stimulus1]
         choice = stims[choice_idx]
         prompt += 'You encounter stimuli ' + ', '.join(stimulus0 + stimulus1) + '. You press <<' + choice + '>>.\n'
-        
+
     #%% Finalize prompt
     prompt = prompt[:-1]
     print(prompt)
     if participant in patients:
-        all_prompts.append({'text': prompt, 'experiment': 'vandendriessche2022depression', 'participant': str(participant),'RTs':json.dumps(list(rts)), 'diagnosis':'depression'})
+        all_prompts.append({'text': prompt, 'experiment': 'vandendriessche2022depression', 'participant': str(participant),'RTs':RTs, 'diagnosis':'depression'})
     else:
-        all_prompts.append({'text': prompt, 'experiment': 'vandendriessche2022depression', 'participant': str(participant),'RTs':json.dumps(list(rts))})
+        all_prompts.append({'text': prompt, 'experiment': 'vandendriessche2022depression', 'participant': str(participant),'RTs':RTs})
 
 with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)

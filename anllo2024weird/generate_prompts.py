@@ -17,18 +17,17 @@ from utils import randomized_choice_options
 datasets = ["../../WEIRD__CDep_NoExclusions.csv"]
 all_prompts = []
 
-howmany=0
 for dataset in datasets:
     df = pd.read_csv(dataset)
     df.ChoseLorR = df.ChoseLorR/2 + 0.5 #renormalize between 0 and 1
-    
+    df.ResponseTime = df.ResponseTime.astype(float)
     for participant in df.ParticipantID.unique():
         df_participant = df[(df['ParticipantID'] == participant)]
         choice_options = randomized_choice_options(num_choices=10)
-
+        RTs = []
         for phase in range(4):
             df_phase = df_participant[(df_participant['WhichPhase'] == phase)]
-            if phase<3:
+            if phase==0:
                 prompt = 'You have to repeatedly choose between multiple stimuli by pressing their corresponding key.\nEach stimulus delivers a reward (0, 1 or 10) once it is selected.\nYou get feedback about the values of all encountered stimuli after each choice.\n'
             if phase == 0:
                 prompt += '\nYou are now in a training phase that familiarizes you with the response modalities:\n'
@@ -40,6 +39,7 @@ for dataset in datasets:
                 prompt += 'Now, you will be shown the possible reward of each option alongside its probability.\nYou get feedback about the value of all encountered stimuli after each choice.\n'
 
             for index, row in df_phase.iterrows():
+                RTs.append(row['ResponseTime'])
                 available_options = ''
                 stimulus0 = '' if math.isnan(row.SymbolLeft) else choice_options[int(row.SymbolLeft)]
                 stimulus1 = '' if math.isnan(row.SymbolRight) else choice_options[int(row.SymbolRight)]
@@ -80,10 +80,9 @@ for dataset in datasets:
                             choice = 'right'
                             unchosen_option1='left'
                         prompt += f'You can choose between the left option which gives a reward of {mag0} with probability {proba0}, and the right option which gives a reward of {mag1} with probability {proba1}. You press <<' + choice + '>>. You receive a reward of ' + str(reward) + '. You would have received ' + str(unchosen_reward) + ', had you pressed ' + str(unchosen_option1) + '.\n'
-                        howmany+=1
         prompt = prompt[:-1]
-        # print(prompt)
-        all_prompts.append({'text': prompt, 'experiment': 'anllo2024weird', 'participant': str(participant), 'RTs': json.dumps(list(df_participant['ResponseTime'].astype(float))), 'nationality':row.Country, 'age':str(row.Age)})
-# print(howmany)
+        print(prompt)
+        all_prompts.append({'text': prompt, 'experiment': 'anllo2024weird', 'participant': str(participant), 'RTs': RTs, 'nationality':row.Country, 'age':str(row.Age)})
+
 with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)
