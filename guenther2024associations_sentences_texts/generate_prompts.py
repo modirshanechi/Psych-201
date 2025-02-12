@@ -13,6 +13,7 @@ all_prompts = []
 # Experiment 1: Sentences #
 ###########################
 
+
 # Experiment 1: Define number of participants and trials
 participants_exp1 = exp1['participant'].unique()
 trials_exp1 = range(exp1['trial_index'].max() + 1)
@@ -20,7 +21,7 @@ trials_exp1 = range(exp1['trial_index'].max() + 1)
 # Instructions
 # Experiment 1: Block 1 instructions
 instruction_block1_exp1 = 'You will first read a sentence describing events or personalities. After you have read the sentence, you will be asked to list the 3 first associations that come to your mind when you think about these events or personalities.\n'\
-    'Try not to think too much and type in the first words that you thought of. Ensure they are different from each other. Do not try to remember what you know but follow your first impulse.\n'\
+    'Try not to think too much and type in the first words that you thought of. Ensure they are different from each other. Do not try to remember what you know but follow your first impulse.\n'\ 
     'Once you have read the sentence and proceeded to the next screen to type in the associations, you cannot go back to the previous screen with the sentence. Please pay attention during the reading and try to come up with the associations right after you finished reading the sentence.\n'\
     'You will not be able to type in the words used in the sentence. If you do, you will be asked to match the requested format.\n'\
     'Use letters only, no digits, spaces or punctuation marks.\n'\
@@ -28,11 +29,8 @@ instruction_block1_exp1 = 'You will first read a sentence describing events or p
     'Please remember, your task is to:\n'\
     '- read the sentence.\n'\
     '- think of 3 first words that come to your mind when you think about the events or personalities described.\n'\
-    '- press the "Continue" button to proceed to typing in the associations.\n'\
     'Do not try to remember what you know about these events or people but follow your first impulse.\n'\
     'Do not use the words from the sentence or repeat the same word twice. Use letters only.\n'\
-    'Press "Enter" to verify your input and proceed to the next line.\n'\
-    'Do not rush, the Continue button will be disabled for the first 5 seconds after the sentence presentation.\n'
 
 
 # Experiment 1: Block 2 instructions

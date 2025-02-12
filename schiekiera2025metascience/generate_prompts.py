@@ -61,8 +61,8 @@ instruction_history_exp1_and_2 = 'Imagine this study is part of your typical dai
     'Naturally, you do not have the capacity to bring all the papers to publication, only a small proportion.\n'\
     'Please make your decision as quickly as possible.\n'\
     'There is no right or wrong answer; we wish to capture your intuitive judgment.\n'\
-    'We are interested in your first impression and will ask you to report your level of certainty about this initial decision.\n'\
-    'Furthermore, we will ask for a second assessment of the abstract for methodological purposes, and kindly ask you to evaluate   the abstracts a second time.\n'\
+    'We are interested in your first impression and will ask you to report your level of certainty about this initial decision. Please provide your answers regarding the certainty of your answer on the following scale: Very uncertain, Uncertain, Rather uncertain, Neither certain nor uncertain, Rather certain, Certain, Very certain.\n'\
+    'Furthermore, we will ask for a second assessment of the abstract for methodological purposes, and kindly ask you to evaluate the abstracts a second time.\n'\
     'You will be able to read the abstracts again if you do not remember them sufficiently.\n'
 
 ## Experiment 3 and 4
@@ -78,32 +78,32 @@ instruction_exp3_and_4 = 'Imagine this study is part of your typical daily work 
 # Response Instructions
 ## Experiment 1 and 2
 ### Decision 1: Probability to Publish the Article
-trial_instruction_decision1_resp = "Intuitive answer: What is the likelihood that you would submit this article for publication if you had to intuitively decide based solely on this abstract?"
+trial_instruction_decision1_resp = "Intuitive answer: What is the likelihood that you would submit this article for publication if you had to intuitively decide based solely on this abstract on a scale from 0 to 100?"
 
 ### FOR: Feeling of Rightness
 trial_instruction_for_resp = "Certainty about the intuitive answer: When I submitted the answer, I felt:"
 
 ### Decision 1: Probability to Publish the Article after Rethinking
-trial_instruction_decision2_resp = "Considered Answer: What is the likelihood that you would submit this article for publication if you now had to make a decision based solely on this abstract after rethinking?"
+trial_instruction_decision2_resp = "Considered Answer: What is the likelihood that you would submit this article for publication if you now had to make a decision based solely on this abstract after rethinking on a scale from 0 to 100?"
 
 ## Experiment 3 and 4
 ### Reading: Probability to Read the Article
-trial_instruction_decision1_read = 'What is the likelihood that you would READ this article, if you had to intuitively decide based solely on this abstract?'
+trial_instruction_decision1_read = 'Intuitive answer: What is the likelihood that you would READ this article, if you had to intuitively decide based solely on this abstract on a scale from 0 to 100?'
 
 ### Citing: Probability to Cite the Article
-trial_instruction_decision1_cite = 'What is the likelihood that you would CITE this article, if you had to intuitively decide based solely on this abstract?'
+trial_instruction_decision1_cite = 'Intuitive answer: What is the likelihood that you would CITE this article, if you had to intuitively decide based solely on this abstract on a scale from 0 to 100?'
 
 ### Reading FOR: Feeling of Rightness
-trial_instruction_for_read = 'When I submitted the answer to READ, I felt:'
+trial_instruction_for_read = 'Certainty about the intuitive answer: When I submitted the answer to READ, I felt:'
 
 ### Citing FOR: Feeling of Rightness
-trial_instruction_for_cite = 'When I submitted the answer to CITE, I felt:'
+trial_instruction_for_cite = 'Certainty about the intuitive answer: When I submitted the answer to CITE, I felt:'
 
 ### Reading: Probability to Read the Article after Rethinking
-trial_instruction_decision2_read = 'What is the likelihood that you would READ this article if you now had to make a decision based solely on this abstract after rethinking?'
+trial_instruction_decision2_read = 'Considered Answer: What is the likelihood that you would READ this article if you now had to make a decision based solely on this abstract after rethinking on a scale from 0 to 100?'
 
 ### Citing: Probability to Cite the Article after Rethinking
-trial_instruction_decision2_cite = 'What is the likelihood that you would CITE this article if you now had to make a decision based solely on this abstract after rethinking?'
+trial_instruction_decision2_cite = 'Considered Answer: What is the likelihood that you would CITE this article if you now had to make a decision based solely on this abstract after rethinking on a scale from 0 to 100?'
 
 # Re-read Instructions
 ## Re-read instruction 1
