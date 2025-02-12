@@ -38,6 +38,7 @@ Ultimately, you will decide how much money you and your partner actually receive
 # Load data
 ulg = pd.read_csv(path + "ug_data.csv")
 
+# The study participant rejects the offer if choice 1 and accepts if choice is 0
 ulg["decision"] = np.where(ulg["choice"] == 1, "reject", "accept")
 
 # The unfairness variable refers to the amount of money kept by the partner
@@ -102,7 +103,7 @@ In other words, you will NEVER interact with the same person more than once duri
 During each interaction, both you and your partner will be given $1 and asked to make a decision of how much to contribute to the common pool. 
 In other words, each player is deciding how much of their $1 to keep for themselves or give to the group. 
 
-IMPORTANT: You and your partner each can split the $1 in any amount as long as it is in $.10 increments.
+IMPORTANT: You and your partner each can split the $1 in any amount as long as it is in $0.10 increments.
 
 Importantly, in each round, all money contributed to the common pool will be multiplied by 1.5x (one and one half).
 
@@ -173,7 +174,7 @@ In other words, each player is deciding how much of their $1 to keep for themsel
 Importantly, in each round, all money contributed to the common pool will be multiplied by TWO and then this larger sum will be divided equally among all four players. 
 The amount of money that each player receives on every round is thus determined BOTH by whether or not they give their money to the group, as well as by what other players decide to do with their money.
 
-The amount you will get is the sum of the money you received from the common pool and the money you kept for yourself.
+The amount you will get in each round is the sum of the money you received from the common pool and the money you kept for yourself.
 
 You will be shown how much money your partners contributed to the common pool. You will then be asked to decide how much money to contribute to the common pool.
 
