@@ -6,7 +6,7 @@ def randomized_choice_options(num_choices):
     choice_options = list(map(chr, range(65, 91)))
     return np.random.choice(choice_options, num_choices, replace=False)
 
-datasets = ['exp1.csv']
+datasets = ['../../../exp1.csv']
 all_prompts = []
 for dataset in datasets:
     df = pd.read_csv(dataset)
@@ -39,7 +39,7 @@ for dataset in datasets:
                 accuracy = df_trial['accuracy'].values[0]
                 c = t if accuracy == 1 else 1-t
                 feedback = df_trial['feedback'].values[0]
-                RTs.append(df_trial['resptime'].values[0])
+                RTs.append(df_trial['resptime'].values[0]*1000)
                 attentions.append(df_trial['attention'].values[0])
                 anxieties.append(df_trial['anxiety'].values[0])
                 feedbacks.append(feedback)
