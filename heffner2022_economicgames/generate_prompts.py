@@ -1,8 +1,13 @@
+# Get the absolute path of the utils script
+import sys
+import os
+utils_dir = os.path.dirname(os.path.abspath("utils.py"))
+sys.path.append(utils_dir)
+
+from utils import randomized_choice_options
 import pandas as pd
 import numpy as np
 import jsonlines
-import os
-
 
 # Link to data hosted on GitHub
 path = 'https://raw.githubusercontent.com/jpheffne/NC_emotion_classify/refs/heads/main/data/behavioral/'
@@ -12,28 +17,6 @@ path = 'https://raw.githubusercontent.com/jpheffne/NC_emotion_classify/refs/head
 ################
 # Ultimatum game
 ################
-
-# Instructions for LLM
-instructions = """You will be making real decisions that affect the monetary outcomes of YOURSELF and OTHERS.
- 
-You will be playing multiple rounds of a game with DIFFERENT partners every round. 
-
-Your partner has been allotted $1.00. You will be paired with a different partner each round and your partner has already decided how much of their $1 to offer you. 
-
-IMPORTANT: Your partner can split their $1 in any amount as long as it is in $0.05 increments. 
-
-
-After observing your partner make an offer, you will be asked to determine the final monetary outcome of both your partner and yourself. These options are labeled below: 
- 
-accept: Agree to the proposed offer and keep both you and your partner's money the same. 
-
-reject: Reject the offer and decrease both you and your partner's money to zero. 
-
-
-Ultimately, you will decide how much money you and your partner actually receive.
-
-
-"""
 
 # Load data
 ulg = pd.read_csv(path + "ug_data.csv")
@@ -48,7 +31,6 @@ ulg["keep"] =  ulg["unfairness"]
 ulg["offer"] = round(1 - ulg["unfairness"], 2)
 
 
-
 # Initialize list to store prompts
 all_prompts = []
 
@@ -58,12 +40,38 @@ participant_ids = ulg["sub"].unique()
 # Iterate over participants
 for participant_id in participant_ids:
 
-    # Get participant's choice and reshuffle
-    choices = (
-        ulg[ulg["sub"] == participant_id]
-        .sample(frac=1, random_state=42)
-        .reset_index(drop=True)
-    )
+    # Generate random label for options for each participant
+    choice_options = randomized_choice_options(num_choices=2)
+
+    # Instructions for LLM
+    instructions = """You will be making real decisions that affect the monetary outcomes of YOURSELF and OTHERS.
+    
+    You will be playing multiple rounds of a game with DIFFERENT partners every round. 
+
+    Your partner has been allotted $1.00. You will be paired with a different partner each round and your partner has already decided how much of their $1 to offer you. 
+
+    IMPORTANT: Your partner can split their $1 in any amount as long as it is in $0.05 increments. 
+
+
+    After observing your partner make an offer, you will be asked to determine the final monetary outcome of both your partner and yourself. The two options are labeled below: 
+    
+    """ + choice_options[0] + """: Accept the proposed offer and keep both you and your partner's money the same. 
+
+    """ + choice_options[1] + """: Reject the offer and decrease both you and your partner's money to zero. 
+
+
+    Ultimately, you will decide how much money you and your partner actually receive.
+
+
+    """
+
+    # Get participant's choice 
+    choices = ulg[ulg["sub"] == participant_id]
+
+    # Relabel choices with generated label
+    choices = choices.copy()
+    choices.loc[:, "decision_label"] = np.where(choices["decision"] == "accept", choice_options[0], choice_options[1])
+
 
     choices_as_text = ""
 
@@ -74,7 +82,7 @@ for participant_id in participant_ids:
         choices_as_text += (
             "Your partner keeps $" + str(row["keep"]) + 
             " and gives you $" + str(row["offer"]) + 
-            ". You chose to <<"+row["decision"] + ">> the offer.\n"
+            ". You chose option <<"+row["decision_label"] + ">>.\n\n"
         )
 
     # Append prompt to list
@@ -126,11 +134,7 @@ participant_ids = prd["sub"].unique()
 for participant_id in participant_ids:
 
     # Get participant's choice and reshuffle
-    choices = (
-        prd[prd["sub"] == participant_id]
-        .sample(frac=1, random_state=42)
-        .reset_index(drop=True)
-    )
+    choices = prd[prd["sub"] == participant_id]
 
     choices_as_text = ""
 
@@ -139,11 +143,12 @@ for participant_id in participant_ids:
 
         # Construct prompt for LLM
         choices_as_text += (
-            # partner_contribution is the amount of money given to the common good by their partner, ranges from defection (0) to cooperation (1) in increments of 0.1. 
-            "Your partner contributes $" + str(row["partner_contribution"]) +
             # sub_contribution ius the amount of money given to the common good by the subject, ranges from 0 to 1 in increments of 0.1.
-            ". You chose to contribute $<<" + str(row["sub_contribution"]) + ">>.\n"
+            "You chose to contribute $<<" + str(row["sub_contribution"]) + ">>. "
+            # partner_contribution is the amount of money given to the common good by their partner, ranges from defection (0) to cooperation (1) in increments of 0.1. 
+            "Your partner contributes $" + str(row["partner_contribution"]) + ".\n\n"
         )
+
 
     # Append prompt to list
     all_prompts.append({
@@ -191,11 +196,7 @@ participant_ids = pgg["sub"].unique()
 for participant_id in participant_ids:
 
     # Get participant's choice and reshuffle
-    choices = (
-        pgg[pgg["sub"] == participant_id]
-        .sample(frac=1, random_state=42)
-        .reset_index(drop=True)
-    )
+    choices = pgg[pgg["sub"] == participant_id]
 
     choices_as_text = ""
 
@@ -204,11 +205,13 @@ for participant_id in participant_ids:
 
         # Construct prompt for LLM
         choices_as_text += (
-            # partners_contribution is the amount of money given to the common good by their partners (collectively), ranges from defection (0) to cooperation (3) in increments of 0.1.
-            "Your partners contribute $" + str(row["partners_contribution"]) +
-            # the amount of money given to the common good by the subject, ranges from 0 to 1 in increments of 0.1.
-            ". You chose to contribute $<<" + str(row["sub_contribution"]) + ">>.\n"
+            # The amount of money given to the common good by the subject, ranges from 0 to 1 in increments of 0.1.
+            "You chose to contribute $<<" + str(row["sub_contribution"]) + ">>. "
+             # partners_contribution is the amount of money given to the common good by their partners (collectively), ranges from defection (0) to cooperation (3) in increments of 0.1.
+            "Your partners contribute $" + str(row["partners_contribution"]) + ".\n\n"
+ 
         )
+
 
     # Append prompt to list
     all_prompts.append({
