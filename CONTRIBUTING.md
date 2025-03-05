@@ -55,7 +55,6 @@
 | Risky choice | emotions | 101,600 | [Link](https://www.nature.com/articles/s41562-021-01213-6) |
 | Cognitive biases | cross-cultural | 74,370 | [Link](https://www.nature.com/articles/s41598-023-36339-2) |
 | AutobioMemorySimilarity | ? | ~38,475 | [Link](https://github.com/HLab/AutobioMemorySimilarity) |
-| Economic games | - | 31,372 | [Link](https://www.nature.com/articles/s41467-022-29372-8#data-availability) |
 | Decision-making | ? | 23,000 | [Link](www.pnas.org/doi/epub/10.1073/pnas.2400215121) |
 | Decision-making | - | 19,760 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010176) |
 | Two-step task | age (18-20) | 39,680 | [Link](https://elifesciences.org/articles/49154) |
