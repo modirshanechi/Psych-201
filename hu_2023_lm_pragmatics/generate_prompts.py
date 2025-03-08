@@ -9,8 +9,8 @@ CHARACTER_LIMIT = 32000
 
 ###Deceits
 
-df1 = pd.read_csv("Human_Deceits.csv")
-df2 = pd.read_csv("Deceits_prompts_seed0_examples0.csv")
+df1 = pd.read_csv("Data/Human_Deceits.csv")
+df2 = pd.read_csv("Data/Deceits_prompts_seed0_examples0.csv")
 
 # general task instructions
 task = (
@@ -22,6 +22,8 @@ for participant in tqdm(df1.pKey.unique()):
     par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/Human_Deceits.csv', "participant": str(participant)}
     #reindex and drop the old index
     par_df = df1[df1.pKey == participant].reset_index(drop=True)
+    #Correctness list
+    correct_list=[]
     # iterate over trials
     for _, trial in par_df.iterrows():
 
@@ -41,7 +43,10 @@ for participant in tqdm(df1.pKey.unique()):
         )
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instuction + "\n"
+        correct_list.append(trial["Correct"])
 
+    #append list of correct responses
+    par_dict["Correctness"] = correct_list
     # check that the prompt is not too long
     assert (
         len(par_dict["text"]) < CHARACTER_LIMIT
@@ -52,8 +57,8 @@ for participant in tqdm(df1.pKey.unique()):
 
 ###Maxims
 
-df1 = pd.read_csv("Human_Maxims.csv")
-df2 = pd.read_csv("Maxims_prompts_seed0_examples0.csv")
+df1 = pd.read_csv("Data/Human_Maxims.csv")
+df2 = pd.read_csv("Data/Maxims_prompts_seed0_examples0.csv")
 
 # general task instructions
 task = (
@@ -65,6 +70,8 @@ for participant in tqdm(df1.pKey.unique()):
     par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/Maxims.csv', "participant": str(participant)}
     #reindex and drop the old index
     par_df = df1[df1.pKey == participant].reset_index(drop=True)
+    #Correctness lis
+    correct_list=[]
     # iterate over trials
     for _, trial in par_df.iterrows():
 
@@ -94,7 +101,11 @@ for participant in tqdm(df1.pKey.unique()):
         )
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instuction + "\n"
+        #add correctness
+        correct_list.append(trial["Correct"])
 
+    # append list of correct responses
+    par_dict["Correctness"] = correct_list
     # check that the prompt is not too long
     assert (
         len(par_dict["text"]) < CHARACTER_LIMIT
@@ -105,8 +116,8 @@ for participant in tqdm(df1.pKey.unique()):
 
 ###Humour
 
-df1 = pd.read_csv("Human_Humour.csv")
-df2 = pd.read_csv("Humour_prompts_seed0_examples0.csv")
+df1 = pd.read_csv("Data/Human_Humour.csv")
+df2 = pd.read_csv("Data/Humour_prompts_seed0_examples0.csv")
 
 # general task instructions
 task = (
@@ -118,6 +129,8 @@ for participant in tqdm(df1.pKey.unique()):
     par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/Humour.csv', "participant": str(participant)}
     #reindex and drop the old index
     par_df = df1[df1.pKey == participant].reset_index(drop=True)
+    #Correctness list
+    correct_list=[]
     # iterate over trials
     for _, trial in par_df.iterrows():
 
@@ -138,7 +151,11 @@ for participant in tqdm(df1.pKey.unique()):
         )
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instuction + "\n"
+        #append correctness
+        correct_list.append(trial["Correct"])
 
+    # append list of correct responses
+    par_dict["Correctness"] = correct_list
     # check that the prompt is not too long
     assert (
         len(par_dict["text"]) < CHARACTER_LIMIT
@@ -149,8 +166,8 @@ for participant in tqdm(df1.pKey.unique()):
 
 ###Coherence
 
-df1 = pd.read_csv("Human_CoherenceInference.csv")
-df2 = pd.read_csv("CoherenceInference_prompts_seed0_examples0.csv")
+df1 = pd.read_csv("Data/Human_CoherenceInference.csv")
+df2 = pd.read_csv("Data/CoherenceInference_prompts_seed0_examples0.csv")
 
 # general task instructions
 task = (
@@ -162,6 +179,8 @@ for participant in tqdm(df1.pKey.unique()):
     par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/CoherenceInference.csv', "participant": str(participant)}
     #reindex and drop the old index
     par_df = df1[df1.pKey == participant].reset_index(drop=True)
+    #Correctness list
+    correct_list=[]
     # iterate over trials
     for _, trial in par_df.iterrows():
 
@@ -189,6 +208,12 @@ for participant in tqdm(df1.pKey.unique()):
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instuction + "\n"
 
+        #append the correctness
+        correct_list.append(trial["Correct"])
+
+    # append list of correct responses
+    par_dict["Correctness"] = correct_list
+
     # check that the prompt is not too long
     assert (
         len(par_dict["text"]) < CHARACTER_LIMIT
@@ -200,8 +225,8 @@ for participant in tqdm(df1.pKey.unique()):
 
 ###Indirect Speech
 
-df1 = pd.read_csv("Human_IndirectSpeech.csv")
-df2 = pd.read_csv("IndirectSpeech_prompts_seed0_examples0.csv")
+df1 = pd.read_csv("Data/Human_IndirectSpeech.csv")
+df2 = pd.read_csv("Data/IndirectSpeech_prompts_seed0_examples0.csv")
 # go over participants
 for participant in tqdm(df1.pKey.unique()):
     # create a future json entry for the participant
@@ -209,6 +234,8 @@ for participant in tqdm(df1.pKey.unique()):
                 "participant": str(participant)}
     # reindex and drop the old index
     par_df = df1[df1.pKey == participant].reset_index(drop=True)
+    # Correctness list
+    correct_list = []
     # iterate over trials
     for _, trial in par_df.iterrows():
         # get the scrumbled response as number (e.g. Answer3 -> 3)
@@ -225,7 +252,13 @@ for participant in tqdm(df1.pKey.unique()):
         )
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instruction + "\n"
-        # check that the prompt is not too long
+
+        # append the correctness
+        correct_list.append(trial["Correct"])
+
+    # append list of correct responses
+    par_dict["Correctness"] = correct_list
+    # check that the prompt is not too long
     assert (
             len(par_dict["text"]) < CHARACTER_LIMIT
     ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"
@@ -234,14 +267,16 @@ for participant in tqdm(df1.pKey.unique()):
 
 ###Metaphor
 
-df1 = pd.read_csv("Human_Metaphor.csv")
-df2 = pd.read_csv("Metaphor_prompts_seed0_examples0.csv")
+df1 = pd.read_csv("Data/Human_Metaphor.csv")
+df2 = pd.read_csv("Data/Metaphor_prompts_seed0_examples0.csv")
 # go over participants
 for participant in tqdm(df1.pKey.unique()):
     # create a future json entry for the participant
     par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/Human_Metaphor.csv', "participant": str(participant)}
     # reindex and drop the old index
     par_df = df1[df1.pKey == participant].reset_index(drop=True)
+    # Correctness list
+    correct_list = []
     # iterate over trials
     for _, trial in par_df.iterrows():
         # get the scrumbled response as number (e.g. Answer3 -> 3)
@@ -258,7 +293,13 @@ for participant in tqdm(df1.pKey.unique()):
         )
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instruction + "\n"
-        # check that the prompt is not too long
+
+        # append the correctness
+        correct_list.append(trial["Correct"])
+
+    # append list of correct responses
+    par_dict["Correctness"] = correct_list
+    #check that the prompt is not too long
     assert (
             len(par_dict["text"]) < CHARACTER_LIMIT
     ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"
@@ -267,14 +308,16 @@ for participant in tqdm(df1.pKey.unique()):
 
 ###Irony
 
-df1 = pd.read_csv("Human_Irony.csv")
-df2 = pd.read_csv("Irony_prompts_seed0_examples0.csv")
+df1 = pd.read_csv("Data/Human_Irony.csv")
+df2 = pd.read_csv("Data/Irony_prompts_seed0_examples0.csv")
 # go over participants
 for participant in tqdm(df1.pKey.unique()):
     # create a future json entry for the participant
     par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/Human_Irony.csv', "participant": str(participant)}
     # reindex and drop the old index
     par_df = df1[df1.pKey == participant].reset_index(drop=True)
+    # Correctness list
+    correct_list = []
     # iterate over trials
     for _, trial in par_df.iterrows():
         # get the scrumbled response as number (e.g. Answer3 -> 3)
@@ -291,7 +334,13 @@ for participant in tqdm(df1.pKey.unique()):
         )
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instruction + "\n"
-        # check that the prompt is not too long
+
+        # append the correctness
+        correct_list.append(trial["Correct"])
+
+    # append list of correct responses
+    par_dict["Correctness"] = correct_list
+    # check that the prompt is not too long
     assert (
             len(par_dict["text"]) < CHARACTER_LIMIT
     ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"
