@@ -30,14 +30,14 @@ for pId in pIds: # loop through all participants
         if row_switch == 1: 
             up_choice = 1-up_choice # rowA=1, rowB=0
         
-    prompt += "You've been matched with a new player for a game. You are designated as the 'row player'.\n" +\
-    "You can choose between two options: Row A and Row B. Your opponent will simultaneously choose between Column C and Column D.\n" +\
-    "Your payoff, and your opponent's payoff, depend on the combination of choices:\n" +\
-    f"If you choose Row A and your opponent chooses Column C, you receive {M_on_screen[0]} and your opponent receives {M_on_screen[4]}.\n" +\
-    f"If you choose Row A and your opponent chooses Column D, you receive {M_on_screen[1]} and your opponent receives {M_on_screen[5]}.\n" +\
-    f"If you choose Row B and your opponent chooses Column C, you receive {M_on_screen[2]} and your opponent receives {M_on_screen[6]}.\n" +\
-    f"If you choose Row B and your opponent chooses Column D, you receive {M_on_screen[3]} and your opponent receives {M_on_screen[7]}.\n" +\
-    f"You press <<{'A' if up_choice==1 else 'B'}>>.\n"
+        prompt += "You've been matched with a new player for a game. You are designated as the 'row player'.\n" +\
+        "You can choose between two options: Row A and Row B. Your opponent will simultaneously choose between Column C and Column D.\n" +\
+        "Your payoff, and your opponent's payoff, depend on the combination of choices:\n" +\
+        f"If you choose Row A and your opponent chooses Column C, you receive {M_on_screen[0]} and your opponent receives {M_on_screen[4]}.\n" +\
+        f"If you choose Row A and your opponent chooses Column D, you receive {M_on_screen[1]} and your opponent receives {M_on_screen[5]}.\n" +\
+        f"If you choose Row B and your opponent chooses Column C, you receive {M_on_screen[2]} and your opponent receives {M_on_screen[6]}.\n" +\
+        f"If you choose Row B and your opponent chooses Column D, you receive {M_on_screen[3]} and your opponent receives {M_on_screen[7]}.\n" +\
+        f"You press <<{'A' if up_choice==1 else 'B'}>>.\n"
 
     all_prompts.append({'text': prompt, 'experiment': 'zhu2024games', 'participant': int(pId)})
         
