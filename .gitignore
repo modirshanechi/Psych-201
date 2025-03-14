@@ -2,6 +2,3 @@
 .venv
 .DS_Store
 __pycache__/
-witte2024interventionStudy/prompts.jsonl
-witte2024safe_exploration/prompts.jsonl
-giron2023developmentalExploration/prompts.jsonl
