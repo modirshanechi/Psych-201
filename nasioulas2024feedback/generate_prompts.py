@@ -1,17 +1,11 @@
 import pandas as pd
 import jsonlines
 import sys
-import printJson
 import textwrap
 sys.path.append("..")
 
 datasets = ["nasioulas2024feedback_data.csv"]
 all_prompts = []
-
-
-participant_count = 0  # Track the number of participants processed
-participantPrint = [];
-
 
 for dataset in datasets:
     df = pd.read_csv(dataset)
@@ -22,7 +16,6 @@ for dataset in datasets:
         # Extract participant-level values once
         age = df_participant.at[df_participant.index[0], "age"]
         nationality = df_participant.at[df_participant.index[0], "nationality"]
-        expNum = df_participant.at[df_participant.index[0], "EXP"]
         num_blocks = df_participant["BLOCK"].max() + 1
 
         # Ensure unique values for specific columns
@@ -36,7 +29,6 @@ for dataset in datasets:
         block_instructions = df_participant.at[df_participant.index[0], "blockInstructions"]
 
 
-        # Define example text based on sureThing value
         text1 = textwrap.dedent("""\
             Let's consider the following example: (50pts, 70%; 0pts) vs (37pts, 100%).
             In this example, if you choose the left option (L), you will gain 50 points with probability 70% and 0pts with 30%.
@@ -97,7 +89,6 @@ for dataset in datasets:
         else:
             text3 = "You will be notified at the beginning of each block."
 
-        # Use a list for efficient string concatenation
         prompt_parts = [
             "You will face several decision problems. Each problem consists of two options.",
             "In each round, you can select one of the two options by pressing L or R, for choosing the Left or the Right option, respectively, appearing on your screen.",
@@ -179,12 +170,12 @@ for dataset in datasets:
                 prompt_parts.append(trial_text)
                 RTs.append(rtime)
 
-        # Join parts efficiently
+        # Join parts 
         final_prompt = "\n".join(prompt_parts)
 
         all_prompts.append({
             'text': final_prompt,
-            'experiment': 'nasioulas2024feedback/exp' + str(expNum),
+            'experiment': 'nasioulas2024feedback/exp' + str(exp),
             'participant': int(participant),
             'RTs': [int(rt) for rt in RTs],  # Convert each RT to int
             'age': str(age),
