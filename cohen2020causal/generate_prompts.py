@@ -23,7 +23,7 @@ for dataset in datasets:
 
     num_tasks = df.block_num.max() + 1
     num_trials = df.trial_in_block.max() + 1
-    territory = {1: "robber", 2 : "millionaire", 3: "sheriff"}
+    territory = {1: "robber", 2: "millionaire", 3: "sheriff"}
     no_yes = {0: "no", 1: "yes"}
     rocks_gold = {0: "rocks", 1: "gold"}
 
@@ -55,7 +55,8 @@ for dataset in datasets:
                 df_trial = df_task[(df_task['trial_in_block'] == trial)]
                 c = df_trial.subj_choice.item()
                 r = df_trial.feedback.item()
-                RTs.append(df_trial.choice_RT.item())
+                RTs.append(df_trial.choice_RT.item() * 1000)  # transform RTs from s to ms
+                RTs.append(np.nan)  # add nan because there are no RTs for intervention question
                 prompt += 'You press <<' + choice_options[c] + '>> and get ' + rocks_gold[r] + '. Do you think this was caused by the hidden agent? You choose <<' + no_yes[df_trial.latent_guess.item()]+ ">>.\n"
             prompt += '\n'
 
