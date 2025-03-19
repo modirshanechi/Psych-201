@@ -23,7 +23,7 @@ for dataset in datasets:
         lsas_value = lsas_df.loc[lsas_df['sub'] == participant, 'lsas'].iloc[0]
 
         prompt = f"\nYou are playing the Patent Race. In this game, you and your opponent compete for a prize by choosing an investment from your respective endowments. "\
-        f"You will play {num_trials} rounds in total. In each round, you are endowed with 5 dollars, your opponent is endowed with 6 dollars, and the prize you are competing for is 10 dollars. " \
+        f"You will play {num_trials} rounds in total. In each round, you are endowed with 4 dollars, your opponent is endowed with 5 dollars, and the prize you are competing for is 10 dollars. " \
         f"The player who invests more wins the prize, and the other player loses. In the event of a tie, both players lose the prize. Regardless of the outcome, both players lose " \
         f"the amount that they invest.\n"\
 
@@ -40,7 +40,7 @@ for dataset in datasets:
             else:
                 result = "Thus, you tied"    
 
-            prompt += f"In round {trial+1}, you invested <<{investment_own}>> dollars and the other player invested {investment_other} dollars. " + result + f" and your final endowment for this round was {reward} dollars.\n"
+            prompt += f"In round {trial+1}, you invested <<{investment_own-1}>> dollars and the other player invested {investment_other-1} dollars. " + result + f" and your final endowment for this round was {reward} dollars.\n"
 
         prompt = prompt[:-2]
         print(prompt)
