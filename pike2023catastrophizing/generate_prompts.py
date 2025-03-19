@@ -65,7 +65,7 @@ for dataset in datasets:
                 # If it doesn't end in explosion, you just get your points
                 else:
                     participant_points += trial_points
-                    prompt += 'You press <<' + choice_options[1] + '>> to to collect your ' + str(trial_points) + ' points. You have ' + str(participant_points) + ' points in total.\n'
+                    prompt += 'You press <<' + choice_options[1] + '>> to collect your ' + str(trial_points) + ' points. You have ' + str(participant_points) + ' points in total.\n'
             prompt += '\n'
 
             prompt = prompt[:-2]
