@@ -45,7 +45,7 @@ for dataset in datasets:
         }
         all_prompts.append(record)
 
-with jsonlines.open("dezfouli.jsonl", mode="w") as writer:
+with jsonlines.open("prompts.jsonl", mode="w") as writer:
     writer.write_all(all_prompts)
 
 print("Done!")
