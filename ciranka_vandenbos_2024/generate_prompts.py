@@ -1,8 +1,10 @@
+import sys
+sys.path.append("..")
+
 import numpy as np
 import pandas as pd
 import jsonlines
-import sys
-sys.path.append("..")
+
 from utils import randomized_choice_options
 
 # CSV file downloaded from
@@ -99,7 +101,6 @@ for dataset in datasets:
         trial = 0
         # solo condition
         for index_trial, df_trial in df_participant_solo.iterrows():
-            RTs.append(df_trial.rt)
             # jar indices
             safe_jar   = jarindex_inverted[df_trial.riskyKey]
             risky_jar  = jarindex[df_trial.riskyKey]
@@ -124,20 +125,21 @@ for dataset in datasets:
                     prompt += 'In sampling round ' + str(i+1) + ', we drew ' + xMarble(n_blue[i] + n_red[i]) + ', among which, '
                     prompt += xMarblewas(n_blue[i]) + ' blue, and ' + xMarblewas(n_red[i]) + ' red.\n'
                 prompt += 'You report <<' + str(p_blue_hat) + '>> percent as your estimate of the ratio of blue marbles in the opaque risky jar.\n'
+                RTs.append(np.nan)
                 if p_blue_hat_conf > -1:
                     prompt += 'In this trial, you are also asked to report (from 0 to 100) how sure you are that the ratio of blue marbles you entered is correct.\n'
                     prompt += 'You report <<' + str(p_blue_hat_conf) + '>>.\n'
+                    RTs.append(np.nan)
             else:
-                prompt += 'In this trial, ' + str(p_blue) + ' percent of marbles in the risky jar are blue, and the other ' + str(100 - p_blue) + 'percent of marbles are red.\n'
+                prompt += 'In this trial, ' + str(p_blue) + ' percent of marbles in the risky jar are blue, and the other ' + str(100 - p_blue) + ' percent of marbles are red.\n'
 
-            prompt +=     'Jar ' + choice_options[safe_jar]  + ' is the safe jar with '  + str(safe_value)  + ' bonus points,'
+            prompt +=     'Jar ' + choice_options[safe_jar]  + ' is the safe jar with '  + str(safe_value)  + ' bonus points, '
             prompt += 'and jar ' + choice_options[risky_jar] + ' is the risky jar with ' + str(risky_value) + ' bonus points.\n'
             prompt += 'You choose jar <<' + choice_options[chosen_jar] + '>>.\n'
+            RTs.append(df_trial.rt)
 
-            # if they would receive the reward information on every trial:
-            #   prompt += 'You recived <<' + str(reward) + '>> bonus points as a result.\n'
-            # OR
-            #   prompt += 'So far in the experiment, you recived <<' + str(total_reward) + '>> bonus points in total.\n'
+            if trial % 5 == 0:
+                prompt += 'So far in the experiment, you recived ' + str(total_reward) + ' bonus points in total.\n'
         prompt += '\n'
 
         # instruction for social part
@@ -159,7 +161,6 @@ for dataset in datasets:
 
         # social condition
         for index_trial, df_trial in df_participant_social.iterrows():
-            RTs.append(df_trial.rt)
             # jar indices
             safe_jar   = jarindex_inverted[df_trial.riskyKey]
             risky_jar  = jarindex[df_trial.riskyKey]
@@ -190,9 +191,11 @@ for dataset in datasets:
                     prompt += 'In sampling round ' + str(i+1) + ', we drew ' + xMarble(n_blue[i] + n_red[i]) + ', among which, '
                     prompt += xMarblewas(n_blue[i]) + ' blue, and ' + xMarblewas(n_red[i]) + ' red.\n'
                 prompt += 'You report <<' + str(p_blue_hat) + '>> percent as your estimate of the ratio of blue marbles in the opaque risky jar.\n'
+                RTs.append(np.nan)
                 if p_blue_hat_conf > -1:
                     prompt += 'In this trial, you are also asked to report (from 0 to 100) how sure you are that the ratio of blue marbles you entered is correct.\n'
                     prompt += 'You report <<' + str(p_blue_hat_conf) + '>>.\n'
+                    RTs.append(np.nan)
             else:
                 prompt += 'In this trial, ' + str(p_blue) + ' percent of marbles in the risky jar are blue, and the other ' + str(100 - p_blue) + 'percent of marbles are red.\n'
 
@@ -200,11 +203,10 @@ for dataset in datasets:
             prompt += 'and jar ' + choice_options[risky_jar] + ' is the risky jar with ' + str(risky_value) + ' bonus points.\n'
             prompt += 'The other person chose jar ' + choice_options[adviced_choice] + '.\n'
             prompt += 'You choose jar <<' + choice_options[chosen_jar] + '>>.\n'
+            RTs.append(df_trial.rt)
 
-            # if they would receive the reward information on every trial:
-            #   prompt += 'You recived <<' + str(reward) + '>> bonus points as a result.\n'
-            # OR
-            #   prompt += 'So far in the experiment, you recived <<' + str(total_reward) + '>> bonus points in total.\n'
+            if trial % 5 == 0:
+                prompt += 'So far in the experiment, you recived ' + str(total_reward) + ' bonus points in total.\n'
         prompt += '\n'
 
 
