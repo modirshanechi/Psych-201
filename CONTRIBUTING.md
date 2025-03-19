@@ -44,6 +44,17 @@
 | Spatial bandit | age (4-9) | 10,200 | [Link](https://hcai-munich.com/pubs/meder2021development.pdf) | Kristin Witte |
 | Belief updating | - | ? | [Link](https://www.sciencedirect.com/science/article/pii/S0010027721003620) | Jason Burton |
 | Likelihood ratings | - | 45,000 | [Link](https://pubmed.ncbi.nlm.nih.gov/38695798/) | David Sebastian Broska |
+| Two-step | OCD (Q) | 392,200 | [Link](https://elifesciences.org/articles/11305#s4) | Can |
+| Non-stationary bandit | depression (G) | 78,000 | [Link](https://pmc.ncbi.nlm.nih.gov/articles/PMC6380943/) | Tankred |
+| BART | mental health (Q) | 199,200 | [Link](https://cpsyjournal.org/articles/10.5334/cpsy.91) | Luca |
+| Patent race game | anxiety (Q) | 78,160 | [Link](https://www.nature.com/articles/s41562-021-01180-y) | Elif |
+| Two-armed bandit | depression (G)  | 46,800 | [Link](https://osf.io/preprints/psyarxiv/tg3ec) | Kristin |
+| Two-armed bandit | depression (G) | 33,330 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006903) | Elif Kara |
+| Simple two-step task | OCD, anxiety (G) | 244,800 | [Link](https://www.nature.com/articles/s41562-022-01346-2) | Alireza |
+| Belief updating | anxiety (Q) | 2,670 | [Link](https://www.nature.com/articles/s41467-023-39825-3) | Marvin |
+| Go-NoGo | anxiety (G) | 48,480 | [Link](https://linkinghub.elsevier.com/retrieve/pii/S0006322317300914) | Susanne |
+| Social value orientation | paranoia (Q)  | 37,638 | [Link](https://pubmed.ncbi.nlm.nih.gov/35349872/) | Kozzy |
+
 
 # List of open data sets
 
@@ -71,32 +82,24 @@
 | N-back | age 18-80) | 24,800 | [Link](https://academic.oup.com/psychsocgerontology/article/78/1/40/6761668?login=false) |
 | Motivated encoding paradigm | age (8-25) | 34,176 | [Link](https://github.com/hartleylabnyu/reward_memories_influence_learning?tab=readme-ov-file) |
 | Repeated risky choice | age (3-X) | data available upon request | [Link](https://pubmed.ncbi.nlm.nih.gov/39631217/) |
-| Two-step | OCD (Q) | 392,200 | [Link](https://elifesciences.org/articles/11305#s4) |
-| Go-NoGo | anxiety (G) | 48,480 | [Link](https://linkinghub.elsevier.com/retrieve/pii/S0006322317300914) |
 | Risky choice | depression (G) | 10,080 | [Link](https://www.cambridge.org/core/journals/psychological-medicine/article/abs/hyperresponsivity-to-losses-in-the-anterior-insula-during-economic-choice-scales-with-depression-severity/AA03DC9771C2EA53FBF67A208F49697D) |
 | Probabilistic reward learning | depression (G) | 5,520 | [Link](https://cpsyjournal.org/articles/10.1162/CPSY_a_00024) |
-| Non-stationary bandit | depression (G) | 78,000 | [Link](https://pmc.ncbi.nlm.nih.gov/articles/PMC6380943/) |
-| Two-armed bandit | depression (G) | 33,330 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1006903) |
 | Non-stationary bandit | anxiety (G) | 52,800 | [Link](https://www.nature.com/articles/s41562-019-0628-0) |
 | Probabilistic decision-making | anxiety and depression (G) | 17,600 | [Link](https://elifesciences.org/articles/61387) |
 | Memory | ADHD and PDD (G) | 7,040 | [Link](https://link.springer.com/article/10.3758/s13415-022-00999-w) |
 | Two-armed bandit | depression (G) | 17,472 | [Link](https://www.cambridge.org/core/journals/psychological-medicine/article/contextual-influence-of-reinforcement-learning-performance-of-depression-evidence-for-a-negativity-bias/4A99B6789148211973379AB7A8A81036) |
-| BART | mental health (Q) | 199,200 | [Link](https://cpsyjournal.org/articles/10.5334/cpsy.91) |
-| Two-armed bandit | depression (G)  | 46,800 | [Link](https://osf.io/preprints/psyarxiv/tg3ec) |
 | Three-armed bandit | depression (Q) | 70,110 | [Link](https://www.nature.com/articles/s41562-023-01640-7) |
 | Reversal learning task | paranoia (G) | 27,200 | [Link](https://elifesciences.org/articles/56345) |
 | Reversal learning task and a modified repeated reversal Dictator game | paranoia (Q) | 55,440 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1010326) |
-| Social value orientation | paranoia (Q)  | 37,638 | [Link](https://pubmed.ncbi.nlm.nih.gov/35349872/) |
 | Reversal learning task | PTSD (G) | 1,656 | [Link](https://www.nature.com/articles/s41593-018-0315-x) |
 | Reversal bandit task | ADHD (G) | 9,280 | [Link](https://link.springer.com/article/10.1007/s42113-021-00112-3) |
 | Reversal learning task | OCD (G) | 10,208 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1007634) |
 | Non-instrumental information-seeking task | OCD (Q) | 26,280 | [Link](https://www.researchgate.net/publication/335824677_Anxious_and_obsessive-compulsive_traits_are_independently_associated_with_valuation_of_non-instrumental_information) |
-| Patent race game | anxiety (Q) | 78,160 | [Link](https://www.nature.com/articles/s41562-021-01180-y) |
 | Pavlovian-instrumental transfer task | OCD (G)  | 12,600 | [Link](https://journals.plos.org/ploscompbiol/article?id=10.1371/journal.pcbi.1009945) |
 | Go-NoGo | schizotypy (G) | 14,400 | [Link](https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0152781) |
 | Dynamic trust game | anxiety (G) | ? | [Link](https://journals.sagepub.com/doi/10.1177/0956797620910993) |
-| Simple two-step task | OCD, anxiety (G) | 244,800 | [Link](https://www.nature.com/articles/s41562-022-01346-2) |
-| Belief updating | anxiety (Q) | 2,670 | [Link](https://www.nature.com/articles/s41467-023-39825-3) |
+
+
 
 # List of completed data sets
 
