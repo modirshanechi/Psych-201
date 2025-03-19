@@ -1,3 +1,4 @@
+import random
 import sys
 import jsonlines
 import pandas as pd
@@ -31,18 +32,38 @@ for participant in tqdm(df1.pKey.unique()):
         scrumbled_response = int(trial["OptionChosen"][-1])
         #get the list of how answers were scrumbled
         scrumbled_list = eval(df2.loc[trial["itemNum"]-1, "randomized_option_order"])
-        #get the actual response in the prompt
-        response = scrumbled_list.index(scrumbled_response)+1
+        #get the response index in the prompts seed 0
+        response_idx = scrumbled_list.index(scrumbled_response)
         #get the instructions
         text = df2.loc[trial["itemNum"]-1, "prompt"]
 
+        #options finding
+        one_idx=text.find("1)")
+        two_idx = text.find("2)")
+        three_idx = text.find("3)")
+        four_idx = text.find("4)")
+        answer_idx = text.find("Answer:")
+        options=[text[(one_idx+3):two_idx], text[(two_idx+3):three_idx], text[(three_idx+3):four_idx], text[(four_idx+3):answer_idx]]
+
+        #get the actual response
+        response = options[response_idx]
+
+        #shuffle options
+        random.shuffle(options)
+
+        # response in the prompt:
+        resp_prompt = options.index(response)+1
+
+        #get the new prompt
+        new_text = text[:one_idx]+"1) "+options[0]+"2) "+options[1]+"3) "+options[2]+"4) "+options[3]+"Answer:"
+
         #fill the parameters to the trial outputs
-        trial_instuction = task.format(
-            text=text,
-            response=f"<<{response}>>"
+        trial_instruction = task.format(
+            text=new_text,
+            response=f"<<{resp_prompt}>>"
         )
         # append trial prompt to participant's recording
-        par_dict["text"] += trial_instuction + "\n"
+        par_dict["text"] += trial_instruction + "\n"
         correct_list.append(trial["Correct"])
 
     #append list of correct responses
@@ -89,18 +110,39 @@ for participant in tqdm(df1.pKey.unique()):
 
         #get the list of how answers were scrumbled
         scrumbled_list = eval(df2.loc[index, "randomized_option_order"])
-        #get the actual response in the prompt
-        response = scrumbled_list.index(scrumbled_response)+1
-        #get the instructions
+        # get the response index in the prompts seed 0
+        response_idx = scrumbled_list.index(scrumbled_response)
+        # get the instructions
         text = df2.loc[index, "prompt"]
 
-        #fill the parameters to the trial outputs
-        trial_instuction = task.format(
-            text=text,
-            response=f"<<{response}>>"
+        # options finding
+        one_idx = text.find("1)")
+        two_idx = text.find("2)")
+        three_idx = text.find("3)")
+        four_idx = text.find("4)")
+        answer_idx = text.find("Answer:")
+        options = [text[(one_idx + 3):two_idx], text[(two_idx + 3):three_idx], text[(three_idx + 3):four_idx],
+                   text[(four_idx + 3):answer_idx]]
+
+        # get the actual response
+        response = options[response_idx]
+
+        # shuffle options
+        random.shuffle(options)
+
+        # response in the prompt:
+        resp_prompt = options.index(response) + 1
+
+        # get the new prompt
+        new_text = text[:one_idx] + "1) " + options[0] + "2) " + options[1] + "3) " + options[2] + "4) " + options[3] + "Answer:"
+
+        # fill the parameters to the trial outputs
+        trial_instruction = task.format(
+            text=new_text,
+            response=f"<<{resp_prompt}>>"
         )
         # append trial prompt to participant's recording
-        par_dict["text"] += trial_instuction + "\n"
+        par_dict["text"] += trial_instruction + "\n"
         #add correctness
         correct_list.append(trial["Correct"])
 
@@ -139,18 +181,41 @@ for participant in tqdm(df1.pKey.unique()):
 
         #get the list of how answers were scrumbled
         scrumbled_list = eval(df2.loc[trial["itemNum"]-1, "randomized_option_order"])
-        #get the actual response in the prompt
-        response = scrumbled_list.index(scrumbled_response)+1
-        #get the instructions
-        text = df2.loc[trial["itemNum"]-1, "prompt"]
+        # get the response index in the prompts seed 0
+        response_idx = scrumbled_list.index(scrumbled_response)
+        # get the instructions
+        text = df2.loc[trial["itemNum"] - 1, "prompt"]
 
-        #fill the parameters to the trial outputs
-        trial_instuction = task.format(
-            text=text,
-            response=f"<<{response}>>"
+        # options finding
+        one_idx = text.find("1)")
+        two_idx = text.find("2)")
+        three_idx = text.find("3)")
+        four_idx = text.find("4)")
+        five_idx = text.find("5)")
+        answer_idx = text.find("Answer:")
+        options = [text[(one_idx + 3):two_idx], text[(two_idx + 3):three_idx], text[(three_idx + 3):four_idx],
+                   text[(four_idx + 3):five_idx], text[(five_idx+3):answer_idx]]
+
+        # get the actual response
+        response = options[response_idx]
+
+        # shuffle options
+        random.shuffle(options)
+
+        # response in the prompt:
+        resp_prompt = options.index(response) + 1
+
+        # get the new prompt
+        new_text = text[:one_idx] + "1) " + options[0] + "2) " + options[1] + "3) " + options[2] + "4) " + options[
+            3] + "5) "+ options[4] + "Answer:"
+
+        # fill the parameters to the trial outputs
+        trial_instruction = task.format(
+            text=new_text,
+            response=f"<<{resp_prompt}>>"
         )
         # append trial prompt to participant's recording
-        par_dict["text"] += trial_instuction + "\n"
+        par_dict["text"] += trial_instruction + "\n"
         #append correctness
         correct_list.append(trial["Correct"])
 
@@ -195,15 +260,33 @@ for participant in tqdm(df1.pKey.unique()):
 
         #get the list of how answers were scrumbled
         scrumbled_list = eval(df2.loc[trial["itemNum"]-1, "randomized_option_order"])
-        #get the actual response in the prompt
-        response = scrumbled_list.index(index)+1
-        #get the instructions
-        text = df2.loc[trial["itemNum"]-1, "prompt"]
+        # get the response index in the prompts seed 0
+        response_idx = scrumbled_list.index(index)
+        # get the instructions
+        text = df2.loc[trial["itemNum"] - 1, "prompt"]
 
-        #fill the parameters to the trial outputs
+        # options finding
+        one_idx = text.find("1)")
+        two_idx = text.find("2)")
+        answer_idx = text.find("Answer:")
+        options = [text[(one_idx + 3):two_idx], text[(two_idx + 3):answer_idx]]
+
+        # get the actual response
+        response = options[response_idx]
+
+        # shuffle options
+        random.shuffle(options)
+
+        # response in the prompt:
+        resp_prompt = options.index(response) + 1
+
+        # get the new prompt
+        new_text = text[:one_idx] + "1) " + options[0] + "2) " + options[1] + "Answer:"
+
+        # fill the parameters to the trial outputs
         trial_instuction = task.format(
-            text=text,
-            response=f"<<{response}>>"
+            text=new_text,
+            response=f"<<{resp_prompt}>>"
         )
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instuction + "\n"
@@ -242,13 +325,37 @@ for participant in tqdm(df1.pKey.unique()):
         scrumbled_response = int(trial["OptionChosen"][-1])
         # get the list of how answers were scrumbled
         scrumbled_list = eval(df2.loc[trial["itemNum"] - 1, "randomized_option_order"])
-        response = scrumbled_list.index(scrumbled_response) + 1
+        # get the response index in the prompts seed 0
+        response_idx = scrumbled_list.index(scrumbled_response)
         # get the instructions
         text = df2.loc[trial["itemNum"] - 1, "prompt"]
+
+        # options finding
+        one_idx = text.find("1)")
+        two_idx = text.find("2)")
+        three_idx = text.find("3)")
+        four_idx = text.find("4)")
+        answer_idx = text.find("Answer:")
+        options = [text[(one_idx + 3):two_idx], text[(two_idx + 3):three_idx], text[(three_idx + 3):four_idx],
+                   text[(four_idx + 3):answer_idx]]
+
+        # get the actual response
+        response = options[response_idx]
+
+        # shuffle options
+        random.shuffle(options)
+
+        # response in the prompt:
+        resp_prompt = options.index(response) + 1
+
+        # get the new prompt
+        new_text = text[:one_idx] + "1) " + options[0] + "2) " + options[1] + "3) " + options[2] + "4) " + options[
+            3] + "Answer:"
+
         # fill the parameters to the trial outputs
         trial_instruction = task.format(
-            text=text,
-            response=f"<<{response}>>"
+            text=new_text,
+            response=f"<<{resp_prompt}>>"
         )
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instruction + "\n"
@@ -283,13 +390,38 @@ for participant in tqdm(df1.pKey.unique()):
         scrumbled_response = int(trial["OptionChosen"][-1])
         # get the list of how answers were scrumbled
         scrumbled_list = eval(df2.loc[trial["itemNum"] - 1, "randomized_option_order"])
-        response = scrumbled_list.index(scrumbled_response) + 1
+        # get the response index in the prompts seed 0
+        response_idx = scrumbled_list.index(scrumbled_response)
         # get the instructions
         text = df2.loc[trial["itemNum"] - 1, "prompt"]
+
+        # options finding
+        one_idx = text.find("1)")
+        two_idx = text.find("2)")
+        three_idx = text.find("3)")
+        four_idx = text.find("4)")
+        five_idx = text.find("5)")
+        answer_idx = text.find("Answer:")
+        options = [text[(one_idx + 3):two_idx], text[(two_idx + 3):three_idx], text[(three_idx + 3):four_idx],
+                   text[(four_idx + 3):five_idx], text[(five_idx + 3):answer_idx]]
+
+        # get the actual response
+        response = options[response_idx]
+
+        # shuffle options
+        random.shuffle(options)
+
+        # response in the prompt:
+        resp_prompt = options.index(response) + 1
+
+        # get the new prompt
+        new_text = text[:one_idx] + "1) " + options[0] + "2) " + options[1] + "3) " + options[2] + "4) " + options[
+            3] + "5) " + options[4] + "Answer:"
+
         # fill the parameters to the trial outputs
         trial_instruction = task.format(
-            text=text,
-            response=f"<<{response}>>"
+            text=new_text,
+            response=f"<<{resp_prompt}>>"
         )
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instruction + "\n"
@@ -324,13 +456,37 @@ for participant in tqdm(df1.pKey.unique()):
         scrumbled_response = int(trial["OptionChosen"][-1])
         # get the list of how answers were scrumbled
         scrumbled_list = eval(df2.loc[trial["itemNum"] - 1, "randomized_option_order"])
-        response = scrumbled_list.index(scrumbled_response) + 1
+        # get the response index in the prompts seed 0
+        response_idx = scrumbled_list.index(scrumbled_response)
         # get the instructions
         text = df2.loc[trial["itemNum"] - 1, "prompt"]
+
+        # options finding
+        one_idx = text.find("1)")
+        two_idx = text.find("2)")
+        three_idx = text.find("3)")
+        four_idx = text.find("4)")
+        answer_idx = text.find("Answer:")
+        options = [text[(one_idx + 3):two_idx], text[(two_idx + 3):three_idx], text[(three_idx + 3):four_idx],
+                   text[(four_idx + 3):answer_idx]]
+
+        # get the actual response
+        response = options[response_idx]
+
+        # shuffle options
+        random.shuffle(options)
+
+        # response in the prompt:
+        resp_prompt = options.index(response) + 1
+
+        # get the new prompt
+        new_text = text[:one_idx] + "1) " + options[0] + "2) " + options[1] + "3) " + options[2] + "4) " + options[
+            3] + "Answer:"
+
         # fill the parameters to the trial outputs
         trial_instruction = task.format(
-            text=text,
-            response=f"<<{response}>>"
+            text=new_text,
+            response=f"<<{resp_prompt}>>"
         )
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instruction + "\n"
