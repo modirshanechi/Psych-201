@@ -166,6 +166,7 @@ for i_dataset, dataset in enumerate(datasets):
                 prompt += "The " + LeftRight[st[index_trial]] + " circle lights up and becomes yellow.\n"
                 prompt += 'You press the arrow key for <<' + LeftRight[st[index_trial]] + '>>.\n'
                 RTs.append(rt2[index_trial])
+                prompt += 'You received ' + Reward[ot[index_trial]] + ' in this trial.\n'
                 
             prompt += "Thank for your participation. You just completed Session " + str(i_session) + ".\n"
         prompt += '\n'
