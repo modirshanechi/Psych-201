@@ -20,7 +20,10 @@ for dataset in datasets:
     for participant in df['sub'].unique():
 
         df_participant = df[(df['sub'] == participant)]
+        ravens_value = lsas_df.loc[lsas_df['sub'] == participant, 'ravens'].iloc[0]
         lsas_value = lsas_df.loc[lsas_df['sub'] == participant, 'lsas'].iloc[0]
+        iq_value = lsas_df.loc[lsas_df['sub'] == participant, 'iq'].iloc[0]
+        age_value = lsas_df.loc[lsas_df['sub'] == participant, 'age'].iloc[0]
 
         prompt = f"\nYou are playing the Patent Race. In this game, you and your opponent compete for a prize by choosing an investment from your respective endowments. "\
         f"You will play {num_trials} rounds in total. In each round, you are endowed with 4 dollars, your opponent is endowed with 5 dollars, and the prize you are competing for is 10 dollars. " \
@@ -49,7 +52,10 @@ for dataset in datasets:
             'text': prompt,
             'experiment': 'hunter2021increased/' + dataset,
             'participant': str(participant),
-            'lsas': int(lsas_value)
+            'ravens': str(ravens_value),
+            'lsas': str(lsas_value),
+            'iq': str(iq_value),
+            'age': str(age_value),
         })
 
 with jsonlines.open('prompts.jsonl', 'w') as writer:
