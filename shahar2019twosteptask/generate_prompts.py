@@ -48,7 +48,7 @@ for dataset in ["exp1.csv"]: # "TST_nspn.csv" from https://osf.io/zc24g
             "text": par_instructions,
             "experiment": 'shahar2019twosteptask/TST_nspn.csv',
             "participant": str(participant),
-            "RT": []
+            "RTs": []
         }
         
         par_df = df[df.subject == participant].reset_index(drop=True)
@@ -71,7 +71,7 @@ for dataset in ["exp1.csv"]: # "TST_nspn.csv" from https://osf.io/zc24g
                 second_stage_state = trial_df.second_stage_state.values[0]
 
                 # Store reaction times
-                par_dict["RT"].append([rt1, rt2])
+                par_dict["RTs"].extend([rt1, rt2])
 
                 # Map the second stage state to our randomized state names
                 current_state = state_1 if second_stage_state == 2 else state_2
