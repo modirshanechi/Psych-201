@@ -17,5 +17,5 @@ Email: (current) cphaneuf@g.harvard.edu, (permanent) cphaneuf@umich.edu
 ## Data Source
 
 Note that this study contains 2 experiments:
-* study1.csv contains prompts from experiment 1 (i.e., choice blocks were defined by learnable difficulty cues and instructed reward cues)
-* study2.csv contains prompts from experiment 2 (i.e., choice blocks were defined by instructed difficulty cues and instructed reward cues)
+* study1.csv contains data for prompts from experiment 1 (i.e., choice blocks were defined by learnable difficulty cues and instructed reward cues)
+* study2.csv contains data for prompts from experiment 2 (i.e., choice blocks were defined by instructed difficulty cues and instructed reward cues)
