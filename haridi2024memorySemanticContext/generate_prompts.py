@@ -19,6 +19,8 @@ all_prompts = []
 for dataset in datasets:
     df = pd.read_csv(dataset)
     print(df)
+    # transform RT into ms
+    df['rt'] = df['rt'] * 1000
 
     num_tasks = df.Block.max() + 1
 
@@ -42,7 +44,11 @@ for dataset in datasets:
 
         for task in range(1, int(num_tasks)):
             df_task = df_participant[(df_participant['Block'] == task)]
-            condition.append(df_task.ListLength.iloc[0])
+            # check if the context size is NaN and if so, append "NoneContext"
+            if pd.isnull(df_task.ContextSize.iloc[0]):
+                condition.append("NoneContext")
+            else:
+                condition.append(df_task.ContextSize.iloc[0])
 
             prompt += 'Block ' + str(task) + ':\n'
 

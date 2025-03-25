@@ -1,3 +1,4 @@
+#%%
 import numpy as np
 import pandas as pd
 import jsonlines
@@ -19,9 +20,8 @@ all_prompts = []
 for dataset in datasets:
     df = pd.read_csv(dataset)
     print(df)
-
-    
-
+    # transform RT into ms
+    df.rt = df.rt * 1000
 
     for participant in df['subject_id'].unique():
         RTs = []
@@ -151,3 +151,4 @@ for dataset in datasets:
 
 with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)
+# %%
