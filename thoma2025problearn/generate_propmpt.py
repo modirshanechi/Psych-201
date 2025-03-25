@@ -2,6 +2,10 @@ import numpy as np
 import pandas as pd
 import jsonlines
 
+def randomized_choice_options(num_choices):
+    choice_options = list(map(chr, range(65, 91)))
+    return np.random.choice(choice_options, num_choices, replace=False)
+
 all_prompts = []
 df = pd.read_csv('behavioral_data.csv')
 
@@ -30,7 +34,8 @@ for participant in df['id'].unique():
     cond = df_participant.cond.iloc[0]
     gender = df_participant.gender.iloc[0]
     experiment_name = experiment + cond
-        
+    choice_options = randomized_choice_options(2)
+
     if cond == "ecol_dyn": 
         prompt = instr_dyn
     else:
@@ -48,7 +53,7 @@ for participant in df['id'].unique():
         correct = df_trial.correct.iloc[0]
                         
         prompt += (
-            f"Trial {trial}: You pressed option <<{button_pressed}>>. {'At option <<0>>, there was an animal hiding' if target_left == 1 else 'At option <<0>>, there was no animal hiding'}. {'At option <<1>>, there was an animal hiding' if target_right == 1 else 'At option <<1>>, there was no animal hiding'}.\n"
+            f"Trial {trial}: You pressed option <<{choice_options[button_pressed]}>>. {'At option ' + choice_options[0] + ', there was an animal hiding' if target_left == 1 else 'At option ' + choice_options[0] + ', there was no animal hiding'}. {'At option ' + choice_options[1] + ', there was an animal hiding' if target_right == 1 else 'At option ' + choice_options[1] + ', there was no animal hiding'}.\n"
             f"Your choice was {'correct and you receive a reward' if correct == 1 else 'incorrect and you do not receive a reward'}.\n"
         )
         
