@@ -10,8 +10,6 @@ all_prompts = []
 df = pd.read_csv('behavioral_data.csv')
 
 
-experiment = "Thoma_et_al_2025_"
-
 instr_dyn = "Welcome to the experiment! All animals have escaped from the zoo and are now hiding in the city. We need your help to find them. \n" \
     "In this experiment you will repeatedly see these two houses and have to predict behind which house an animal will hide next. \n" \
     "In each trial, an animal can hide behind one house, two houses or none. \n" \
@@ -33,7 +31,6 @@ for participant in df['id'].unique():
     age = df_participant.age.iloc[0]
     cond = df_participant.cond.iloc[0]
     gender = df_participant.gender.iloc[0]
-    experiment_name = experiment + cond
     choice_options = randomized_choice_options(2)
 
     if cond == "ecol_dyn": 
@@ -59,10 +56,11 @@ for participant in df['id'].unique():
         
     all_prompts.append({
         'text': prompt,
-        'experiment': experiment_name,
+        'experiment': 'Thoma_et_al_2025_probability_learning',
         'participant': str(participant),
         'age': str(age),
         'gender': str(gender),
+        'condition': str(cond)
     })
     
 

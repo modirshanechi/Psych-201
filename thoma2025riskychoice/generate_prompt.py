@@ -10,8 +10,6 @@ all_prompts = []
 df = pd.read_csv('data_thoma_et_al_2025.csv')
 
 
-experiment = "Thoma_et_al_2025_"
-
 instr_repeated = "In this experiment, we will ask you to make ten predictions in the same funfair game. Only at the end of the task you will find out how often you made correct and incorrect predictions. \n" \
     "In each trial, you will be presented with ten objects. Seven objects are marked with one letter, three objects are marked with a different letter. \n" \
     "The letters disappear, the objects will be shuffled, and one of them is randomly drawn. \n" \
@@ -35,7 +33,6 @@ for participant in df['id'].unique():
     age = df_participant.age.iloc[0]
     cond = df_participant.cond.iloc[0]
     gender = df_participant.gender.iloc[0]
-    experiment_name = experiment + cond
     choice_options = randomized_choice_options(2)
 
     if cond == "unique": 
@@ -89,10 +86,11 @@ for participant in df['id'].unique():
 
     all_prompts.append({
         'text': prompt,
-        'experiment': experiment_name,
+        'experiment': 'Thoma_et_al_2025_risky_choice',
         'participant': str(participant),
         'age': str(age),
         'gender': str(gender),
+        'condition': str(cond)
     })
     
 
