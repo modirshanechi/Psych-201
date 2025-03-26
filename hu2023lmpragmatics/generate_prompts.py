@@ -3,6 +3,7 @@ import sys
 import jsonlines
 import pandas as pd
 from tqdm import tqdm
+from utils import randomized_choice_options
 sys.path.append("..")
 
 json_out = []
@@ -51,11 +52,30 @@ for participant in tqdm(df1.pKey.unique()):
         #shuffle options
         random.shuffle(options)
 
+        # new response index
+        new_resp_idx = options.index(response)
+
+
+        # generate by-participant randomization of keys that correspond to the forced-choice options
+        (
+            obj_1,
+            obj_2,
+            obj_3,
+            obj_4
+        ) = randomized_choice_options(4)
+        obj_list = [obj_1, obj_2, obj_3, obj_4]
+
+        #replace digits with letters in the task instructions
+        text = text.replace("1", obj_1, 1)
+        text = text.replace("2", obj_2, 1)
+        text = text.replace("3", obj_3, 1)
+        text = text.replace("4", obj_4, 1)
+
         # response in the prompt:
-        resp_prompt = options.index(response)+1
+        resp_prompt = obj_list[new_resp_idx]
 
         #get the new prompt
-        new_text = text[:one_idx]+"1) "+options[0]+"2) "+options[1]+"3) "+options[2]+"4) "+options[3]+"Answer:"
+        new_text = text[:one_idx]+obj_1+": "+options[0]+obj_2+": "+options[1]+obj_3+": "+options[2]+obj_4+": "+options[3]+"Answer:"
 
         #fill the parameters to the trial outputs
         trial_instruction = task.format(
@@ -130,11 +150,30 @@ for participant in tqdm(df1.pKey.unique()):
         # shuffle options
         random.shuffle(options)
 
+        # new response index
+        new_resp_idx = options.index(response)
+
+        # generate by-participant randomization of keys that correspond to the forced-choice options
+        (
+            obj_1,
+            obj_2,
+            obj_3,
+            obj_4
+        ) = randomized_choice_options(4)
+        obj_list = [obj_1, obj_2, obj_3, obj_4]
+
+        # replace digits with letters in the task instructions
+        text = text.replace("1", obj_1, 1)
+        text = text.replace("2", obj_2, 1)
+        text = text.replace("3", obj_3, 1)
+        text = text.replace("4", obj_4, 1)
+
         # response in the prompt:
-        resp_prompt = options.index(response) + 1
+        resp_prompt = obj_list[new_resp_idx]
 
         # get the new prompt
-        new_text = text[:one_idx] + "1) " + options[0] + "2) " + options[1] + "3) " + options[2] + "4) " + options[3] + "Answer:"
+        new_text = text[:one_idx] + obj_1 + ": " + options[0] + obj_2 + ": " + options[1] + obj_3 + ": " + options[
+            2] + obj_4 + ": " + options[3] + "Answer:"
 
         # fill the parameters to the trial outputs
         trial_instruction = task.format(
@@ -202,12 +241,32 @@ for participant in tqdm(df1.pKey.unique()):
         # shuffle options
         random.shuffle(options)
 
+        # new response index
+        new_resp_idx = options.index(response)
+
+        # generate by-participant randomization of keys that correspond to the forced-choice options
+        (
+            obj_1,
+            obj_2,
+            obj_3,
+            obj_4,
+            obj_5
+        ) = randomized_choice_options(5)
+        obj_list = [obj_1, obj_2, obj_3, obj_4, obj_5]
+
+        # replace digits with letters in the task instructions
+        text = text.replace("1", obj_1, 1)
+        text = text.replace("2", obj_2, 1)
+        text = text.replace("3", obj_3, 1)
+        text = text.replace("4", obj_4, 1)
+        text = text.replace("5", obj_5, 1)
+
         # response in the prompt:
-        resp_prompt = options.index(response) + 1
+        resp_prompt = obj_list[new_resp_idx]
 
         # get the new prompt
-        new_text = text[:one_idx] + "1) " + options[0] + "2) " + options[1] + "3) " + options[2] + "4) " + options[
-            3] + "5) "+ options[4] + "Answer:"
+        new_text = text[:one_idx] + obj_1 + ": " + options[0] + obj_2 + ": " + options[1] + obj_3 + ": " + options[
+            2] + obj_4 + ": " + options[3] + obj_5 + ": " + options[4] + "Answer:"
 
         # fill the parameters to the trial outputs
         trial_instruction = task.format(
@@ -277,19 +336,33 @@ for participant in tqdm(df1.pKey.unique()):
         # shuffle options
         random.shuffle(options)
 
+        # new response index
+        new_resp_idx = options.index(response)
+
+        # generate by-participant randomization of keys that correspond to the forced-choice options
+        (
+            obj_1,
+            obj_2
+        ) = randomized_choice_options(2)
+        obj_list = [obj_1, obj_2]
+
+        # replace digits with letters in the task instructions
+        text = text.replace("1", obj_1, 1)
+        text = text.replace("2", obj_2, 1)
+
         # response in the prompt:
-        resp_prompt = options.index(response) + 1
+        resp_prompt = obj_list[new_resp_idx]
 
         # get the new prompt
-        new_text = text[:one_idx] + "1) " + options[0] + "2) " + options[1] + "Answer:"
+        new_text = text[:one_idx] + obj_1 + ": " + options[0] + obj_2 + ": " + options[1] + "Answer:"
 
         # fill the parameters to the trial outputs
-        trial_instuction = task.format(
+        trial_instruction = task.format(
             text=new_text,
             response=f"<<{resp_prompt}>>"
         )
         # append trial prompt to participant's recording
-        par_dict["text"] += trial_instuction + "\n"
+        par_dict["text"] += trial_instruction + "\n"
 
         #append the correctness
         correct_list.append(trial["Correct"])
@@ -345,12 +418,30 @@ for participant in tqdm(df1.pKey.unique()):
         # shuffle options
         random.shuffle(options)
 
+        # new response index
+        new_resp_idx = options.index(response)
+
+        # generate by-participant randomization of keys that correspond to the forced-choice options
+        (
+            obj_1,
+            obj_2,
+            obj_3,
+            obj_4
+        ) = randomized_choice_options(4)
+        obj_list = [obj_1, obj_2, obj_3, obj_4]
+
+        # replace digits with letters in the task instructions
+        text = text.replace("1", obj_1, 1)
+        text = text.replace("2", obj_2, 1)
+        text = text.replace("3", obj_3, 1)
+        text = text.replace("4", obj_4, 1)
+
         # response in the prompt:
-        resp_prompt = options.index(response) + 1
+        resp_prompt = obj_list[new_resp_idx]
 
         # get the new prompt
-        new_text = text[:one_idx] + "1) " + options[0] + "2) " + options[1] + "3) " + options[2] + "4) " + options[
-            3] + "Answer:"
+        new_text = text[:one_idx] + obj_1 + ": " + options[0] + obj_2 + ": " + options[1] + obj_3 + ": " + options[
+            2] + obj_4 + ": " + options[3] + "Answer:"
 
         # fill the parameters to the trial outputs
         trial_instruction = task.format(
@@ -411,12 +502,32 @@ for participant in tqdm(df1.pKey.unique()):
         # shuffle options
         random.shuffle(options)
 
+        # new response index
+        new_resp_idx = options.index(response)
+
+        # generate by-participant randomization of keys that correspond to the forced-choice options
+        (
+            obj_1,
+            obj_2,
+            obj_3,
+            obj_4,
+            obj_5
+        ) = randomized_choice_options(5)
+        obj_list = [obj_1, obj_2, obj_3, obj_4, obj_5]
+
+        # replace digits with letters in the task instructions
+        text = text.replace("1", obj_1, 1)
+        text = text.replace("2", obj_2, 1)
+        text = text.replace("3", obj_3, 1)
+        text = text.replace("4", obj_4, 1)
+        text = text.replace("5", obj_5, 1)
+
         # response in the prompt:
-        resp_prompt = options.index(response) + 1
+        resp_prompt = obj_list[new_resp_idx]
 
         # get the new prompt
-        new_text = text[:one_idx] + "1) " + options[0] + "2) " + options[1] + "3) " + options[2] + "4) " + options[
-            3] + "5) " + options[4] + "Answer:"
+        new_text = text[:one_idx] + obj_1 + ": " + options[0] + obj_2 + ": " + options[1] + obj_3 + ": " + options[
+            2] + obj_4 + ": " + options[3] + obj_5 + ": " + options[4] + "Answer:"
 
         # fill the parameters to the trial outputs
         trial_instruction = task.format(
@@ -476,12 +587,30 @@ for participant in tqdm(df1.pKey.unique()):
         # shuffle options
         random.shuffle(options)
 
+        # new response index
+        new_resp_idx = options.index(response)
+
+        # generate by-participant randomization of keys that correspond to the forced-choice options
+        (
+            obj_1,
+            obj_2,
+            obj_3,
+            obj_4
+        ) = randomized_choice_options(4)
+        obj_list = [obj_1, obj_2, obj_3, obj_4]
+
+        # replace digits with letters in the task instructions
+        text = text.replace("1", obj_1, 1)
+        text = text.replace("2", obj_2, 1)
+        text = text.replace("3", obj_3, 1)
+        text = text.replace("4", obj_4, 1)
+
         # response in the prompt:
-        resp_prompt = options.index(response) + 1
+        resp_prompt = obj_list[new_resp_idx]
 
         # get the new prompt
-        new_text = text[:one_idx] + "1) " + options[0] + "2) " + options[1] + "3) " + options[2] + "4) " + options[
-            3] + "Answer:"
+        new_text = text[:one_idx] + obj_1 + ": " + options[0] + obj_2 + ": " + options[1] + obj_3 + ": " + options[
+            2] + obj_4 + ": " + options[3] + "Answer:"
 
         # fill the parameters to the trial outputs
         trial_instruction = task.format(
@@ -506,8 +635,6 @@ for participant in tqdm(df1.pKey.unique()):
 #write to the jsonl file
 with jsonlines.open("prompts.jsonl", "w") as writer:
     writer.write_all(json_out)
-
-
 
 
 

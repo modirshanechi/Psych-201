@@ -7,16 +7,16 @@ sys.path.append("")
 json_out = []
 CHARACTER_LIMIT = 32000
 
-  ###Experiment 1
+  ###Experiment
 
 
-df = pd.read_csv("results_73_xor-some-Prolific-main_N275_anonym.csv")
+df = pd.read_csv("results_prereg_final_tidy.csv")
+df_help = pd.read_csv("results_prereg_tidy_final_zScored_long.csv")
 
 # general task instructions
 task_instructions = (
     "Thank you for participating in this experiment!\n"
-    "First you will be exposed to 4 example trials of the task.\n"
-    "Then you will have 76 trials without the instructions.\n"
+    "You will have 76 trials of the same task.\n"
     "Some of them will be attention checkers where you will be explicitly informed what to do.\n"
     "In each trial you will read a short story and see a sentence in the blue box.\n"
     "Then you will need to answer the question by adjusting the slider on the scale from 0 to 100, \n"
@@ -35,7 +35,8 @@ instructions_trial= (
 #go over participants
 for participant in tqdm(df.submission_id.unique()):
     # create a future json entry for the participant
-    par_dict = {"text": task_instructions, "experiment": 'tsvilodub_2023_xor_some', "participant": str(participant)}
+    par_dict = {"text": task_instructions, "experiment": 'tsvilodub-2023xorsome', "participant": str(participant)}
+    z_scored_rating =[]
     RT = []
     #reindex and drop the old index
     par_df = df[df.submission_id == participant].reset_index(drop=True)
@@ -48,30 +49,30 @@ for participant in tqdm(df.submission_id.unique()):
             crit_quest = trial["critical_question"]
         else:
             crit_quest = ""
+
         prompt = trial["prompt"]
         question = trial["question"]
         condition = trial["condition"]
         RT.append(trial["RT"])
+        trial_number = trial["trial_number"]
 
-        if condition == "example":
-            story = story[7:]
+        font_inx = question.find("</font>")
+        new_question = question[15:font_inx]
 
-            font_inx = question.find("</font>")
-            new_question = question[16:font_inx]
-            start_ind = question.find("8B0000\">")
-            end_inx = question.find("</i>")
-            new_question+="\n"+question[(start_ind+8):end_inx]
-        else:
-            font_inx = question.find("</font>")
-            new_question = question[15:font_inx]
+        b_inx = prompt.find("</b>")
+        prompt = prompt[3:b_inx]
 
-            b_inx = prompt.find("</b>")
-            prompt = prompt[3:b_inx]
+        if crit_quest:
+            b_inx = crit_quest.find("</b>")
+            crit_quest = crit_quest[3:b_inx]
 
-            if crit_quest:
-                b_inx = crit_quest.find("</b>")
-                crit_quest = crit_quest[3:b_inx]
         story+=" " + crit_quest
+
+        if condition == "critical":
+            z_scores = df_help.loc[(df_help['submission_id'] == participant) & (df_help['trial_number'] == trial_number), 'response_centered']
+            z_scored_rating.append(z_scores.iloc[0])
+        else:
+            z_scored_rating.append(0)
 
         #fill the parameters to the trial outputs
         trial_instuction = instructions_trial.format(
@@ -84,12 +85,13 @@ for participant in tqdm(df.submission_id.unique()):
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instuction + "\n"
 
-    """# check that the prompt is not too long
+    # check that the prompt is not too long
     assert (
         len(par_dict["text"]) < CHARACTER_LIMIT
-    ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"""
-    # append reaction times
+    ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"
+    # append reaction times and z scores
     par_dict["RTs"] = RT
+    par_dict["z_scored_ratings"] = z_scored_rating
 
     json_out.append(par_dict)
 
