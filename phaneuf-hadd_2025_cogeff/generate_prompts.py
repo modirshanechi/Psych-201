@@ -29,8 +29,8 @@ for participant in range(num_participants):
     # set instructions, modified from human participants (because of no visuals)
     prompt = 'In this game, you will be asked to sort aliens according to what they look like. Your goal is to describe what the aliens look like as correctly and as quickly as possible. '\
     'Your job is simple. Every time you see an alien, you will need to tell us what color it is OR what pattern is on its stomach. '\
-    'If you need to tell us what color the alien is, you will see a blue and orange bar at the top of your screen. Press F for blue; press J for orange. '\
-    'If you need to tell us what pattern is on the alien\'s stomach, you will see a striped and solid bar at the top of your screen. Press F for striped; press J for solid. '\
+    'If you need to tell us what color the alien is, you will see a blue and orange bar at the top of your screen. Press f for blue; press j for orange. '\
+    'If you need to tell us what pattern is on the alien\'s stomach, you will see a striped and solid bar at the top of your screen. Press f for striped; press j for solid. '\
     'Each block, before you see an alien, you will briefly see how much bonus money you can earn for saying the correct color or pattern. If you also say the correct color pattern fast, you will win an extra bonus at the end. '\
     'You can earn 10 cents or 1 cent for each correct choice. You will earn 0 cents for each incorrect choice. '\
     'Each block, before you see an alien, you will briefly see either planets or moons. '\
@@ -114,8 +114,8 @@ for participant in range(num_participants2):
     # set instructions, modified from human participants (because of no visuals)
     prompt = 'In this game, you will be asked to sort aliens according to what they look like. Your goal is to describe what the aliens look like as correctly and as quickly as possible. '\
     'Your job is simple. Every time you see an alien, you will need to tell us what color it is OR what pattern is on its stomach. '\
-    'If you need to tell us what color the alien is, you will see a blue and orange bar at the top of your screen. Press F for blue; press J for orange. '\
-    'If you need to tell us what pattern is on the alien\'s stomach, you will see a striped and solid bar at the top of your screen. Press F for striped; press J for solid. '\
+    'If you need to tell us what color the alien is, you will see a blue and orange bar at the top of your screen. Press f for blue; press j for orange. '\
+    'If you need to tell us what pattern is on the alien\'s stomach, you will see a striped and solid bar at the top of your screen. Press f for striped; press j for solid. '\
     'Each block, before you see an alien, you will briefly see how much bonus money you can earn for saying the correct color or pattern. If you also say the correct color pattern fast, you will win an extra bonus at the end. '\
     'You can earn 10 cents or 1 cent for each correct choice. You will earn 0 cents for each incorrect choice. '\
     'Each block, before you see an alien, you will briefly see either planets or moons. '\

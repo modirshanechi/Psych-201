@@ -7,6 +7,7 @@ Phaneuf-Hadd, C. V., Jacques, I. M., Insel, C., Otto, A. R., & Somerville, L. H.
 Note that this study contains 2 experiments (pre-registrations provided while article is in press):
 * Experiment 1 pre-registration: https://osf.io/gnvph/
 * Experiment 2 pre-registration: https://osf.io/3epua/
+* DOI upon publication: 10.1037/xge0001745
 
 ## Developer Contact Information
 
