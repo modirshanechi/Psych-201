@@ -7,12 +7,24 @@ from utils import randomized_choice_options
 sys.path.append("..")
 
 json_out = []
-CHARACTER_LIMIT = 32000
+CHARACTER_LIMIT = 120000
 
-###Deceits
+#Datasets
 
 df1 = pd.read_csv("Data/Human_Deceits.csv")
 df2 = pd.read_csv("Data/Deceits_prompts_seed0_examples0.csv")
+df3 = pd.read_csv("Data/Human_Maxims.csv")
+df4 = pd.read_csv("Data/Maxims_prompts_seed0_examples0.csv")
+df5 = pd.read_csv("Data/Human_Humour.csv")
+df6 = pd.read_csv("Data/Humour_prompts_seed0_examples0.csv")
+df7 = pd.read_csv("Data/Human_CoherenceInference.csv")
+df8 = pd.read_csv("Data/CoherenceInference_prompts_seed0_examples0.csv")
+df9 = pd.read_csv("Data/Human_IndirectSpeech.csv")
+df10 = pd.read_csv("Data/IndirectSpeech_prompts_seed0_examples0.csv")
+df11 = pd.read_csv("Data/Human_Metaphor.csv")
+df12 = pd.read_csv("Data/Metaphor_prompts_seed0_examples0.csv")
+df13 = pd.read_csv("Data/Human_Irony.csv")
+df14 = pd.read_csv("Data/Irony_prompts_seed0_examples0.csv")
 
 # general task instructions
 task = (
@@ -21,11 +33,14 @@ task = (
 #go over participants
 for participant in tqdm(df1.pKey.unique()):
     # create a future json entry for the participant
-    par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/Human_Deceits.csv', "participant": str(participant)}
+    par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics', "participant": str(participant)}
+    # Correctness list
+    correct_list = []
+
+    ###Deceits
+
     #reindex and drop the old index
     par_df = df1[df1.pKey == participant].reset_index(drop=True)
-    #Correctness list
-    correct_list=[]
     # iterate over trials
     for _, trial in par_df.iterrows():
 
@@ -86,33 +101,12 @@ for participant in tqdm(df1.pKey.unique()):
         par_dict["text"] += trial_instruction + "\n"
         correct_list.append(trial["Correct"])
 
-    #append list of correct responses
-    par_dict["Correctness"] = correct_list
-    # check that the prompt is not too long
-    assert (
-        len(par_dict["text"]) < CHARACTER_LIMIT
-    ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"
-
-    json_out.append(par_dict)
 
 
-###Maxims
+    ###Maxims
 
-df1 = pd.read_csv("Data/Human_Maxims.csv")
-df2 = pd.read_csv("Data/Maxims_prompts_seed0_examples0.csv")
-
-# general task instructions
-task = (
-    "{text} {response}\n\n"
-)
-#go over participants
-for participant in tqdm(df1.pKey.unique()):
-    # create a future json entry for the participant
-    par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/Maxims.csv', "participant": str(participant)}
-    #reindex and drop the old index
-    par_df = df1[df1.pKey == participant].reset_index(drop=True)
-    #Correctness lis
-    correct_list=[]
+    # reindex and drop the old index
+    par_df = df3[df3.pKey == participant].reset_index(drop=True)
     # iterate over trials
     for _, trial in par_df.iterrows():
 
@@ -129,11 +123,11 @@ for participant in tqdm(df1.pKey.unique()):
             continue
 
         #get the list of how answers were scrumbled
-        scrumbled_list = eval(df2.loc[index, "randomized_option_order"])
+        scrumbled_list = eval(df4.loc[index, "randomized_option_order"])
         # get the response index in the prompts seed 0
         response_idx = scrumbled_list.index(scrumbled_response)
         # get the instructions
-        text = df2.loc[index, "prompt"]
+        text = df4.loc[index, "prompt"]
 
         # options finding
         one_idx = text.find("1)")
@@ -185,45 +179,23 @@ for participant in tqdm(df1.pKey.unique()):
         #add correctness
         correct_list.append(trial["Correct"])
 
-    # append list of correct responses
-    par_dict["Correctness"] = correct_list
-    # check that the prompt is not too long
-    assert (
-        len(par_dict["text"]) < CHARACTER_LIMIT
-    ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"
-
-    json_out.append(par_dict)
 
 
-###Humour
+    ###Humour
 
-df1 = pd.read_csv("Data/Human_Humour.csv")
-df2 = pd.read_csv("Data/Humour_prompts_seed0_examples0.csv")
-
-# general task instructions
-task = (
-    "{text} {response}\n\n"
-)
-#go over participants
-for participant in tqdm(df1.pKey.unique()):
-    # create a future json entry for the participant
-    par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/Humour.csv', "participant": str(participant)}
-    #reindex and drop the old index
-    par_df = df1[df1.pKey == participant].reset_index(drop=True)
-    #Correctness list
-    correct_list=[]
+    # reindex and drop the old index
+    par_df = df5[df5.pKey == participant].reset_index(drop=True)
     # iterate over trials
     for _, trial in par_df.iterrows():
-
         # get the scrumbled response as number (e.g. Answer3 -> 3)
         scrumbled_response = int(trial["OptionChosen"][-1])
 
-        #get the list of how answers were scrumbled
-        scrumbled_list = eval(df2.loc[trial["itemNum"]-1, "randomized_option_order"])
+        # get the list of how answers were scrumbled
+        scrumbled_list = eval(df6.loc[trial["itemNum"] - 1, "randomized_option_order"])
         # get the response index in the prompts seed 0
         response_idx = scrumbled_list.index(scrumbled_response)
         # get the instructions
-        text = df2.loc[trial["itemNum"] - 1, "prompt"]
+        text = df6.loc[trial["itemNum"] - 1, "prompt"]
 
         # options finding
         one_idx = text.find("1)")
@@ -233,7 +205,7 @@ for participant in tqdm(df1.pKey.unique()):
         five_idx = text.find("5)")
         answer_idx = text.find("Answer:")
         options = [text[(one_idx + 3):two_idx], text[(two_idx + 3):three_idx], text[(three_idx + 3):four_idx],
-                   text[(four_idx + 3):five_idx], text[(five_idx+3):answer_idx]]
+                   text[(four_idx + 3):five_idx], text[(five_idx + 3):answer_idx]]
 
         # get the actual response
         response = options[response_idx]
@@ -275,36 +247,14 @@ for participant in tqdm(df1.pKey.unique()):
         )
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instruction + "\n"
-        #append correctness
+        # append correctness
         correct_list.append(trial["Correct"])
 
-    # append list of correct responses
-    par_dict["Correctness"] = correct_list
-    # check that the prompt is not too long
-    assert (
-        len(par_dict["text"]) < CHARACTER_LIMIT
-    ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"
 
-    json_out.append(par_dict)
+    ###Coherence
 
-
-###Coherence
-
-df1 = pd.read_csv("Data/Human_CoherenceInference.csv")
-df2 = pd.read_csv("Data/CoherenceInference_prompts_seed0_examples0.csv")
-
-# general task instructions
-task = (
-    "{text} {response}\n\n"
-)
-#go over participants
-for participant in tqdm(df1.pKey.unique()):
-    # create a future json entry for the participant
-    par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/CoherenceInference.csv', "participant": str(participant)}
-    #reindex and drop the old index
-    par_df = df1[df1.pKey == participant].reset_index(drop=True)
-    #Correctness list
-    correct_list=[]
+    # reindex and drop the old index
+    par_df = df7[df7.pKey == participant].reset_index(drop=True)
     # iterate over trials
     for _, trial in par_df.iterrows():
 
@@ -317,12 +267,12 @@ for participant in tqdm(df1.pKey.unique()):
         else:
             index = 2
 
-        #get the list of how answers were scrumbled
-        scrumbled_list = eval(df2.loc[trial["itemNum"]-1, "randomized_option_order"])
+        # get the list of how answers were scrumbled
+        scrumbled_list = eval(df8.loc[trial["itemNum"] - 1, "randomized_option_order"])
         # get the response index in the prompts seed 0
         response_idx = scrumbled_list.index(index)
         # get the instructions
-        text = df2.loc[trial["itemNum"] - 1, "prompt"]
+        text = df8.loc[trial["itemNum"] - 1, "prompt"]
 
         # options finding
         one_idx = text.find("1)")
@@ -364,44 +314,23 @@ for participant in tqdm(df1.pKey.unique()):
         # append trial prompt to participant's recording
         par_dict["text"] += trial_instruction + "\n"
 
-        #append the correctness
+        # append the correctness
         correct_list.append(trial["Correct"])
 
-    # append list of correct responses
-    par_dict["Correctness"] = correct_list
+    ###Indirect Speech
 
-    # check that the prompt is not too long
-    assert (
-        len(par_dict["text"]) < CHARACTER_LIMIT
-    ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"
-
-    json_out.append(par_dict)
-
-
-
-###Indirect Speech
-
-df1 = pd.read_csv("Data/Human_IndirectSpeech.csv")
-df2 = pd.read_csv("Data/IndirectSpeech_prompts_seed0_examples0.csv")
-# go over participants
-for participant in tqdm(df1.pKey.unique()):
-    # create a future json entry for the participant
-    par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/Human_IndirectSpeech.csv',
-                "participant": str(participant)}
     # reindex and drop the old index
-    par_df = df1[df1.pKey == participant].reset_index(drop=True)
-    # Correctness list
-    correct_list = []
+    par_df = df9[df9.pKey == participant].reset_index(drop=True)
     # iterate over trials
     for _, trial in par_df.iterrows():
         # get the scrumbled response as number (e.g. Answer3 -> 3)
         scrumbled_response = int(trial["OptionChosen"][-1])
         # get the list of how answers were scrumbled
-        scrumbled_list = eval(df2.loc[trial["itemNum"] - 1, "randomized_option_order"])
+        scrumbled_list = eval(df10.loc[trial["itemNum"] - 1, "randomized_option_order"])
         # get the response index in the prompts seed 0
         response_idx = scrumbled_list.index(scrumbled_response)
         # get the instructions
-        text = df2.loc[trial["itemNum"] - 1, "prompt"]
+        text = df10.loc[trial["itemNum"] - 1, "prompt"]
 
         # options finding
         one_idx = text.find("1)")
@@ -454,37 +383,20 @@ for participant in tqdm(df1.pKey.unique()):
         # append the correctness
         correct_list.append(trial["Correct"])
 
-    # append list of correct responses
-    par_dict["Correctness"] = correct_list
-    # check that the prompt is not too long
-    assert (
-            len(par_dict["text"]) < CHARACTER_LIMIT
-    ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"
+    ###Metaphor
 
-    json_out.append(par_dict)
-
-###Metaphor
-
-df1 = pd.read_csv("Data/Human_Metaphor.csv")
-df2 = pd.read_csv("Data/Metaphor_prompts_seed0_examples0.csv")
-# go over participants
-for participant in tqdm(df1.pKey.unique()):
-    # create a future json entry for the participant
-    par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/Human_Metaphor.csv', "participant": str(participant)}
     # reindex and drop the old index
-    par_df = df1[df1.pKey == participant].reset_index(drop=True)
-    # Correctness list
-    correct_list = []
+    par_df = df11[df11.pKey == participant].reset_index(drop=True)
     # iterate over trials
     for _, trial in par_df.iterrows():
         # get the scrumbled response as number (e.g. Answer3 -> 3)
         scrumbled_response = int(trial["OptionChosen"][-1])
         # get the list of how answers were scrumbled
-        scrumbled_list = eval(df2.loc[trial["itemNum"] - 1, "randomized_option_order"])
+        scrumbled_list = eval(df12.loc[trial["itemNum"] - 1, "randomized_option_order"])
         # get the response index in the prompts seed 0
         response_idx = scrumbled_list.index(scrumbled_response)
         # get the instructions
-        text = df2.loc[trial["itemNum"] - 1, "prompt"]
+        text = df12.loc[trial["itemNum"] - 1, "prompt"]
 
         # options finding
         one_idx = text.find("1)")
@@ -540,37 +452,20 @@ for participant in tqdm(df1.pKey.unique()):
         # append the correctness
         correct_list.append(trial["Correct"])
 
-    # append list of correct responses
-    par_dict["Correctness"] = correct_list
-    #check that the prompt is not too long
-    assert (
-            len(par_dict["text"]) < CHARACTER_LIMIT
-    ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"
+    ###Irony
 
-    json_out.append(par_dict)
-
-###Irony
-
-df1 = pd.read_csv("Data/Human_Irony.csv")
-df2 = pd.read_csv("Data/Irony_prompts_seed0_examples0.csv")
-# go over participants
-for participant in tqdm(df1.pKey.unique()):
-    # create a future json entry for the participant
-    par_dict = {"text": "", "experiment": 'hu2023lm-pragmatics/Human_Irony.csv', "participant": str(participant)}
     # reindex and drop the old index
-    par_df = df1[df1.pKey == participant].reset_index(drop=True)
-    # Correctness list
-    correct_list = []
+    par_df = df13[df13.pKey == participant].reset_index(drop=True)
     # iterate over trials
     for _, trial in par_df.iterrows():
         # get the scrumbled response as number (e.g. Answer3 -> 3)
         scrumbled_response = int(trial["OptionChosen"][-1])
         # get the list of how answers were scrumbled
-        scrumbled_list = eval(df2.loc[trial["itemNum"] - 1, "randomized_option_order"])
+        scrumbled_list = eval(df14.loc[trial["itemNum"] - 1, "randomized_option_order"])
         # get the response index in the prompts seed 0
         response_idx = scrumbled_list.index(scrumbled_response)
         # get the instructions
-        text = df2.loc[trial["itemNum"] - 1, "prompt"]
+        text = df14.loc[trial["itemNum"] - 1, "prompt"]
 
         # options finding
         one_idx = text.find("1)")
@@ -623,14 +518,16 @@ for participant in tqdm(df1.pKey.unique()):
         # append the correctness
         correct_list.append(trial["Correct"])
 
-    # append list of correct responses
+    #append list of correct responses
     par_dict["Correctness"] = correct_list
     # check that the prompt is not too long
     assert (
-            len(par_dict["text"]) < CHARACTER_LIMIT
+        len(par_dict["text"]) < CHARACTER_LIMIT
     ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"
 
     json_out.append(par_dict)
+
+
 
 #write to the jsonl file
 with jsonlines.open("prompts.jsonl", "w") as writer:
