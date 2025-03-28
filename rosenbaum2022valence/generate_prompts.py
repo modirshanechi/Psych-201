@@ -1,17 +1,27 @@
+from xml.dom.minidom import NamedNodeMap
+
 import numpy as np
 import pandas as pd
 import jsonlines
 import sys
+import zipfile
 sys.path.append("..")
-from utils import randomized_choice_options
+#from utils import randomized_choice_options
+def randomized_choice_options(num_choices):
+    choice_options = list(map(chr, range(65, 91)))
+    return np.random.choice(choice_options, num_choices, replace=False)
 
 
 
 dataset = "MemDF.csv"
+
 all_prompts = []
 
 
 df = pd.read_csv(dataset)
+
+
+
 df = df[df["TrialType"] != 2]
 
 metadata = pd.read_csv("widedf.csv")
@@ -22,6 +32,9 @@ print(df)
 
 
 df["NewTrialNumber"] = 0
+choices_count = []
+mem_count = []
+overall_RTs = []
 
 for participant in df['SubjectNumber'].unique():
     RTs = []
@@ -31,6 +44,7 @@ for participant in df['SubjectNumber'].unique():
     trial_numbers = range(1, participant_mask.sum() + 1)
     df.loc[participant_mask, "NewTrialNumber"] = trial_numbers
     num_trials = df["NewTrialNumber"].max()
+
 
     df_participant = df[(df['SubjectNumber'] == participant)]
     age = df_participant["Age"].iloc[0]
@@ -63,9 +77,11 @@ for participant in df['SubjectNumber'].unique():
 
     for _, row in df_participant.iterrows():
         #prompt += 'Game ' + str(task) + ':\n'
+
         trial = row['NewTrialNumber']
         condition = row['FullTrialType']
         image_response = row['MemResp']
+
         if image_response == 5:
             mem_choice = choice_options[5]
         elif image_response == 6:
@@ -126,19 +142,27 @@ for participant in df['SubjectNumber'].unique():
         c = df_trial["UnshuffledResp"].item() - 1
         r = df_trial['Outcome'].item()
         image = df_trial['MemIdx'].item()
-        RTs.append(df_trial["RT"].item())
+        RTs.append(df_trial["RT"].item()*1000) #convert to ms
+        RTs.append(None) #memory choice has no RT, but dimensions of choices and RTs have to map
+        overall_RTs.append(df_trial["RT"].item()*1000)
+        overall_RTs.append(None)
+
         risky_resp.append(df_trial["RiskyResp"].item())
         anyrisk.append(df_trial["AnyRisk"].item())
         choices = [choice_1, choice_2]
+        choices_count.append(c)
+        mem_count.append(mem_choice)
         prompt += 'You have a choice between ' + str(choice_1) + ' and ' + str(choice_2) + '. You choose <<' + str(choices[c]) + '>> and get ' + str(r) + ' points.\n'\
                     'The presented image is ' + str(image) + '. You choose <<' + str(mem_choice) + '>>.\n'\
+
 
 
     prompt += '\n'
 
     prompt = prompt[:-2]
     #print(prompt)
-    #print(RTs)
+
+
 
     all_prompts.append({'text': prompt,
         'experiment': 'rosenbaum2022valence/' + dataset,
@@ -149,6 +173,9 @@ for participant in df['SubjectNumber'].unique():
         'anyrisk': anyrisk,
         **additional_data
     })
+print(len(overall_RTs))
+print(len(choices_count))
+print(len(mem_count))
 
 
 
@@ -196,5 +223,8 @@ for participant, group in df.groupby("SubjectNumber"):
 
 with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)
+
+with zipfile.ZipFile('prompts.zip', 'w', zipfile.ZIP_DEFLATED) as zipf:
+    zipf.write('prompts.jsonl')
 
 
