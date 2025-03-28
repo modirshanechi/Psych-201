@@ -105,16 +105,22 @@ def generate_prompts(input_csv, output_jsonl):
                     try:
                         code = int(str(val).strip())
                         label_idx = config["labels"].get(code)
-                        randomized_labels = randomized_choice_options(len(config["options"]))
-                        label_map = {i: randomized_labels[i] for i in range(len(config["options"]))}
-                        options_text = "\n".join([f"Option {label_map[i]}: {desc}" for i, desc in enumerate(config["options"])])
-                        if label_idx is not None:
-                            choice_str = f"I would choose Option {label_map[label_idx]}"
-                            choice_line = f"<<{choice_str}>>"
-                        else:
-                            choice_line = f"<<I would search for other options>>"
 
-                        full_prompt = f"{config['prompt']}\n\n{options_text}\n\nWhat would you do?\n{choice_line}"
+                        # Determine if there's a search option
+                        total_keys = len(config["options"]) + 1
+                        keys = randomized_choice_options(total_keys)
+
+                        key_map = {i: keys[i] for i in range(len(config["options"]))}
+                        search_key = keys[-1] 
+
+                        # Construct choice text
+                        options_text = "\n".join([f"Option {key_map[i]}: {desc}" for i, desc in enumerate(config["options"])])
+
+                        instruction_line = f"What would you do? You can choose an option by pressing the corresponding key or decide to search for other options by pressing [{search_key}]."
+                        chosen_key = key_map[label_idx] if label_idx is not None else search_key
+                        choice_line = f"You press <<{chosen_key}>>."
+
+                        full_prompt = f"{config['prompt']}\n\n{options_text}\n\n{instruction_line}\n{choice_line}"
 
                         prompt_dict = {
                             "text": full_prompt,
@@ -124,7 +130,7 @@ def generate_prompts(input_csv, output_jsonl):
 
                         if 'Age' in row and not pd.isna(row['Age']):
                             prompt_dict["age"] = int(row['Age'])
-                        
+
                         gender_map = {'1': 'female', '2': 'male', 1: 'female', 2: 'male'}
                         if 'Gender' in row and not pd.isna(row['Gender']):
                             gender_value = row['Gender']

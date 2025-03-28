@@ -1,5 +1,10 @@
 import pandas as pd
+import numpy as np
 import json
+
+def randomized_choice_options(num_choices):
+    choice_options = list(map(chr, range(65, 91)))  # A–Z
+    return np.random.choice(choice_options, num_choices, replace=False)
 
 def generate_prompts(input_csv, output_jsonl):
     df = pd.read_csv(input_csv)
@@ -16,7 +21,12 @@ def generate_prompts(input_csv, output_jsonl):
         return None, None
 
     df[['condition', 'raw_response']] = df.apply(lambda row: pd.Series(extract_condition_response(row)), axis=1)
-    df['response'] = df['raw_response'].map({1: 'I would buy the tickets now', 2: 'I would buy the tickets later'})
+    
+    response_map = {
+        1: 'I would buy the tickets now',
+        2: 'I would buy the tickets later'
+    }
+    df['response'] = df['raw_response'].map(response_map)
 
     gender_map = {'1': 'female', '2': 'male', 1: 'female', 2: 'male'}
     df['Gender'] = df['Gender'].map(gender_map)
@@ -32,12 +42,20 @@ def generate_prompts(input_csv, output_jsonl):
 
     with open(output_jsonl, 'w', encoding='utf-8') as f:
         for idx, row in df.iterrows():
+            keys = randomized_choice_options(2)
+            key_map = {
+                'I would buy the tickets now': keys[0],
+                'I would buy the tickets later': keys[1]
+            }
+            chosen_key = key_map[row['response']]
+
             context = (
                 "Imagine that you are buying flight tickets for your upcoming holidays. Only one airline "
                 "flies directly to that destination.\n\n"
                 f"{condition_descriptions[row['condition']]}\n\n"
-                "Would you buy the tickets now or later?\n"
-                f"<<{row['response']}>>"
+                f"Would you buy the tickets now or later? You can press [{key_map['I would buy the tickets now']}] to buy now or "
+                f"[{key_map['I would buy the tickets later']}] to buy later.\n"
+                f"You press <<{chosen_key}>>."
             )
 
             prompt = {
