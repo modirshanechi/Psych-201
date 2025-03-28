@@ -1,7 +1,7 @@
 import pandas as pd
 import jsonlines
 
-datasets = ["choices_diagno.csv"]
+datasets = ["/Users/elifkara/Desktop/Helmholtz/dezfouili/dezfouli2019/choices_diagno.csv"]
 all_prompts = []
 
 for dataset in datasets:
@@ -23,13 +23,13 @@ for dataset in datasets:
         
         # Process each row (each trial) of the participant's data (block info is not printed)
         for idx, row in df_participant.iterrows():
-            trial = row['trial']
+            block = row['block']
             original_choice = row['choice']  # e.g., "R1" or "R2"
             # Map the original choice to the new label ("L" or "R")
             renamed_choice = mapping.get(original_choice, original_choice)
             reward_val = row['reward']
             
-            prompt += f"Trial {trial}: "
+            prompt += f"Block {block}: "
             if reward_val == 0:
                 prompt += f"You pressed <<{renamed_choice}>> and received a food reward.\n"
             elif reward_val == 1:
