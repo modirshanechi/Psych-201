@@ -25,7 +25,7 @@ def main():
 
             # initialize variables
             RTs = []
-            prompt = 'In this task, you will be presented with color words. Once the stimulus is presented, you must respond to the ink color of the letters, ignoring the meaning of the word. Each of three possible ink colors has a corresponding response button (left, down, right).\nPlease respond as quickly and as accurately as possible. OK. Ready for the real thing? Remember, ignore the word itself; press: Left for red LETTERS, Down for green LETTERS, Right for blue LETTERS. \n\n '
+            prompt = 'In this task, you will be presented with color words. Once the stimulus is presented, you must respond to the ink color of the letters, ignoring the meaning of the word. Each of three possible ink colors has a corresponding response button (left, down, right).\nPlease respond as quickly and as accurately as possible. OK. Ready for the real thing? Remember, ignore the word itself; press: left for red LETTERS, down for green LETTERS, right for blue LETTERS. \n\n '
 
 
             # Iterate over each trial for this participant
