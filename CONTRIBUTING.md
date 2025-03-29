@@ -54,13 +54,13 @@
 | Belief updating | anxiety (Q) | 2,670 | [Link](https://www.nature.com/articles/s41467-023-39825-3) | Marvin |
 | Go-NoGo | anxiety (G) | 48,480 | [Link](https://linkinghub.elsevier.com/retrieve/pii/S0006322317300914) | Susanne |
 | Social value orientation | paranoia (Q)  | 37,638 | [Link](https://pubmed.ncbi.nlm.nih.gov/35349872/) | Kozzy |
+| Risky decision and happiness task | - | 3,600,000 | [Link](https://datadryad.org/stash/dataset/doi:10.5061/dryad.prr4xgxkk#citations) | Marcel |
 
 
 # List of open data sets
 
 | Task | Individual Differences | Number of Choices | Link |
 |:----------|:----------|:-------------|:-------------|
-| Risky decision and happiness task | - | 3,600,000 | [Link](https://datadryad.org/stash/dataset/doi:10.5061/dryad.prr4xgxkk#citations) |
 | Probabilistic selection task | - | 417,900 | [Link](https://www.cambridge.org/core/journals/psychological-medicine/article/core-component-of-psychological-therapy-causes-adaptive-changes-in-computational-learning-mechanisms/C054D998E59332496596661F52962BF8) |
 | Optimal stopping | - | 181,200 | [Link](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3001566) |
 | Risky choice | emotions | 101,600 | [Link](https://www.nature.com/articles/s41562-021-01213-6) |
