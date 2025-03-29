@@ -23,7 +23,7 @@ for dataset in datasets:
         
         # Process each row (each trial) of the participant's data (block info is not printed)
         for idx, row in df_participant.iterrows():
-            block = row['block']
+            block = row['trial']
             original_choice = row['choice']  # e.g., "R1" or "R2"
             # Map the original choice to the new label ("L" or "R")
             renamed_choice = mapping.get(original_choice, original_choice)
