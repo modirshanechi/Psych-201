@@ -119,7 +119,7 @@ for dataset in datasets:
 
             prompt += 'New session.\n'
             prompt += 'How happy are you right now?\n'
-            prompt += 'You answer <<' + str(session_data[0, 9]) + '>>.\n\n'
+            prompt += 'You answer <<' + str(int(session_data[0, 9])) + '>>.\n\n'
             RTs.append(session_data[0, 11] * 1000)
 
             for trial in range(session_data.shape[0]):
@@ -157,7 +157,7 @@ for dataset in datasets:
 
                 if (trial > 0) and not math.isnan(happiness):
                     prompt += 'How happy are you right now?\n'
-                    prompt += 'You answer <<' + str(happiness) + '>>.\n\n'
+                    prompt += 'You answer <<' + str(int(happiness)) + '>>.\n\n'
                     RTs.append(rt_happiness)
 
         if dataset == 'depData':
