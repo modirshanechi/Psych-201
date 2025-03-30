@@ -5,6 +5,7 @@ import glob
 import pandas as pd
 import re
 import sys
+import numpy as np
 sys.path.append("..")
 from utils import randomized_choice_options
 
@@ -276,10 +277,9 @@ for sub_id in exploration_df['subID'].unique():
                             f"You select <<{explo_options[key]}>> and {reward_dict[str(int(reward))]}.\n"
                     
                     rt = trial_data['RT']
-
+                    rt = rt * 1000 # convert to ms
                     RTs.append(rt)
     prompt += "\n"
-
     if mem_df.size != 0 and mem_task_data[mem_task_data['subID'] == sub_id].size != 0: 
 
         instructions_memory = """Now that you've finished playing the game, we'd like to ask you a few questions about the different spots each creature used to hide their coins.
@@ -305,8 +305,11 @@ for sub_id in exploration_df['subID'].unique():
                     f"| {mem_data['imageOrder_1_name']} ({mem_opts[0]}) | {mem_data['imageOrder_2_name']} ({mem_opts[1]}) | {mem_data['imageOrder_3_name']} ({mem_opts[2]}) | {mem_data['imageOrder_4_name']} ({mem_opts[3]}) | {mem_data['imageOrder_5_name']} ({mem_opts[4]}) |\n" \
                     f"Please select the favorite hiding spot of the {mem_task['creatureNames']}.\n\n" \
                     f"You select <<{mem_opts[mem_data['respKey']-1]}>>.\n\n"
+            RTs.append(np.nan) # added nans as RTs were not recorded in the memory task
 
     prompt = prompt[:-2]
+    prompt = prompt.replace(' ' * 8, ' ')
+    prompt = prompt.replace(' ' * 4, ' ')
     all_prompts.append({'text': prompt,
                         'experiment': 'nussenbaum2023novelty',
                         'participant': int(sub_id),
