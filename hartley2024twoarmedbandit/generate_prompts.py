@@ -131,7 +131,7 @@ for i in range(2):
             "participant": participant,
             #"agency_RTs": agency_RT,
             #"bandit_RTs": bandit_RT,
-            "RT": both_RT,
+            "RTs": both_RT,
             "age": df_trial["age"].item()
         })
 
