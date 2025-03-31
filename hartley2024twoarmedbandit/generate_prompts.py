@@ -13,6 +13,9 @@ dataset = "exp1.csv"
 
 df1 = pd.read_csv(datasets[0])
 df2 = pd.read_csv(datasets[1])
+# make RTs in both experiments ms
+df1["agencyRT"] = df1["agencyRT"] * 1000
+df1["banditRT"] =  df1["banditRT"] * 1000
 
 
 df_info1 = pd.read_csv(demographic_datasets[0])
@@ -76,6 +79,7 @@ for i in range(2):
         prompt = ""
         agency_RT = []
         bandit_RT = []
+        both_RT = []
         df_participant = df_full.query(f'subID == "{participant}"')
         prompt = 'You will be playing a slot machine game in which your goal is to collect as many coins as possible.\n'\
                  'In each round, you are going to play one of three different two-armed bandits.\n'\
@@ -107,22 +111,27 @@ for i in range(2):
             color_left = str(df_trial["color_left"].item())
             prompt += "In this trial, you get offered " + taken_offer + " coins if you leave the decision to the random coin toss.\n"
             prompt += "Bandit: " + str_bandit_condition + ".\n"
-            prompt += "The left arm of the bandit has color: " + color_left + ":\n"
+            prompt += "The left arm of the bandit has color: " + color_left + ".\n"
             prompt += "Agency decision: You press <<" + choice_agency + ">>.\n"
-            if choice_agency == "1":
+            if choice_agency == "1" or choice_agency == "1.0":
                 prompt += "Arm decision: You press <<" + choice_bandit + ">>.\n"
                 prompt += "You get " + coins_bandit + " coins for the bandit decision.\n"
-            elif choice_agency == "0":
-                prompt += "The random coin toss decides to choose arm: <<" + choice_bandit + ">>.\n"
+                both_RT.append(df_trial["agencyRT"].item())
+                both_RT.append(df_trial["banditRT"].item())
+            elif choice_agency == "0" or choice_agency == "0.0":
+                prompt += "The random coin toss decides to choose arm: " + choice_bandit + ".\n"
                 prompt += "You get " + taken_offer + " coins for the agency decision and " + coins_bandit + " coins for the bandit decision.\n"
+                both_RT.append(df_trial["agencyRT"].item())
             agency_RT.append(df_trial["agencyRT"].item())
             bandit_RT.append(df_trial["banditRT"].item())
+            
         all_prompts.append({
             "text": prompt, 
             "experiment": "hartley2024twoarmedbandit/" + datasets[i], 
             "participant": participant,
-            "agency_RTs": agency_RT,
-            "bandit_RTs": bandit_RT,
+            #"agency_RTs": agency_RT,
+            #"bandit_RTs": bandit_RT,
+            "RT": both_RT,
             "age": df_trial["age"].item()
         })
 
