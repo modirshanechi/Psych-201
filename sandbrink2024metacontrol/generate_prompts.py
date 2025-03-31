@@ -63,7 +63,7 @@ for dataset in datasets:
         choice_options = randomized_choice_options(num_choices=num_choices)
 
         if "day1" in dataset:
-            prompt = "You enter a casino. This is your second day playing the same game, so you already have some experience but with slightly different settings and rules. " + \
+            prompt = "You enter a casino. You are playing a new game for the first time. " + \
                 f"The game involves a table with two lights, a blue one and a red one. One of these is \"lucky\" and pays out coins if bet on correctly. " + \
                 f"The \"lucky\" light may switch roughly once every {num_trials} rounds, with a {reversal_probability*100}% chance of switching after each round. You have two options each round: " + \
                 "You can either bet on a light or observe to reveal the lucky light without making a bet. If a bet is placed and it's correct, a coin is earned, " + \
