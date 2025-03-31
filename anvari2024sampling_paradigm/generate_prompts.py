@@ -3,14 +3,13 @@ import sys
 import pandas as pd
 import jsonlines
 
-# Set project root if needed for imports (adjust path as necessary)
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
 from utils import randomized_choice_options
 
-# Load data from CSV files (using low_memory=False to avoid dtype warnings)
+
 script_dir = os.path.dirname(os.path.abspath(__file__))
 file1 = os.path.join(script_dir, "sampling_paradigm_2023-04-28_out.csv")
 file2 = os.path.join(script_dir, "sampling_paradigm_2023-06-02_out.csv")
