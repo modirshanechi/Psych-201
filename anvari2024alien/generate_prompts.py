@@ -78,7 +78,6 @@ for (participant_code, session_code), df_session in groups:
 
     all_prompts.append(prompt_dict)
 
-# Write all prompts to JSONL
 output_file = os.path.join(script_dir, "prompts.jsonl")
 with jsonlines.open(output_file, mode='w') as writer:
     writer.write_all(all_prompts)
