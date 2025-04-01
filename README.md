@@ -5,9 +5,9 @@ We aim to collect a data set 10x the size of Psych-101, meaning that Psych-201 w
 
 **Important:** If you would like to contribute an experiment, please verify first [here](https://github.com/marcelbinz/Psych-201/blob/main/CONTRIBUTING.md) that it is not already work in progress! You can also find a list of experiments up for grabs on this link.
 
-**Deadline for contributions:** March 31th 2025
+**The deadline for contributions has now passed. Please do not make any new pull requests. Existing pull requests should be finished as soon as possible.**
 
-Current progress: 
+Current progress (out-of-date, update coming soon): 
 * **18,308,019** human choices
 * **42,6103** participants
 
