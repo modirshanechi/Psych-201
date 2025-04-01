@@ -49,7 +49,8 @@ for dataset in datasets:
             prompt += '\n\n'
             prompt = prompt[:-2]
             print(prompt)
-            all_prompts.append({'text': prompt, 'experiment': 'little2024functionestimation/' + dataset, 'participant': participant})
+            
+        all_prompts.append({'text': prompt, 'experiment': 'little2024functionestimation/' + dataset, 'participant': participant})
             
 with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)
