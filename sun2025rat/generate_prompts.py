@@ -9,7 +9,7 @@ file_name = "RAT/RAT.csv"
 df = pd.read_csv(file_name, sep='\t')
 
 num_tasks = 15
-start_prompt = '''In each of the following questions, you will see three stimulus words. Your task is to come up with a fourth word that is related to all three of them. This fourth word should be the best possible answer.
+start_prompt = '''In each of the following questions, you will see three stimulus words. Your task is to think of a fourth word that is related to all three of them. This fourth word should be the best possible answer.
 1. Your answer must be a complete word consisting of 2 to 3 Chinese characters. It cannot be part of a word, a number, or an English word.
 2. The answer must be directly or specifically related to each of the three words. The connection can be semantic (related in meaning), antonymous (opposite in meaning), or part of a common phrase.
 3. The answer cannot be a proper noun, such as a person’s name, place name, or title of a work.
@@ -40,10 +40,10 @@ for i, r in df.iterrows():
         answer = r[f'answer_{task}']
         score = r[f'score_{task}']
         if pd.isna(answer) or answer is None:
-            answer = ""
+            answer = "NA"
         prompt += f'\nStimulus words: {stimulus_words}. You enter <<{answer}>>. Score: {score}.'
 
-    print(prompt)
+    # print(prompt)
 
     all_prompts.append({
         'text': prompt,
