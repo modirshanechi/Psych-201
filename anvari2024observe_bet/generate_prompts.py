@@ -3,8 +3,7 @@ import sys
 import pandas as pd
 import jsonlines
 
-# Set project root if needed for imports (adjust path as necessary)
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
@@ -51,7 +50,10 @@ for (participant_code, session_code), df_session in groups:
     # Begin building the prompt text with the instructions
     prompt_text = instructions + "\n"
     
-    # Iterate over each unique block in the session
+    # Prepare a list to collect reaction times per block
+    RTs_per_session = []
+    
+    # Get the unique block numbers in the session
     blocks = sorted(df_session["block"].unique())
     for block in blocks:
         df_block = df_session[df_session["block"] == block]
@@ -62,33 +64,40 @@ for (participant_code, session_code), df_session in groups:
         else:
             prompt_text += f"Incentivized Block {block - 1}:\n\n"
         
+        # Initialize list for reaction times for this block
+        rt_list = []
+        
         # Iterate through trials in the block
         for i, (_, row) in enumerate(df_block.iterrows()):
             trial_num = int(row["trial"])
             recorded_action = row["player.selection"]
             action = action_mapping.get(recorded_action, recorded_action)
             
-            # Build trial description
+            # Build trial description based on the action chosen
             if action == "observe":
                 light_colour = row["player.light_colour"]
-                trial_line = (
-                    f"Trial {trial_num}: You chose to <<observe>> and observed that the light turned {light_colour}.\n"
-                )
+                trial_line = f"Trial {trial_num}: You chose to <<observe>> and observed that the light turned {light_colour}.\n"
             else:
                 trial_line = f"Trial {trial_num}: You chose to <<{action}>>.\n"
-            
             prompt_text += trial_line
+            
+            # Append the reaction time for this trial (player.submission_times)
+            rt = row["player.submission_times"]
+            rt_list.append(rt)
         
+        # Append the list of reaction times for this block to the session-level list
+        RTs_per_session.append(rt_list)
         prompt_text += "\n"
     
     prompt_text += "End of session.\n"
     
-    # prompt dictionary
+    # Create the prompt dictionary and add RTs as a separate field
     prompt_dict = {
         "text": prompt_text,
         "experiment": "observe_or_bet",
         "participant": participant_code,
-        "session": session_code
+        "session": session_code,
+        "RTs": RTs_per_session
     }
     all_prompts.append(prompt_dict)
 
