@@ -3,7 +3,6 @@ import sys
 import pandas as pd
 import jsonlines
 
-
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
@@ -49,6 +48,9 @@ for (participant_code, session_code), df_session in groups:
     prompt_text = instructions + "\n\n"
     prompt_text += f"For this session, the available buttons are: {displayed_buttons}.\n\n"
 
+    # Prepare a list to collect reaction times per block
+    RTs_per_session = []
+
     # Get the unique block numbers (Block 1 is practice; blocks 2-5 are incentivized)
     blocks = sorted(df_session["block"].unique())
 
@@ -61,6 +63,9 @@ for (participant_code, session_code), df_session in groups:
             prompt_text += "Practice Block:\n\n"
         else:
             prompt_text += f"Incentivized Block {block - 1}:\n\n"
+
+        # Initialize list for reaction times for this block
+        rt_list = []
 
         # Iterate over trials in the block
         for i, (_, row) in enumerate(df_block.iterrows()):
@@ -81,16 +86,24 @@ for (participant_code, session_code), df_session in groups:
             )
             prompt_text += trial_line
 
+            # Append reaction time for this trial from player.submission_times
+            rt = row["player.submission_times"]
+            rt_list.append(rt)
+
+        # Append the reaction times for this block
+        RTs_per_session.append(rt_list)
+
         prompt_text += "\n"
 
     prompt_text += "End of session.\n"
 
-    # Create prompt dictionary for this session
+    # Create the prompt dictionary, adding RTs as a separate field
     prompt_dict = {
         "text": prompt_text,
         "experiment": "multi_armed_bandit",
         "participant": participant_code,
-        "session": session_code
+        "session": session_code,
+        "RTs": RTs_per_session
     }
     all_prompts.append(prompt_dict)
 
