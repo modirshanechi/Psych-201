@@ -3,7 +3,7 @@ import sys
 import pandas as pd
 import jsonlines
 
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
@@ -22,7 +22,7 @@ groups = df_all.groupby(["participant.code", "session.code"])
 instructions = (
     "In this task you create pictures by selecting and/or deselecting symbols presented in a row across 10 columns (see screenshot below).\n"
     "There are 10 different symbols and each row of symbols represents a picture. An alien from outer space likes to buy such pictures and it will pay different amounts for different pictures with different symbols, but you don't know what the alien likes and how the interconnectedness between the different symbols influences the payoff. Each block consists of 10 trials (a first example picture and its payoff are already displayed), and in every block you will face a different alien.\n\n"
-    "On each trial you can combine symbols any way you like to make pictures: you can select or deselect as many symbols as you wish (0-10), but you must make a decision for every symbol in every trial as the alien considers the entire combination of selected and not-selected symbols. When you're ready you can click on the \"Submit\" button and the price will then be shown under the heading \"Payoff\" and the trial is completed.\n"
+    "On each trial you can combine symbols any way you like to make pictures: you can select or deselect as many symbols as you wish (0-10), but you must make a decision for every symbol in every trial as the alien considers the entire combination of selected and not-selected symbols. You have to answer with a sequence of 10 binary digits where 0 corresponds to deselecting the corresponding symbol and 1 to selecting it. When you're ready you can click on the \"Submit\" button and the price will then be shown under the heading \"Payoff\" and the trial is completed.\n"
     "If you submit the same picture in the same block, you'll be paid the same price. At the end of each block, the alien buys all of the pictures you created in that block and pays you the accumulated price. The value of the pictures will change from one block to the next.\n\n"
     "The first block will be for practice, but the points you earn from the remaining 3 blocks will be used to determine your bonus payment for this task. For this task, you will be paid a bonus of 2 pence (£0.02) per 10 points.\n"
 )
@@ -37,6 +37,9 @@ for (participant_code, session_code), df_session in groups:
     # Begin building the prompt text with the instructions
     prompt_text = instructions + "\n\n"
 
+    # Prepare a list to collect reaction times per block
+    RTs_per_session = []
+
     # Process blocks (Block 1 = practice, Blocks 2+ = incentivized)
     blocks = sorted(df_session["block"].unique())
     for block in blocks:
@@ -50,6 +53,9 @@ for (participant_code, session_code), df_session in groups:
         else:
             prompt_text += f"Incentivized Block {block - 1}:\n\n"
 
+
+        rt_list = []
+
         # Iterate over trials in the block
         for i, (_, row) in enumerate(df_block.iterrows()):
             trial_num = int(row["trial"])
@@ -57,23 +63,31 @@ for (participant_code, session_code), df_session in groups:
             cumulative = float(cumulative_points.iloc[i])
             picture_config = row["player.nk_landscape"]
 
-            # Build the trial description with rounded numbers
+
+            rt = row["player.submission_times"]
+            rt_list.append(rt)
+
+
             trial_line = (
                 f"Trial {trial_num}: You choose following combination of pictures: <<{picture_config}>>. "
                 f"Received {payoff:.3f} points. Total points: {cumulative:.3f}.\n"
             )
             prompt_text += trial_line
 
+
+        RTs_per_session.append(rt_list)
+
         prompt_text += "\n"
 
     prompt_text += "\nEnd of session.\n"
 
-    # Create the prompt dictionary for the session
+
     prompt_dict = {
         "text": prompt_text,
         "experiment": "alien_game",
         "participant": participant_code,
-        "session": session_code
+        "session": session_code,
+        "RTs": RTs_per_session
     }
 
     all_prompts.append(prompt_dict)
