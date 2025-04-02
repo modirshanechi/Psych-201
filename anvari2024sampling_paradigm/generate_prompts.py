@@ -2,13 +2,13 @@ import os
 import sys
 import pandas as pd
 import jsonlines
+import math
 
 project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
 from utils import randomized_choice_options
-
 
 script_dir = os.path.dirname(os.path.abspath(__file__))
 file1 = os.path.join(script_dir, "sampling_paradigm_2023-04-28_out.csv")
@@ -34,7 +34,7 @@ instructions = (
     "You'll be paid a bonus of 5 pence (£0.05) per point.\n"
 )
 
-all_prompts = []
+all_prompts_with_RTs = []
 
 # Process each experimental session
 for (participant_code, session_code), df_session in groups:
@@ -47,6 +47,8 @@ for (participant_code, session_code), df_session in groups:
     # Begin building the prompt text with the instructions
     prompt_text = instructions + "\n"
     
+    RTs_per_session = []
+    
     # Iterate over each block (Block 1: practice; Blocks 2-6: incentivized)
     blocks = sorted(df_session["block"].unique())
     for block in blocks:
@@ -58,6 +60,8 @@ for (participant_code, session_code), df_session in groups:
         else:
             prompt_text += f"Incentivized Block {block - 1}:\n\n"
         
+        rt_list = []
+        
         # Iterate over trials in the block
         for i, (_, row) in enumerate(df_block.iterrows()):
             trial_num = int(row["trial"])
@@ -66,7 +70,6 @@ for (participant_code, session_code), df_session in groups:
             sampling_selection = row["player.selection"]
             sampler_payoff = row["player.sampler_payoff"]
             
-            # Map sampling selection (assumed to be 1 or 2) to randomized button name
             try:
                 sampled_button = button_options[int(sampling_selection) - 1]
             except (IndexError, ValueError):
@@ -76,46 +79,50 @@ for (participant_code, session_code), df_session in groups:
                 f"Trial {trial_num}: You sampled button <<{sampled_button}>> and observed a payout of {sampler_payoff} points.\n"
             )
             prompt_text += trial_line
+            
+            rt_list.append(row["player.submission_times"])
         
-        # Summarize the final decision for the block using the final trial's information
+        
+        # Construct the final decision line for this block.
+        # Here we use the player's final decision variable to determine which button was chosen.
         final_row = df_block.iloc[-1]
-        final_choice_value = final_row["player.final_choice"]
-        option1 = final_row["player.option_1_probability"]
-        option2 = final_row["player.option_2_probability"]
-        
-        if final_choice_value == option1:
+        final_decision = final_row["player.final_choice"]
+        # Compare the final_decision with the provided option probabilities to decide the corresponding button name.
+        if final_decision == final_row["player.option_1_probability"]:
             final_button = button_options[0]
-        elif final_choice_value == option2:
+        elif final_decision == final_row["player.option_2_probability"]:
             final_button = button_options[1]
         else:
-            final_button = f"Option{final_choice_value}"
+            # Fallback: attempt to use the final decision as an index.
+            try:
+                final_index = int(final_decision) - 1
+                final_button = button_options[final_index]
+            except (IndexError, ValueError):
+                final_button = f"Option{final_decision}"
         
-        # Extract the payout from the final_choice_value (assumed format "payout_probability")
-        if isinstance(final_choice_value, str) and "_" in final_choice_value:
-            payout_value = final_choice_value.split("_")[0]
-        else:
-            payout_value = final_choice_value
+        final_payout = final_row["player.payoff"]
         
         final_line = (
             f"Final Decision: You chose <<{final_button}>> as your final decision. "
-            f"Final payout: {payout_value} points.\n"
+            f"Final payout: {final_payout} points.\n"
         )
         prompt_text += final_line + "\n"
+        prompt_text += "\n"
+        RTs_per_session.append(rt_list)
     
     prompt_text += "End of session.\n"
     
-    # Create the prompt dictionary for the session
     prompt_dict = {
         "text": prompt_text,
         "experiment": "sampling_paradigm",
         "participant": participant_code,
-        "session": session_code
+        "session": session_code,
+        "RTs": RTs_per_session
     }
-    all_prompts.append(prompt_dict)
-
+    all_prompts_with_RTs.append(prompt_dict)
 
 output_file = os.path.join(script_dir, "prompts.jsonl")
 with jsonlines.open(output_file, mode='w') as writer:
-    writer.write_all(all_prompts)
+    writer.write_all(all_prompts_with_RTs)
 
-print(f"Created {len(all_prompts)} prompt(s) in {output_file}.")
+print(f"Created {len(all_prompts_with_RTs)} prompt(s) in {output_file}.")
