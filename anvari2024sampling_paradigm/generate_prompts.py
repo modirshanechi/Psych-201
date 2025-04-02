@@ -62,12 +62,21 @@ for (participant_code, session_code), df_session in groups:
         
         rt_list = []
         
-        # Iterate over trials in the block
-        for i, (_, row) in enumerate(df_block.iterrows()):
+        # Sampling trial: participant clicked a button to observe a payout.
+        if (df_block["player.selection"] == 0).any():
+            df_sampling = df_block[df_block["player.selection"] != 0]
+            # Final decision trial is when player.selection equals zero.
+            final_row = df_block[df_block["player.selection"] == 0].iloc[0]
+        else:
+            df_sampling = df_block
+            final_row = df_block.iloc[-1]
+        
+        # For each sampling trial, document the sampled button and observed payout.
+        for i, (_, row) in enumerate(df_sampling.iterrows()):
             trial_num = int(row["trial"])
-            
-            # Use 'player.selection' as the sampled button indicator
+            # The variable 'player.selection' indicates the sampled button option chosen.
             sampling_selection = row["player.selection"]
+            # The variable 'player.sampler_payoff' shows the payout that was observed.
             sampler_payoff = row["player.sampler_payoff"]
             
             try:
@@ -79,35 +88,34 @@ for (participant_code, session_code), df_session in groups:
                 f"Trial {trial_num}: You sampled button <<{sampled_button}>> and observed a payout of {sampler_payoff} points.\n"
             )
             prompt_text += trial_line
-            
             rt_list.append(row["player.submission_times"])
         
-        
-        # Construct the final decision line for this block.
-        # Here we use the player's final decision variable to determine which button was chosen.
-        final_row = df_block.iloc[-1]
+        # Process the final decision trial.
+        # The variable 'player.final_choice' indicates the final selected button.
         final_decision = final_row["player.final_choice"]
-        # Compare the final_decision with the provided option probabilities to decide the corresponding button name.
+        # The variable 'player.payoff' indicates the final payout received.
+        final_payout = final_row["player.payoff"]
+        
+        # Map the final_decision to the randomized button name.
         if final_decision == final_row["player.option_1_probability"]:
             final_button = button_options[0]
         elif final_decision == final_row["player.option_2_probability"]:
             final_button = button_options[1]
         else:
-            # Fallback: attempt to use the final decision as an index.
             try:
                 final_index = int(final_decision) - 1
                 final_button = button_options[final_index]
             except (IndexError, ValueError):
                 final_button = f"Option{final_decision}"
         
-        final_payout = final_row["player.payoff"]
-        
         final_line = (
-            f"Final Decision: You chose <<{final_button}>> as your final decision. "
-            f"Final payout: {final_payout} points.\n"
+            f"You chose <<{final_button}>> as your final decision. Final payout: {final_payout} points.\n"
         )
         prompt_text += final_line + "\n"
-        prompt_text += "\n"
+        
+        # Append a NaN to record the reaction time for the final decision line
+        rt_list.append(float('nan'))
+        
         RTs_per_session.append(rt_list)
     
     prompt_text += "End of session.\n"
