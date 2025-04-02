@@ -3,6 +3,7 @@
 | Task | Individual Differences | Number of Choices | Link | Person |
 |:----------|:----------|:-------------|:-------------|:-------------|
 | Little alchemy  | - | 4,691,033 | [Link](https://google.com) | Franziska Brändle |
+| Observe or bet with efficacy | anxiety/depression, compulsivity, social withdrawal | 264,600 | https://osf.io/preprints/osf/5ezxs_v1 | Kai Sandbrink, Akshay Jagadish |
 | RPS | - | ? | [Link](https://google.com) | Elif Akata |
 | Economic games | - | ? | [Link](https://google.com) | Elif Akata |
 | Economic games | - | 90,000 | [Link](https://arxiv.org/pdf/2408.07865) | Jianqiao Zhu |
@@ -54,13 +55,13 @@
 | Belief updating | anxiety (Q) | 2,670 | [Link](https://www.nature.com/articles/s41467-023-39825-3) | Marvin |
 | Go-NoGo | anxiety (G) | 48,480 | [Link](https://linkinghub.elsevier.com/retrieve/pii/S0006322317300914) | Susanne |
 | Social value orientation | paranoia (Q)  | 37,638 | [Link](https://pubmed.ncbi.nlm.nih.gov/35349872/) | Kozzy |
+| Risky decision and happiness task | - | 3,600,000 | [Link](https://datadryad.org/stash/dataset/doi:10.5061/dryad.prr4xgxkk#citations) | Marcel |
 
 
 # List of open data sets
 
 | Task | Individual Differences | Number of Choices | Link |
 |:----------|:----------|:-------------|:-------------|
-| Risky decision and happiness task | - | 3,600,000 | [Link](https://datadryad.org/stash/dataset/doi:10.5061/dryad.prr4xgxkk#citations) |
 | Probabilistic selection task | - | 417,900 | [Link](https://www.cambridge.org/core/journals/psychological-medicine/article/core-component-of-psychological-therapy-causes-adaptive-changes-in-computational-learning-mechanisms/C054D998E59332496596661F52962BF8) |
 | Optimal stopping | - | 181,200 | [Link](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.3001566) |
 | Risky choice | emotions | 101,600 | [Link](https://www.nature.com/articles/s41562-021-01213-6) |
@@ -111,3 +112,5 @@
 | Relational judgments for novel compounds | - | 22,000 | [Link](https://doi.org/10.1016/j.cogpsych.2022.101471) | Fritz Günther |
 | Maxdiff judgments for visual similarity | - | 33,055 | [Link](https://doi.org/10.1037/rev0000392) | Fritz Günther |
 | Word substitutions | - | 18,216 | [Link](https://doi.org/10.1016/j.jml.2023.104477) | Fritz Günther |
+| Goal commitment | PFC lesions | 24374 | [Link](https://www.nature.com/articles/s41562-024-01844-5) | Holton |
+
