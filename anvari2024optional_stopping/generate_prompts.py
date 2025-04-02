@@ -3,7 +3,7 @@ import sys
 import pandas as pd
 import jsonlines
 
-project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../"))
 if project_root not in sys.path:
     sys.path.insert(0, project_root)
 
@@ -38,13 +38,16 @@ for (participant_code, session_code), df_session in groups:
     # Sort trials by block then by trial number
     df_session = df_session.sort_values(by=["block", "trial"])
     
-    # Begin building the prompt text with instructions
+    # Begin building the prompt text with the instructions
     prompt_text = instructions + "\n\n"
+    
+    # Global list for reaction times (one list per block)
+    RTs_per_session = []
     
     # Iterate over each unique block (Block 1: Practice; Blocks 2-9: Incentivized)
     for block in sorted(df_session["block"].unique()):
         df_block = df_session[df_session["block"] == block]
-        # For each block, filter out rows with no valid chest selection
+        # Filter out rows with no valid chest selection
         df_block = df_block[pd.notna(df_block["player.chest_selection"])]
         
         if block == 1:
@@ -53,18 +56,23 @@ for (participant_code, session_code), df_session in groups:
             cost_per_box = df_block.iloc[0]["player.cost_order"]
             prompt_text += f"Incentivized Block {block - 1} (Cost per box: {cost_per_box} points):\n\n"
         
-        # Iterate over the (filtered, removes NaNs) trials in the block
+        # Initialize a list to collect reaction times for this block
+        rt_list = []
+        
+        # Iterate over the (filtered) trials in the block
         for _, row in df_block.iterrows():
             trial_num = int(row["trial"])
             chest_selection = row["player.chest_selection"]
             chest_payoff = row["player.chest_payoff"]
             accumulated_cost = row["player.accumulated_cost"]
             current_best = row["player.current_best_payoff"]
+            submission_time = row["player.submission_times"]
+            rt_list.append(submission_time)
             
             # Convert chest_selection to an integer (if valid), add 1, and format as "box X"
             if pd.notna(chest_selection):
                 sel_int = int(chest_selection)
-                sel_str = f"box {sel_int + 1}"
+                sel_str = f"{sel_int + 1}"
             else:
                 sel_str = "nan"
             
@@ -74,20 +82,37 @@ for (participant_code, session_code), df_session in groups:
             acc_cost_str = f"{accumulated_cost:.2f}" if pd.notna(accumulated_cost) else "nan"
             
             trial_line = (
-                f"Trial {trial_num}: You opened <<{sel_str}>> revealing {payoff_str} points. "
+                f"Trial {trial_num}: You opened box <<{sel_str}>> revealing {payoff_str} points. "
                 f"Current best: {best_str} points. Accumulated cost: {acc_cost_str} points.\n"
             )
             prompt_text += trial_line
         
-        prompt_text += "\n"
+        # Append a "NaN" for the final decision reaction time (as no submission time is recorded for stopping)
+        rt_list.append("NaN")
+        
+        # Add a summary of the stopping decision:
+        final_row = df_block.iloc[-1]
+        final_trial = int(final_row["trial"])
+        if final_trial < 20:
+            net_payout = final_row["player.current_best_payoff"] - final_row["player.accumulated_cost"]
+            prompt_text += (
+                f"At trial {final_trial}, you decided to stop opening boxes, settling on your best option. "
+                f"Your net payoff for this block is {net_payout:.2f} points.\n\n"
+            )
+        else:
+            prompt_text += "You opened all 20 boxes.\n\n"
+        
+        RTs_per_session.append(rt_list)
     
     prompt_text += "End of session.\n"
     
+    # Create the prompt dictionary and add the RTs as a separate field
     prompt_dict = {
         "text": prompt_text,
         "experiment": "optional_stopping_with_recall",
         "participant": participant_code,
-        "session": session_code
+        "session": session_code,
+        "RTs": RTs_per_session
     }
     all_prompts.append(prompt_dict)
 
