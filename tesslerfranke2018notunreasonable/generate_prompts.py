@@ -218,7 +218,7 @@ for participant in tqdm(df.workerid.unique()):
     ), f"Participant {participant} has too many characters: ({len(par_dict['text'])})"
 
     # append reaction times
-    par_dict["RTs"] = RT
+    #par_dict["RTs"] = RT
 
     json_out.append(par_dict)
 

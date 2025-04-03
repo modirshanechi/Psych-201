@@ -15,7 +15,7 @@ sys.path.append("..")
 from utils import randomized_choice_options
 import scipy.io as spio
 
-datasets_path = "../../DataSharing_base/agency-master/"
+datasets_path = ""
 all_prompts = []
 
 expe_strings = ['Experiment1/passymetrieI_Suj{}.mat',
@@ -47,7 +47,6 @@ for experiment in range(1,5):
         # prompt += '\nYou are now in a learning phase.\n'
                 
         for index, row in df_participant.iterrows():
-            RTs.append(row[7].item())
             stims = [(row[1]-1)*2+1, row[1]*2] #wrong and right stimulus in one context
             
             choice_idx = int(row[5]) #0 worst, 1 best
@@ -68,7 +67,7 @@ for experiment in range(1,5):
                 if row[6]==1:
                     prompt += 'You encounter stimuli ' + ', '.join(stimulus0 + stimulus1) + '. You press <<' + choice + '>>. You receive a reward of ' + out + '.\n'
                 else:
-                    prompt += 'You encounter stimuli ' +  ', '.join(stimulus0 + stimulus1) + '. You are focred to press ' + choice + '. You receive a reward of ' + out + '.\n'
+                    prompt += 'You encounter stimuli ' +  ', '.join(stimulus0 + stimulus1) + '. You are forced to press ' + choice + '. You receive a reward of ' + out + '.\n'
             elif experiment == 2 and (row[1]==2 or row[1]==4):
                 # cout = str(row[8]*2-1)
                 # stimulus0_idx = '' if math.isnan(row.left_option.item()) else str(int(row.left_option))
@@ -103,7 +102,7 @@ for experiment in range(1,5):
         #%% Finalize prompt
         prompt = prompt[:-1]
         print(prompt)
-        all_prompts.append({'text': prompt, 'experiment': 'chambon2020feedback/'+str(experiment), 'participant': str(participant),'RTs':RTs})
+        all_prompts.append({'text': prompt, 'experiment': 'chambon2020feedback/'+str(experiment), 'participant': str(participant)})
 
 with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)

@@ -55,8 +55,14 @@ total_experiments = 0
 l_symb = '<<'
 r_symb = '>>'
 
-# TODO CHECK MAX LENGTH
-# TODO ADD PSYCH-101 here
+# TODO length outliers: 
+# pirrone_2018_dots/prompts.jsonl
+# rutledge2023happiness/prompts.jsonl
+# dubois2022value/prompts.jsonl
+# braendle2023empowerment/prompts.jsonl
+# witte_thalmann2024exploration/prompts.jsonl 
+# castro_rodrigues2022twostep/prompts.jsonl
+# TODO ADD PSYCH-101 here and remove added numbers at the bottom
 # TODO ADD THE QUESTIONAIRES
 
 stats = {
@@ -71,10 +77,11 @@ stats = {
 }
 
 for file in files:
-    print(file)
+    
     total_experiments += 1
     exp_participants = 0
     exp_choices = 0
+    exp_max_len = -1
 
     with jsonlines.open(file) as reader:
         for obj in reader:
@@ -85,10 +92,8 @@ for file in files:
             assert 'text' in obj.keys()
             assert 'participant' in obj.keys()
             assert 'experiment' in obj.keys()
-            # TODO check that RTs match: chambon2020feedback/prompts.jsonl and tesslerfranke2018notunreasonable/prompts.jsonl
-            # TODO make sure that non-numeric are nans 
-            #if 'RTs' in obj.keys():
-                #assert len(obj['RTs']) == obj['text'].count(l_symb)
+            if 'RTs' in obj.keys():
+                assert len(obj['RTs']) == obj['text'].count(l_symb), file + " " + str(exp_participants)
             
             if "sex" in obj.keys():
                 obj["gender"] = obj.pop("sex")
@@ -113,15 +118,18 @@ for file in files:
                         stats[key].extend([obj[key]])
 
 
-
+            if len(obj['text']) > exp_max_len:
+                exp_max_len = len(obj['text'])
             exp_participants += 1
             exp_choices += obj['text'].count(l_symb)
             total_length += len(obj['text'])
             
-
-    print('Number of participants:', exp_participants)
-    print('Number of choices:', exp_choices)
-    print()
+    if exp_max_len > 0:
+        print(file)
+        print('Number of participants:', exp_participants)
+        print('Number of choices:', exp_choices)
+        print('Maximum prompt length:', exp_max_len)
+        print()
     total_choices += exp_choices
     total_participants += exp_participants
 
