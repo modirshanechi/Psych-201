@@ -47,6 +47,7 @@ for (participant_code, session_code), df_session in groups:
     # Begin building the prompt text with the instructions
     prompt_text = instructions + "\n"
     
+    # Flat list to collect reaction times for the entire session
     RTs_per_session = []
     
     # Iterate over each block (Block 1: practice; Blocks 2-6: incentivized)
@@ -60,12 +61,9 @@ for (participant_code, session_code), df_session in groups:
         else:
             prompt_text += f"Incentivized Block {block - 1}:\n\n"
         
-        rt_list = []
-        
-        # Sampling trial: participant clicked a button to observe a payout.
+        # Determine sampling trials versus final decision trial
         if (df_block["player.selection"] == 0).any():
             df_sampling = df_block[df_block["player.selection"] != 0]
-            # Final decision trial is when player.selection equals zero.
             final_row = df_block[df_block["player.selection"] == 0].iloc[0]
         else:
             df_sampling = df_block
@@ -74,9 +72,7 @@ for (participant_code, session_code), df_session in groups:
         # For each sampling trial, document the sampled button and observed payout.
         for i, (_, row) in enumerate(df_sampling.iterrows()):
             trial_num = int(row["trial"])
-            # The variable 'player.selection' indicates the sampled button option chosen.
             sampling_selection = row["player.selection"]
-            # The variable 'player.sampler_payoff' shows the payout that was observed.
             sampler_payoff = row["player.sampler_payoff"]
             
             try:
@@ -88,15 +84,14 @@ for (participant_code, session_code), df_session in groups:
                 f"Trial {trial_num}: You sampled button <<{sampled_button}>> and observed a payout of {sampler_payoff} points.\n"
             )
             prompt_text += trial_line
-            rt_list.append(row["player.submission_times"])
+            
+            RTs_per_session.append(row["player.submission_times"] * 1000)
         
         # Process the final decision trial.
-        # The variable 'player.final_choice' indicates the final selected button.
         final_decision = final_row["player.final_choice"]
-        # The variable 'player.payoff' indicates the final payout received.
         final_payout = final_row["player.payoff"]
         
-        # Map the final_decision to the randomized button name.
+        # Map the final decision to the randomized button name.
         if final_decision == final_row["player.option_1_probability"]:
             final_button = button_options[0]
         elif final_decision == final_row["player.option_2_probability"]:
@@ -113,10 +108,8 @@ for (participant_code, session_code), df_session in groups:
         )
         prompt_text += final_line + "\n"
         
-        # Append a NaN to record the reaction time for the final decision line
-        rt_list.append(float('nan'))
-        
-        RTs_per_session.append(rt_list)
+        # Append reaction time for the final decision trial (recorded as NaN)
+        RTs_per_session.append(float('nan'))
     
     prompt_text += "End of session.\n"
     

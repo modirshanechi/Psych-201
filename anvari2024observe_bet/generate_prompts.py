@@ -50,7 +50,6 @@ for (participant_code, session_code), df_session in groups:
     # Begin building the prompt text with the instructions
     prompt_text = instructions + "\n"
     
-    # Prepare a list to collect reaction times per block
     RTs_per_session = []
     
     # Get the unique block numbers in the session
@@ -63,9 +62,6 @@ for (participant_code, session_code), df_session in groups:
             prompt_text += "Practice Block:\n\n"
         else:
             prompt_text += f"Incentivized Block {block - 1}:\n\n"
-        
-        # Initialize list for reaction times for this block
-        rt_list = []
         
         # Iterate through trials in the block
         for i, (_, row) in enumerate(df_block.iterrows()):
@@ -81,17 +77,13 @@ for (participant_code, session_code), df_session in groups:
                 trial_line = f"Trial {trial_num}: You chose to <<{action}>>.\n"
             prompt_text += trial_line
             
-            # Append the reaction time for this trial (player.submission_times)
-            rt = row["player.submission_times"]
-            rt_list.append(rt)
+            rt = row["player.submission_times"] * 1000
+            RTs_per_session.append(rt)
         
-        # Append the list of reaction times for this block to the session-level list
-        RTs_per_session.append(rt_list)
         prompt_text += "\n"
     
     prompt_text += "End of session.\n"
     
-    # Create the prompt dictionary and add RTs as a separate field
     prompt_dict = {
         "text": prompt_text,
         "experiment": "observe_or_bet",

@@ -37,7 +37,6 @@ for (participant_code, session_code), df_session in groups:
     # Begin building the prompt text with the instructions
     prompt_text = instructions + "\n\n"
 
-    # Prepare a list to collect reaction times per block
     RTs_per_session = []
 
     # Process blocks (Block 1 = practice, Blocks 2+ = incentivized)
@@ -53,20 +52,14 @@ for (participant_code, session_code), df_session in groups:
         else:
             prompt_text += f"Incentivized Block {block - 1}:\n\n"
 
-
-        rt_list = []
-
-        # Iterate over trials in the block
         for i, (_, row) in enumerate(df_block.iterrows()):
             trial_num = int(row["trial"])
             payoff = float(row["player.landscape_payoff"])
             cumulative = float(cumulative_points.iloc[i])
             picture_config = row["player.nk_landscape"]
 
-
-            rt = row["player.submission_times"]
-            rt_list.append(rt)
-
+            rt = row["player.submission_times"] * 1000  # Convert seconds to milliseconds
+            RTs_per_session.append(rt)
 
             trial_line = (
                 f"Trial {trial_num}: You choose following combination of pictures: <<{picture_config}>>. "
@@ -74,13 +67,9 @@ for (participant_code, session_code), df_session in groups:
             )
             prompt_text += trial_line
 
-
-        RTs_per_session.append(rt_list)
-
         prompt_text += "\n"
 
     prompt_text += "\nEnd of session.\n"
-
 
     prompt_dict = {
         "text": prompt_text,

@@ -41,7 +41,6 @@ for (participant_code, session_code), df_session in groups:
     # Begin building the prompt text with the instructions
     prompt_text = instructions + "\n\n"
     
-    # Global list for reaction times (one list per block)
     RTs_per_session = []
     
     # Iterate over each unique block (Block 1: Practice; Blocks 2-9: Incentivized)
@@ -56,9 +55,6 @@ for (participant_code, session_code), df_session in groups:
             cost_per_box = df_block.iloc[0]["player.cost_order"]
             prompt_text += f"Incentivized Block {block - 1} (Cost per box: {cost_per_box} points):\n\n"
         
-        # Initialize a list to collect reaction times for this block
-        rt_list = []
-        
         # Iterate over the (filtered) trials in the block
         for _, row in df_block.iterrows():
             trial_num = int(row["trial"])
@@ -66,8 +62,8 @@ for (participant_code, session_code), df_session in groups:
             chest_payoff = row["player.chest_payoff"]
             accumulated_cost = row["player.accumulated_cost"]
             current_best = row["player.current_best_payoff"]
-            submission_time = row["player.submission_times"]
-            rt_list.append(submission_time)
+            submission_time = row["player.submission_times"] * 1000
+            RTs_per_session.append(submission_time)
             
             # Convert chest_selection to an integer (if valid), add 1, and format as "box X"
             if pd.notna(chest_selection):
@@ -87,9 +83,6 @@ for (participant_code, session_code), df_session in groups:
             )
             prompt_text += trial_line
         
-        # Append a "NaN" for the final decision reaction time (as no submission time is recorded for stopping)
-        rt_list.append("NaN")
-        
         # Add a summary of the stopping decision:
         final_row = df_block.iloc[-1]
         final_trial = int(final_row["trial"])
@@ -101,12 +94,9 @@ for (participant_code, session_code), df_session in groups:
             )
         else:
             prompt_text += "You opened all 20 boxes.\n\n"
-        
-        RTs_per_session.append(rt_list)
     
     prompt_text += "End of session.\n"
     
-    # Create the prompt dictionary and add the RTs as a separate field
     prompt_dict = {
         "text": prompt_text,
         "experiment": "optional_stopping_with_recall",
