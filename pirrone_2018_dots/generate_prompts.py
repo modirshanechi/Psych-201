@@ -53,17 +53,16 @@ for dataset in datasets:
                 x1 = df_trial.x1.item() if not df_trial.empty else None
                 rt = df_trial.time.item() if not df_trial.empty else None
 
-                feature_information = (f'Options have {str(x0)} dots and {str(x1)} dots. '
-                                       f'Press {str(choice_options[0])} for {str(x0)} dots and '
+                feature_information = (f'Press {str(choice_options[0])} for {str(x0)} dots and '
                                        f'{str(choice_options[1])} for {str(x1)} dots.')
 
                 collected_dots = x0 if c == 0 else x1
 
                 if task != 0:
-                    line = (f"{feature_information} You press <<{str(choice_options[c])}>> in {str(rt)} seconds, "
+                    line = (f"{feature_information} You press <<{str(choice_options[c])}>>, "
                             f"the correct response was {str(choice_options[t])}.\n")
                 else:
-                    line = (f"{feature_information} You press <<{str(choice_options[c])}>> in {str(rt)} seconds, "
+                    line = (f"{feature_information} You press <<{str(choice_options[c])}>>, "
                             f"and you collect {str(collected_dots)} dots.\n")
 
                 if 'None' not in line:
