@@ -76,10 +76,12 @@ def get_age(x):
         age = 'unknown'
     return age
 
-mat = scipy.io.loadmat('data/Rutledge_risk_and_happiness_task_2023/Rutledge_GBE_risk_data_TOD.mat')
+mat = scipy.io.loadmat('Rutledge_GBE_risk_data_TOD.mat')
 
 datasets = ['depData', 'subjData']
 
+
+max_sessions = 0
 all_prompts = []
 for dataset in datasets:
     #('id', 'age', 'isFemale', 'location', 'lifeSatisfaction', 'education', 'nativeLanguage', 'deviceType', 'nPlays', 'timesPlayed', 'dayNumber', 'timeOfDay', 'designVersion', 'dataHdr', 'data', 'depStatus', 'depEpisodes', 'depYears', 'depMeds', 'depFamily', 'bdiDayNumber', 'bdiRaw', 'bdiTotal')
@@ -114,6 +116,9 @@ for dataset in datasets:
             bdi_total = participant_data[22].item()
 
         num_sessions = len(participant_data[14][0])
+        num_sessions = min(num_sessions, 30)
+        if num_sessions > max_sessions:
+            max_sessions = num_sessions
         for session in range(num_sessions):
             session_data = participant_data[14][0][session]
 
@@ -203,3 +208,5 @@ for dataset in datasets:
 
 with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)
+
+print(max_sessions)
