@@ -38,19 +38,20 @@ for dataset in datasets:
                 e2 = df_trial["n2"].loc[df_trial.index[0]]
                 out = df_trial["out"].loc[df_trial.index[0]] 
 
-                prompt += "Your inventory contains "
-                for i in range(len(inventory)):
-                    if i < len(inventory)-1:
-                        prompt += inventory[i] + ", "
-                    else:
-                        prompt += "and " + inventory[i] + ". "
+                if trial == 1:
+                    prompt += "Your inventory contains "
+                    for i in range(len(inventory)):
+                        if i < len(inventory)-1:
+                            prompt += inventory[i] + ", "
+                        else:
+                            prompt += "and " + inventory[i] + ".\n\n"
 
                 if(out == "none"):
                     prompt += "You combine <<" + e1 + ">> and <<" + e2 + ">>. You don't create an element.\n"
                 elif(out in inventory):
                     prompt += "You combine <<" + e1 + ">> and <<" + e2 + ">>. You rediscover "+ out + ".\n"
                 else:
-                    prompt += "You combine <<" + e1 + ">> and <<" + e2 + ">>. You discover "+ out + ".\n"
+                    prompt += "You combine <<" + e1 + ">> and <<" + e2 + ">>. You discover "+ out + " and add it to your inventory.\n"
                     inventory.append(out)
 
                 prompt += '\n'
