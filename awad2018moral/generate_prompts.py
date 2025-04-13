@@ -106,7 +106,10 @@ df = pd.read_csv('SharedResponses.csv')
 df_subset = df[df.ExtendedSessionID.isin(first_session_ids.tolist())]
 
 # get only USA
-df_subset = df_subset[df_subset['UserCountry3'] == 'USA']
+#df_subset = df_subset[df_subset['UserCountry3'] == 'USA']
+
+s = df_subset["ExtendedSessionID"].value_counts()
+df_subset = df_subset[df_subset["ExtendedSessionID"].map(s) == 26]
 print(len(df_subset))
 
 grouped = df_subset.groupby(['ExtendedSessionID'])
@@ -116,6 +119,7 @@ for participant, df_participant in tqdm(grouped):
     prompt = 'You are presented with a series of dilemmas in which an autonomous vehicle must decide between two different outcomes.\n' \
         'Your task is to decide what the self-driving car should do.\n' \
         'You can select your chosen outcome by pressing the corresponding button.\n\n'
+    nationality =  df_participant['UserCountry3'].iloc[0]
     for scenario in range(1, df_participant['ScenarioOrder'].max() + 1):
         df_trial = df_participant[df_participant['ScenarioOrder'] == scenario]
         if len(df_trial) == 2:
@@ -125,7 +129,7 @@ for participant, df_participant in tqdm(grouped):
 
     prompt = prompt[:-2]
     if "<<" in prompt:
-        all_prompts.append({'text': prompt, 'experiment': 'awad2018moral/SharedResponses.csv', 'participant': participant})
+        all_prompts.append({'text': prompt, 'experiment': 'awad2018moral/SharedResponses.csv', 'participant': participant,  'nationality': nationality})
 
 with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)
