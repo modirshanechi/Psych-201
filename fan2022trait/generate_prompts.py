@@ -25,6 +25,7 @@ for dataset in datasets:
         STICSAT_total_Cognitive = df_participant['STICSAT_total_Cognitive'].iloc[0]
         STAIT_total_present = df_participant['STAIT_total_present'].iloc[0]
         STAIT_total_absent = df_participant['STAIT_total_absent'].iloc[0]
+        STAIT_total = df_participant['STAIT_total'].iloc[0]
 
         choice_options = randomized_choice_options(num_choices=2)
 
@@ -72,6 +73,7 @@ for dataset in datasets:
             'STICSA-T cognitive': str(STICSAT_total_Cognitive),
             'STAI-T present': str(STAIT_total_present),
             'STAI-T absent': str(STAIT_total_absent),
+            'STAI-T': str(STAIT_total),
         })
 
 with jsonlines.open('prompts.jsonl', 'w') as writer:
