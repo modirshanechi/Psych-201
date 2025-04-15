@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 import math
 
+
 def randomized_choice_options(num_choices):
     choice_options = list(map(chr, range(65, 91)))
     return np.random.choice(choice_options, num_choices, replace=False)
@@ -66,7 +67,158 @@ def standardize_nationalities(nationality):
         "Chinese": "China",
         "South Korea": "Korea",
         "Saint Vincent and the Grenadines": "Saint Vincent",
-        "Venezuela, Bolivarian Republic of": "Venezuela"
+        "Venezuela, Bolivarian Republic of": "Venezuela",
+        # ISO alpha-3 abbreviations
+        "AFG": "Afghanistan",
+        "AGO": "Angola",
+        "ALA": "Åland Islands",
+        "ALB": "Albania",
+        "ARE": "United Arab Emirates",
+        "ARG": "Argentina",
+        "ARM": "Armenia",
+        "ATG": "Antigua and Barbuda",
+        "AUS": "Australia",
+        "AUT": "Austria",
+        "AZE": "Azerbaijan",
+        "BEL": "Belgium",
+        "BGD": "Bangladesh",
+        "BGR": "Bulgaria",
+        "BHR": "Bahrain",
+        "BHS": "Bahamas",
+        "BIH": "Bosnia and Herzegovina",
+        "BLR": "Belarus",
+        "BLZ": "Belize",
+        "BMU": "Bermuda",
+        "BOL": "Bolivia",
+        "BRA": "Brazil",
+        "BRN": "Brunei",
+        "BWA": "Botswana",
+        "CAN": "Canada",
+        "CHE": "Switzerland",
+        "CHL": "Chile",
+        "CHN": "China",
+        "CIV": "Côte d'Ivoire",
+        "COL": "Colombia",
+        "CPV": "Cape Verde",
+        "CRI": "Costa Rica",
+        "CUB": "Cuba",
+        "CYP": "Cyprus",
+        "CZE": "Czechia",
+        "DEU": "Germany",
+        "DNK": "Denmark",
+        "DOM": "Dominican Republic",
+        "DZA": "Algeria",
+        "ECU": "Ecuador",
+        "EGY": "Egypt",
+        "ESP": "Spain",
+        "EST": "Estonia",
+        "FIN": "Finland",
+        "FJI": "Fiji",
+        "FRA": "France",
+        "GBR": "United Kingdom",
+        "GEO": "Georgia",
+        "GGY": "Guernsey",
+        "GHA": "Ghana",
+        "GIB": "Gibraltar",
+        "GLP": "Guadeloupe",
+        "GRC": "Greece",
+        "GTM": "Guatemala",
+        "GUF": "French Guiana",
+        "HKG": "Hong Kong",
+        "HND": "Honduras",
+        "HRV": "Croatia",
+        "HUN": "Hungary",
+        "IDN": "Indonesia",
+        "IMN": "Isle of Man",
+        "IND": "India",
+        "IRL": "Ireland",
+        "IRN": "Iran",
+        "IRQ": "Iraq",
+        "ISL": "Iceland",
+        "ISR": "Israel",
+        "ITA": "Italy",
+        "JAM": "Jamaica",
+        "JEY": "Jersey",
+        "JOR": "Jordan",
+        "JPN": "Japan",
+        "KAZ": "Kazakhstan",
+        "KEN": "Kenya",
+        "KGZ": "Kyrgyzstan",
+        "KHM": "Cambodia",
+        "KOR": "Korea",
+        "KWT": "Kuwait",
+        "LAO": "Laos",
+        "LBN": "Lebanon",
+        "LIE": "Liechtenstein",
+        "LKA": "Sri Lanka",
+        "LTU": "Lithuania",
+        "LUX": "Luxembourg",
+        "LVA": "Latvia",
+        "MAC": "Macau",
+        "MAR": "Morocco",
+        "MCO": "Monaco",
+        "MDA": "Moldova",
+        "MDG": "Madagascar",
+        "MDV": "Maldives",
+        "MEX": "Mexico",
+        "MKD": "North Macedonia",
+        "MLT": "Malta",
+        "MMR": "Myanmar",
+        "MNE": "Montenegro",
+        "MNG": "Mongolia",
+        "MTQ": "Martinique",
+        "MUS": "Mauritius",
+        "MYS": "Malaysia",
+        "MYT": "Mayotte",
+        "NCL": "New Caledonia",
+        "NGA": "Nigeria",
+        "NIC": "Nicaragua",
+        "NLD": "Netherlands",
+        "NOR": "Norway",
+        "NPL": "Nepal",
+        "NZL": "New Zealand",
+        "OMN": "Oman",
+        "PAK": "Pakistan",
+        "PAN": "Panama",
+        "PER": "Peru",
+        "PHL": "Philippines",
+        "PNG": "Papua New Guinea",
+        "POL": "Poland",
+        "PRI": "Puerto Rico",
+        "PRT": "Portugal",
+        "PRY": "Paraguay",
+        "PSE": "Palestine",
+        "PYF": "French Polynesia",
+        "QAT": "Qatar",
+        "REU": "Réunion",
+        "ROU": "Romania",
+        "RUS": "Russia",
+        "SAU": "Saudi Arabia",
+        "SDN": "Sudan",
+        "SEN": "Senegal",
+        "SGP": "Singapore",
+        "SLV": "El Salvador",
+        "SRB": "Serbia",
+        "SVK": "Slovakia",
+        "SVN": "Slovenia",
+        "SWE": "Sweden",
+        "SXM": "Sint Maarten",
+        "SYR": "Syria",
+        "THA": "Thailand",
+        "TJK": "Tajikistan",
+        "TTO": "Trinidad and Tobago",
+        "TUN": "Tunisia",
+        "TUR": "Turkey",
+        "TWN": "Taiwan",
+        "TZA": "Tanzania",
+        "UKR": "Ukraine",
+        "URY": "Uruguay",
+        "UZB": "Uzbekistan",
+        "VEN": "Venezuela",
+        "VNM": "Vietnam",
+        "YEM": "Yemen",
+        "ZAF": "South Africa",
+        "ZWE": "Zimbabwe"
     }
 
     # List of known nationalities (ISO country names as reference)
@@ -99,13 +251,22 @@ def standardize_nationalities(nationality):
     return standardize(nationality)
 
 
-def safe_cast_to_float(value):
+def safe_cast_to_age(value):
     try:
         value = float(value)
         if value < 0:
             return 'N/A'
         if value > 100:
             return 'N/A'
+        if math.isnan(value):
+            return 'N/A'
+        return str(value)
+    except (ValueError, TypeError):
+        return 'N/A'
+    
+def safe_cast_to_int(value):
+    try:
+        value = int(value)
         if math.isnan(value):
             return 'N/A'
         return str(value)

@@ -13,8 +13,6 @@ print(len(files))
 l_symb = '<<'
 r_symb = '>>'
 
-# TODO ADD PSYCH-101 here and remove added numbers at the bottom
-# TODO ADD THE QUESTIONAIRES
 # TODO MAKE ALL 0 and neg rts nan
 
 full_data = []
@@ -26,6 +24,7 @@ for file in files:
  
     if True:
         with jsonlines.open(file) as reader:
+            print(file)
             for obj in reader:
                 if exp_participants == 0:
                     print(obj.keys())
@@ -39,7 +38,24 @@ for file in files:
                 if 'RTs' in obj.keys():
                     if len(obj['RTs']) > 0:
                         assert len(obj['RTs']) == obj['text'].count(l_symb), (obj['experiment'], obj['participant'])
-                
+
+                # rename questionaires
+                if "STICSAsoma" in obj.keys():
+                    obj["STICSA-T somatic"] = obj.pop("STICSAsoma")                
+                if "STICSAcog" in obj.keys():
+                    obj["STICSA-T cognitive"] = obj.pop("STICSAcog")
+
+                if "STAI" in obj.keys():
+                    obj["STAI-S"] = obj.pop("STAI")                
+                if "stai" in obj.keys():
+                    obj["STAI-T"] = obj.pop("stai")
+                if "stai_total" in obj.keys():
+                    obj["STAI-T"] = obj.pop("stai_total")
+
+                if "BIS" in obj.keys():
+                    obj["bis"] = obj.pop("BIS")
+
+
                 # rename sex to gender
                 if "sex" in obj.keys():
                     obj["gender"] = obj.pop("sex")
@@ -66,7 +82,7 @@ for file in files:
                     dict_partcipants['gender'] = 'N/A'
 
                 if 'age' in obj.keys():
-                    dict_partcipants['age'] = safe_cast_to_float(obj['age'])
+                    dict_partcipants['age'] = safe_cast_to_age(obj['age'])
                 else:
                     dict_partcipants['age'] = 'N/A'
 
@@ -84,7 +100,102 @@ for file in files:
                     dict_partcipants['diagnosis'] = cast_to_diagnosis(obj['diagnosis'])
                 else:
                     dict_partcipants['diagnosis'] = 'N/A'
+
                 
+                if 'STICSA-T somatic' in obj.keys():
+                    dict_partcipants['STICSA-T somatic'] = str(obj['STICSA-T somatic'])
+                else:
+                    dict_partcipants['STICSA-T somatic'] = 'N/A'
+
+                if 'STICSA-T cognitive' in obj.keys():
+                    dict_partcipants['STICSA-T cognitive'] = str(obj['STICSA-T cognitive'])
+                else:
+                    dict_partcipants['STICSA-T cognitive'] = 'N/A'
+                
+                if 'STAI-S' in obj.keys():
+                    dict_partcipants['STAI-S'] = str(obj['STAI-S'])
+                else:
+                    dict_partcipants['STAI-S'] = 'N/A'
+
+                if 'STAI-T' in obj.keys():
+                    dict_partcipants['STAI-T'] = str(int(obj['STAI-T']))
+                else:
+                    dict_partcipants['STAI-T'] = 'N/A'
+
+                if 'IUS' in obj.keys():
+                    dict_partcipants['IUS'] = str(obj['IUS'])
+                else:
+                    dict_partcipants['IUS'] = 'N/A'
+                
+                if 'RRQ' in obj.keys():
+                    dict_partcipants['RRQ'] = str(obj['RRQ'])
+                else:
+                    dict_partcipants['RRQ'] = 'N/A'
+
+                if 'AUDIT' in obj.keys():
+                    dict_partcipants['AUDIT'] = safe_cast_to_int(obj['AUDIT'])
+                else:
+                    dict_partcipants['AUDIT'] = 'N/A'
+
+                if 'DAST' in obj.keys():
+                    dict_partcipants['DAST'] = str(obj['DAST'])
+                else:
+                    dict_partcipants['DAST'] = 'N/A'
+
+                if 'pswq' in obj.keys():
+                    dict_partcipants['PSWQ'] = str(obj['pswq'])
+                else:
+                    dict_partcipants['PSWQ'] = 'N/A'
+
+                if 'gad7' in obj.keys():
+                    dict_partcipants['GAD-7'] = str(obj['gad7'])
+                else:
+                    dict_partcipants['GAD-7'] = 'N/A'
+
+                if 'sds_total' in obj.keys():
+                    dict_partcipants['SDS'] = str(obj['sds_total'])
+                else:
+                    dict_partcipants['SDS'] = 'N/A'                
+
+                if 'oci_total' in obj.keys():
+                    dict_partcipants['OCI'] = str(int(obj['oci_total']))
+                else:
+                    dict_partcipants['OCI'] = 'N/A'
+
+                if 'PHQ' in obj.keys():
+                    dict_partcipants['PHQ-9'] = str(int(obj['PHQ']))
+                else:
+                    dict_partcipants['PHQ-9'] = 'N/A' 
+
+                if 'phq8' in obj.keys():
+                    dict_partcipants['PHQ-8'] = str(int(obj['phq8']))
+                else:
+                    dict_partcipants['PHQ-8'] = 'N/A'       
+       
+                if 'bas_drive' in obj.keys():
+                    dict_partcipants['BAS Drive'] = str(int(obj['bas_drive']))
+                else:
+                    dict_partcipants['BAS Drive'] = 'N/A'
+
+                if 'bas_fun_seeking' in obj.keys():
+                    dict_partcipants['BAS Fun Seeking'] = str(int(obj['bas_fun_seeking']))
+                else:
+                    dict_partcipants['BAS Fun Seeking'] = 'N/A'
+                
+                if 'bas_reward_response' in obj.keys():
+                    dict_partcipants['BAS Reward Responsiveness'] = str(int(obj['bas_reward_response']))
+                else:
+                    dict_partcipants['BAS Reward Responsiveness'] = 'N/A'
+
+                if 'BDI-II score' in obj.keys():
+                    dict_partcipants['BDI-II'] = str(int(obj['BDI-II score']))
+                else:
+                    dict_partcipants['BDI-II'] = 'N/A'
+
+                if 'bis' in obj.keys():
+                    dict_partcipants['BIS-11'] = str(safe_cast_to_int(obj['bis']))
+                else:
+                    dict_partcipants['BIS-11'] = 'N/A'
 
                 full_data.append(dict_partcipants)
                 exp_participants += 1
