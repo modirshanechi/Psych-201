@@ -16,7 +16,9 @@ r_symb = '>>'
 # TODO MAKE ALL 0 and neg rts nan
 
 full_data = []
+number_participants = []
 total_experiments = 0
+total_choices = 0
 for file in files:
     
     total_experiments += 1
@@ -199,8 +201,13 @@ for file in files:
 
                 full_data.append(dict_partcipants)
                 exp_participants += 1
+                total_choices += dict_partcipants['text'].count("<<")
+
+    number_participants.append(exp_participants)
         
 print('Number of participants:', len(full_data))
+print('Maximum number of participants', np.array(number_participants).max()) 
+print('Total choices:', total_choices)
   
     
 # save all data sets

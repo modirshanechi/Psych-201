@@ -2,12 +2,18 @@ from datasets import load_dataset
 import matplotlib.pyplot as plt 
 import seaborn as sns
 import numpy as np
+from matplotlib.lines import Line2D
 import scienceplots
+import matplotlib.gridspec as gridspec
 
 dataset = load_dataset('json', data_files='psych201.jsonl')['train'].to_pandas()
 #dataset = load_dataset('json', data_files='psych101/psych101_with_side_information.jsonl')['train'].to_pandas()
 print(dataset)
 plt.style.use(['nature'])
+
+plt.rcParams.update({
+    'xtick.labelsize': 6,
+})
 
 questionaires = [
     'STAI-T',
@@ -24,9 +30,9 @@ questionaires = [
     'BAS Drive',
     'BAS Fun Seeking',
     'BAS Reward Responsiveness',
+    'OCI',
     'DAST',
     'AUDIT',
-    'OCI',
     'IUS',
     'RRQ',
 ]
@@ -48,15 +54,15 @@ questionnaire_lookup = {
     'PHQ-8': 'C1',
     'BDI-II': 'C1',
     'SDS': 'C1',
-    'AUDIT': 'C2',
-    'DAST': 'C2',
-    'BAS Drive': 'C3',
-    'BAS Fun Seeking': 'C3',
-    'BAS Reward Responsiveness': 'C3',
-    'BIS-11': 'C3',
-    'IUS': 'C4',
-    'RRQ': 'C4',
-    'OCI': 'C4',
+    'AUDIT': 'C3',
+    'DAST': 'C3',
+    'BAS Drive': 'C2',
+    'BAS Fun Seeking': 'C2',
+    'BAS Reward Responsiveness': 'C2',
+    'BIS-11': 'C2',
+    'IUS': 'C3',
+    'RRQ': 'C3',
+    'OCI': 'C3',
 }
 questionaires_participants = []
 colors = []
@@ -65,25 +71,61 @@ for questionaire in questionaires:
     colors.append(questionnaire_lookup[questionaire])
     
 
-fig1, f1_axes = plt.subplots(nrows=3, ncols=2, figsize=(5.5, 5.5))
+fig1 = plt.figure(figsize=(5.5, 7.5))
+gs = gridspec.GridSpec(3, 2, height_ratios=[1, 1, 1])  # Equal row heights
+
+# Create axes using gs[i, j]
+f1_axes = np.empty((3, 2), dtype=object)
+for i in range(3):
+    for j in range(2):
+        f1_axes[i, j] = fig1.add_subplot(gs[i, j])
+
 keys = ['age', 'nationality', 'education']
 for k, key in enumerate(keys):
     column = dataset[dataset[key] != 'N/A'][key]
     i = (k+2) // 2
     j = (k+2) % 2
     if key == 'age':
-        f1_axes[i, j].hist(column.astype(float), bins = 30)
+        f1_axes[i, j].hist(column.astype(float), bins = 30, rwidth=1)
+        f1_axes[i, j].set_xlabel('Age')
     else:
         counts = column.value_counts()
-        sorted_counts = counts.sort_values(ascending=False)[:30]
+        sorted_counts = counts.sort_values(ascending=False)[:20]
         print(counts.shape)
-        sorted_counts.plot(kind='bar', color='C0', ax=f1_axes[i, j])
+        sorted_counts.plot(kind='bar', width=0.75, color='C0', ax=f1_axes[i, j])
+        f1_axes[i, j].set_xlabel('')
         #f1_axes[i, j].hist(column, bins = 'auto')
     f1_axes[i, j].tick_params(axis='x', rotation=90)
+    f1_axes[i, j].set_ylabel('Number of participants')
+    f1_axes[i, j].set_title(key.capitalize())
+
+custom_lines_r2 = [
+        Line2D([0], [0], color='C0', alpha=0.8, linewidth=5, markersize=3),
+        Line2D([0], [0], color='C1', alpha=0.8, linewidth=5, markersize=3),
+        Line2D([0], [0], color='C2', alpha=0.8, linewidth=5, markersize=3),
+        Line2D([0], [0], color='C3', alpha=0.8, linewidth=5, markersize=3),
+        ]
 
 f1_axes[2, 1].bar(questionaires, questionaires_participants, color=colors)
 f1_axes[2, 1].tick_params(axis='x', rotation=90)
+f1_axes[2, 1].set_ylabel('Number of participants')
+f1_axes[2, 1].set_title('Questionaire responses')
+f1_axes[2, 1].legend(custom_lines_r2, ['Anxiety', 'Depression', 'Reward sensitivity', 'Miscellaneous'], frameon=False, handlelength=0.5,  loc="upper right", borderaxespad=0, ncol=2)
+f1_axes[2, 1].set_ylim(0, 4100)
+
+# sources: https://journals.sagepub.com/doi/full/10.1177/2515245919838781?utm_source=chatgpt.com
+# https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2823295
+f1_axes[0, 0].bar(['Normal\nstudy', 'Mega-\nstudy', 'Psych-101', 'Psych-201'], [0.195, 15.715, 60.92, 217.513], color=colors)
+f1_axes[0, 0].set_ylabel('Number of participants\n(in thousands)')
+f1_axes[0, 0].set_title('Participants')
+f1_axes[0, 0].tick_params(axis='x')
+
+f1_axes[0, 1].bar(['Normal\nstudy', 'Mega-\nstudy', 'Psych-101', 'Psych-201'], [0.020000, 0.200000, 10.681650, 27.050681], color=colors)
+f1_axes[0, 1].set_ylabel('Number of responses\n(in millions)')
+f1_axes[0, 1].set_title('Responses')
+f1_axes[0, 1].tick_params(axis='x')
 
 plt.tight_layout()
 sns.despine()
+plt.savefig('fig1.pdf', bbox_inches='tight')
 plt.show()
