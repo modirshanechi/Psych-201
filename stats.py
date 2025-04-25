@@ -9,6 +9,7 @@ import matplotlib.gridspec as gridspec
 dataset = load_dataset('json', data_files='psych201.jsonl')['train'].to_pandas()
 #dataset = load_dataset('json', data_files='psych101/psych101_with_side_information.jsonl')['train'].to_pandas()
 print(dataset)
+print(dataset['clinical diagnosis'].unique())
 plt.style.use(['nature'])
 
 plt.rcParams.update({
@@ -115,15 +116,25 @@ f1_axes[2, 1].set_ylim(0, 4100)
 
 # sources: https://journals.sagepub.com/doi/full/10.1177/2515245919838781?utm_source=chatgpt.com
 # https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2823295
-f1_axes[0, 0].bar(['Normal\nstudy', 'Mega-\nstudy', 'Psych-101', 'Psych-201'], [0.195, 15.715, 60.92, 217.513], color=colors)
+f1_axes[0, 0].bar(['Normal study', 'Mega-study', 'Psych-101', 'Psych-201'], [0.195, 15.715, 60.92, 217.513], color=colors)
 f1_axes[0, 0].set_ylabel('Number of participants\n(in thousands)')
 f1_axes[0, 0].set_title('Participants')
-f1_axes[0, 0].tick_params(axis='x')
+f1_axes[0, 0].tick_params(axis='x', rotation=90)
 
-f1_axes[0, 1].bar(['Normal\nstudy', 'Mega-\nstudy', 'Psych-101', 'Psych-201'], [0.020000, 0.200000, 10.681650, 27.050681], color=colors)
-f1_axes[0, 1].set_ylabel('Number of responses\n(in millions)')
-f1_axes[0, 1].set_title('Responses')
-f1_axes[0, 1].tick_params(axis='x')
+colors = ['C0', 'C1']
+
+data = np.load('embeddings.npz')
+labels = 1 - data['arr_1']
+x = data['arr_0']
+# Scatter each group with a label
+for i in np.unique(labels):
+    f1_axes[0, 1].scatter(x[labels == i, 0], x[labels == i, 1], color=colors[i], label=f'Group {i}')
+
+f1_axes[0, 1].set_xlabel('Embedding dimension 1')
+f1_axes[0, 1].set_ylabel('Embedding dimension 2')
+f1_axes[0, 1].legend(['Psych-101', 'Psych-201'], loc='lower center', ncol=3, bbox_to_anchor=(0.5, -0.5), frameon=False)
+f1_axes[0, 1].set_title('Task embeddings')
+
 
 plt.tight_layout()
 sns.despine()
