@@ -116,7 +116,7 @@ for ID in IDs:
             "Your goal is to earn as many points as possible. You will play 3 different games. Each game consists of several rounds, in which the slot machines have different rewards. Thus, if a new round starts, the average rewards of the slot machines have changed and you need to learn them again! \n"
 
         else:
-            prompt += "Welcome back to the second session of the study. 6 weeks have passed. You will now repeat the experiment you did in the first session. \n"
+            prompt += " Welcome back to the second session of the study. 6 weeks have passed. You will now repeat the experiment you did in the first session. \n"
 
         order = orders.loc[orders["ID"] == ID, "order"].item()
         

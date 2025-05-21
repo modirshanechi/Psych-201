@@ -43,7 +43,7 @@ for d in data_files_base:
             continue
         else:
             reward = f"£{int(r)}" if int(r) >= 0 else f"-£{abs(int(r))}"
-            next_trial = f"The stimulus on the next trial is {stim_dict_base[str(int(s))]}. You chose <<{str(int(c))}>>. You received {reward}."
+            next_trial = f"The stimulus on the next trial is {stim_dict_base[str(int(s))]}. You chose <<{str(int(c))}>>. You received {reward}.\n"
             text = f"{text} {next_trial}"
     output.append({"text": text, "experiment": "moutoussis2018pavlovian", "participant": f"{id_number}"})
     ids.append(id_number)
@@ -89,7 +89,7 @@ for d in data_files_six:
             continue
         else:
             reward = f"£{int(r)}" if int(r) >= 0 else f"-£{abs(int(r))}"
-            next_trial = f"The stimulus on the next trial is {stim_dict_six[str(int(s))]}. You chose <<{str(int(c))}>>. You received {reward}."
+            next_trial = f"The stimulus on the next trial is {stim_dict_six[str(int(s))]}. You chose <<{str(int(c))}>>. You received {reward}.\n"
             new_text = f"{new_text} {next_trial}"
     output[index_of_participant]['text'] = new_text
 
@@ -141,7 +141,7 @@ for d in data_files_eighteen:
             continue
         else:
             reward = f"£{int(r)}" if int(r) >= 0 else f"-£{abs(int(r))}"
-            next_trial = f"The stimulus on the next trial is {stim_dict_eighteen[str(int(s))]}. You chose <<{str(int(c))}>>. You received {reward}."
+            next_trial = f"The stimulus on the next trial is {stim_dict_eighteen[str(int(s))]}. You chose <<{str(int(c))}>>. You received {reward}.\n"
             new_text = f"{new_text} {next_trial}"
     output[index_of_participant]['text'] = new_text
     count_follow_ups_eighteen += 1

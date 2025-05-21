@@ -20,8 +20,10 @@ for participant in participants:
     prompt = 'Thank you for agreeing to take part in this study!\n'
     prompt += 'You will be shown brief summaries of psychological studies.\n'
     prompt += 'Your task is to evaluate whether you think each study is replicable — that is, whether repeating the experiment would likely lead to the same results.\n'
+    prompt += 'Please answer with yes, no, or skip.\n'
     prompt += 'After making your judgment, you’ll also be asked how confident you are in your decision.\n'
-    prompt += 'If a study summary is unclear or you do not understand it, you can check a box to skip it.'
+    prompt += 'Please answer with a number between 0 and 100%.'
+    
     
     df_participant = df[df['SbjID'] == participant]
     num_trials = len(df_participant)

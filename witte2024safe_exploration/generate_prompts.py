@@ -18,12 +18,12 @@ Nblocks = len(data["blocknr"].unique())
 
 instr = "Welcome to the game! In this game you play the role of a sailor trying to catch fish from the ocean.\n" \
     "You can choose to go fishing in any of the squares of an 11-by-11 grid representing the ocean. The squares are indexed by their row (0-10) and their column (0-10). To select a square you provide its location like [x_index, y_index]. Once you select a square, you will be told the number of fish you caught in that square.\n" \
-    "One square will be selected for you at the start of each round, and you'll be told the number of fish in that square." \
+    "One square will be selected for you at the start of each round, and you'll be told the number of fish in that square. " \
     "You will have to work out which locations are likely to contain the most fish in order to maximise your score. If one square has a high number of fish, it's likely that nearby squares will also have a lot of fish. If a square has few fish, nearby squares are likely to also have few fish.\n" \
     "You can select the same square several times. Each time you will get a similar number of fish.\n" \
     "However, there is a dangerous creature called the Kraken lurking in the ocean somewhere, which feeds on fish. You must avoid finding the Kraken. If you do, it will steal all the fish you have collected in that round! When the kraken is nearby, you will be told so in the begginning of the round. Sometimes the kraken will be somewhere else, and you won't be at risk of finding it. \n" \
     "Areas where the Kraken lurks will have very few fish as it has started to eat them. When the kraken is nearby, if you find a square with 50 fish or fewer, there is a 100 percent chance that the Kraken will be there. If you find a square with more than 50 fish, you'll always be safe. \n" \
-    "The number of fish in the ocean does not decrease as the task goes on, or when you click on a square more than once."
+    "The number of fish in the ocean does not decrease as the task goes on, or when you click on a square more than once.\n"
 
 
 

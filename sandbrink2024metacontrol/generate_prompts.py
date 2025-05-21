@@ -120,9 +120,9 @@ for dataset in datasets:
                 else:
                     descriptor_control = 'complete'
                     descriptor_machine = 'always'
-                prompt += f"In this set, you have {descriptor_control} control, meaning that your bets will succeed ({descriptor_machine}). "
+                prompt += f"In this set, you have {descriptor_control} control, meaning that your bets will succeed ({descriptor_machine}).\n"
             else:
-                prompt += "In this set, you will have to infer the level of control entirely from the feedback you receive. "
+                prompt += "In this set, you will have to infer the level of control entirely from the feedback you receive.\n"
             
             for trial in range(num_trials):
 
@@ -143,20 +143,20 @@ for dataset in datasets:
                 prompt += f"Round {trial+1}/{num_trials}. You press <<{choice_options[choice_index]}>>. "
 
                 if choice_index == 0:
-                    prompt += f"You observed and see the {light_names[light]} light up. \n"
+                    prompt += f"You observed and see the {light_names[light]} light up.\n"
                 elif choice_index == 1 or choice_index == 2:
                     if choice_index == 1:
                         prompt += f"You bet on the blue light. "
                     elif choice_index == 2:
                         prompt += f"You bet on the red light. "
                     if choice_original == choice_final:
-                        prompt += f"You executed this bet successfully. \n"
+                        prompt += f"You executed this bet successfully.\n"
                     else:
-                        prompt += f"You didn't execute this bet successfully and it is switched to the other light. "
+                        prompt += f"You didn't execute this bet successfully and it is switched to the other light.\m"
                 else:
-                    prompt += f"You slept and increased your control. \n"
+                    prompt += f"You slept and increased your control.\n"
 
-            prompt += f"You have successfully completed this set and earned {rewards} coins. \n"
+            prompt += f"You have successfully completed this set and earned {rewards} coins.\n"
 
         prompt = prompt[:-2]
         print(prompt)

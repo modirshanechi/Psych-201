@@ -45,25 +45,17 @@ for participant_id in participant_ids:
 
     # Instructions for LLM
     instructions = """You will be making real decisions that affect the monetary outcomes of YOURSELF and OTHERS.
-    
-    You will be playing multiple rounds of a game with DIFFERENT partners every round. 
+You will be playing multiple rounds of a game with DIFFERENT partners every round. 
+Your partner has been allotted $1.00. You will be paired with a different partner each round and your partner has already decided how much of their $1 to offer you. 
+IMPORTANT: Your partner can split their $1 in any amount as long as it is in $0.05 increments. 
 
-    Your partner has been allotted $1.00. You will be paired with a different partner each round and your partner has already decided how much of their $1 to offer you. 
+After observing your partner make an offer, you will be asked to determine the final monetary outcome of both your partner and yourself. The two options are labeled below: 
+""" + choice_options[0] + """: Accept the proposed offer and keep both you and your partner's money the same. 
+""" + choice_options[1] + """: Reject the offer and decrease both you and your partner's money to zero. 
 
-    IMPORTANT: Your partner can split their $1 in any amount as long as it is in $0.05 increments. 
+Ultimately, you will decide how much money you and your partner actually receive.
 
-
-    After observing your partner make an offer, you will be asked to determine the final monetary outcome of both your partner and yourself. The two options are labeled below: 
-    
-    """ + choice_options[0] + """: Accept the proposed offer and keep both you and your partner's money the same. 
-
-    """ + choice_options[1] + """: Reject the offer and decrease both you and your partner's money to zero. 
-
-
-    Ultimately, you will decide how much money you and your partner actually receive.
-
-
-    """
+"""
 
     # Get participant's choice 
     choices = ulg[ulg["sub"] == participant_id]

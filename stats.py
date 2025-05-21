@@ -110,13 +110,13 @@ custom_lines_r2 = [
 f1_axes[2, 1].bar(questionaires, questionaires_participants, color=colors)
 f1_axes[2, 1].tick_params(axis='x', rotation=90)
 f1_axes[2, 1].set_ylabel('Number of participants')
-f1_axes[2, 1].set_title('(f) Questionaire responses')
+f1_axes[2, 1].set_title('Questionaire responses')
 f1_axes[2, 1].legend(custom_lines_r2, ['Anxiety', 'Depression', 'Reward sensitivity', 'Miscellaneous'], frameon=False, handlelength=0.5,  loc="upper right", borderaxespad=0, ncol=2)
 f1_axes[2, 1].set_ylim(0, 4100)
 
 # sources: https://journals.sagepub.com/doi/full/10.1177/2515245919838781?utm_source=chatgpt.com
 # https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2823295
-f1_axes[0, 0].bar(['Normal study', 'Mega-study', 'Psych-101', 'Psych-201'], [0.195, 15.715, 60.92, 217.513], color=colors)
+f1_axes[0, 0].bar(['Normal study', 'Mega-study', 'Psych-101', 'Psych-201'], [0.195, 15.715, 60.92, 211.964], color=colors)
 f1_axes[0, 0].set_ylabel('Number of participants\n(in thousands)')
 f1_axes[0, 0].set_title('Participants')
 f1_axes[0, 0].tick_params(axis='x', rotation=90)

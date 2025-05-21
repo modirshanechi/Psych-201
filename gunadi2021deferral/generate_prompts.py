@@ -53,8 +53,8 @@ def generate_prompts(input_csv, output_jsonl):
                 "Imagine that you are buying flight tickets for your upcoming holidays. Only one airline "
                 "flies directly to that destination.\n\n"
                 f"{condition_descriptions[row['condition']]}\n\n"
-                f"Would you buy the tickets now or later? You can press [{key_map['I would buy the tickets now']}] to buy now or "
-                f"[{key_map['I would buy the tickets later']}] to buy later.\n"
+                f"Would you buy the tickets now or later? You can press {key_map['I would buy the tickets now']} to buy now or "
+                f"{key_map['I would buy the tickets later']} to buy later.\n"
                 f"You press <<{chosen_key}>>."
             )
 

@@ -13,12 +13,12 @@ print(len(files))
 l_symb = '<<'
 r_symb = '>>'
 
-# TODO MAKE ALL 0 and neg rts nan
-
 full_data = []
 number_participants = []
 total_experiments = 0
 total_choices = 0
+
+# TODO MERGE psych-201-analyses/old/clean_labels_201.py
 for file in files:
     
     total_experiments += 1
@@ -26,84 +26,87 @@ for file in files:
  
     if True:
         with jsonlines.open(file) as reader:
-            print(file)
-            for obj in reader:
-                if exp_participants == 0:
-                    print(obj.keys())
+            # study name 
+            study_name = file.split('/')[0]
+            print(study_name)
 
+            for obj in reader:
                 # check that mandatory keys are there
                 assert 'text' in obj.keys()
                 assert 'participant' in obj.keys()
-                assert 'experiment' in obj.keys()
+                assert 'experiment' in obj.keys()               
+                
                 # check that RTs match number of choices
-
                 if 'RTs' in obj.keys():
                     if len(obj['RTs']) > 0:
                         assert len(obj['RTs']) == obj['text'].count(l_symb), (obj['experiment'], obj['participant'])
 
-                # rename questionaires
+                # create dictionary
+                if study_name == 'psych101':
+                    dict_partcipants = {
+                        'text': obj['text'],
+                        'study': obj['study'],
+                        'experiment': str(obj['experiment']), 
+                        'participant': str(obj['participant']),
+                    }
+                else:
+                    dict_partcipants = {
+                        'text': obj['text'],
+                        'study': study_name,
+                        'experiment': str(obj['experiment']), 
+                        'participant': str(obj['participant']),
+                    }
+
+                # rename variables
                 if "STICSAsoma" in obj.keys():
                     obj["STICSA-T somatic"] = obj.pop("STICSAsoma")                
                 if "STICSAcog" in obj.keys():
                     obj["STICSA-T cognitive"] = obj.pop("STICSAcog")
-
                 if "STAI" in obj.keys():
                     obj["STAI-S"] = obj.pop("STAI")                
                 if "stai" in obj.keys():
                     obj["STAI-T"] = obj.pop("stai")
                 if "stai_total" in obj.keys():
                     obj["STAI-T"] = obj.pop("stai_total")
-
                 if "BIS" in obj.keys():
                     obj["bis"] = obj.pop("BIS")
-
-
-                # rename sex to gender
                 if "sex" in obj.keys():
                     obj["gender"] = obj.pop("sex")
-
-                # rename location to nationality
                 if "location" in obj.keys():
                     obj["nationality"] = obj.pop("location")
 
-                dict_partcipants = {
-                    'text': obj['text'],
-                    'experiment': str(obj['experiment']), 
-                    'participant': str(obj['participant']),
-                }
-
+                # case as needed
                 if ('RTs' in obj.keys()) and (len(obj['RTs']) > 0):
-                    dict_partcipants['RTs'] = safe_cast_to_float_array(obj['RTs'])
+                    dict_partcipants['RTs'] = cast_rts(obj['RTs'])
                 else:
                     dict_partcipants['RTs'] = obj['text'].count(l_symb) * [math.nan]
 
-                
                 if 'gender' in obj.keys():
-                    dict_partcipants['gender'] = cast_to_gender(obj['gender'])
+                    dict_partcipants['gender'] = cast_gender(obj['gender'])
                 else:
                     dict_partcipants['gender'] = 'N/A'
 
                 if 'age' in obj.keys():
-                    dict_partcipants['age'] = safe_cast_to_age(obj['age'])
+                    dict_partcipants['age'] = cast_age(obj['age'])
                 else:
                     dict_partcipants['age'] = 'N/A'
 
                 if 'nationality' in obj.keys():
-                    dict_partcipants['nationality'] = cast_to_nationality(obj['nationality'])
+                    dict_partcipants['nationality'] = cast_nationality(obj['nationality'])
                 else:
                     dict_partcipants['nationality'] = 'N/A'
 
                 if 'education' in obj.keys():
-                    dict_partcipants['education'] = cast_to_education(obj['education'])
+                    dict_partcipants['education'] = cast_education(obj['education'])
                 else:
                     dict_partcipants['education'] = 'N/A'
 
                 if 'diagnosis' in obj.keys():
-                    dict_partcipants['diagnosis'] = cast_to_diagnosis(obj['diagnosis'])
+                    dict_partcipants['clinical diagnosis'] = cast_diagnosis(obj['diagnosis'])
                 else:
-                    dict_partcipants['diagnosis'] = 'N/A'
+                    dict_partcipants['clinical diagnosis'] = 'N/A'
 
-                
+                # add questionaire stuff                
                 if 'STICSA-T somatic' in obj.keys():
                     dict_partcipants['STICSA-T somatic'] = str(obj['STICSA-T somatic'])
                 else:
@@ -135,7 +138,7 @@ for file in files:
                     dict_partcipants['RRQ'] = 'N/A'
 
                 if 'AUDIT' in obj.keys():
-                    dict_partcipants['AUDIT'] = safe_cast_to_int(obj['AUDIT'])
+                    dict_partcipants['AUDIT'] = cast_int(obj['AUDIT'])
                 else:
                     dict_partcipants['AUDIT'] = 'N/A'
 
@@ -195,7 +198,7 @@ for file in files:
                     dict_partcipants['BDI-II'] = 'N/A'
 
                 if 'bis' in obj.keys():
-                    dict_partcipants['BIS-11'] = str(safe_cast_to_int(obj['bis']))
+                    dict_partcipants['BIS-11'] = str(cast_int(obj['bis']))
                 else:
                     dict_partcipants['BIS-11'] = 'N/A'
 
@@ -208,7 +211,6 @@ for file in files:
 print('Number of participants:', len(full_data))
 print('Maximum number of participants', np.array(number_participants).max()) 
 print('Total choices:', total_choices)
-  
     
 # save all data sets
 with jsonlines.open('psych201.jsonl', 'w') as writer:

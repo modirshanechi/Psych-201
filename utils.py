@@ -251,7 +251,7 @@ def standardize_nationalities(nationality):
     return standardize(nationality)
 
 
-def safe_cast_to_age(value):
+def cast_age(value):
     try:
         value = float(value)
         if value < 0:
@@ -264,7 +264,7 @@ def safe_cast_to_age(value):
     except (ValueError, TypeError):
         return 'N/A'
     
-def safe_cast_to_int(value):
+def cast_int(value):
     try:
         value = int(value)
         if math.isnan(value):
@@ -273,10 +273,12 @@ def safe_cast_to_int(value):
     except (ValueError, TypeError):
         return 'N/A'
 
-def safe_cast_to_float_array(value): 
-    return pd.to_numeric(value, errors='coerce').astype(float).tolist()
+def cast_rts(value): 
+    rts = pd.to_numeric(value, errors='coerce').astype(float)
+    rts[rts < 0] = math.nan
+    return rts.tolist()
 
-def cast_to_nationality(value):
+def cast_nationality(value):
     value = str(value).replace('Other ', '')
     value = str(value).replace("\"", "").replace(" (please specify)", "")
     if (value == 'nan') or (value == 'Unknown'):
@@ -285,13 +287,13 @@ def cast_to_nationality(value):
     value = standardize_nationalities(value)
     return value
 
-def cast_to_education(value):
+def cast_education(value):
     value = standardize_degree(value)
     if value == 'nan':
         return 'N/A'
     return value
 
-def cast_to_gender(value):
+def cast_gender(value):
     if value == 'nan':
         return 'N/A'
     
@@ -325,10 +327,9 @@ def cast_to_gender(value):
     if value == 'Rather not say':
         return 'N/A'
     
-    
     return value
 
-def cast_to_diagnosis(value):
+def cast_diagnosis(value):
     if value == 'Healthy':
         return 'N/A'
     if value == 'Depression':
