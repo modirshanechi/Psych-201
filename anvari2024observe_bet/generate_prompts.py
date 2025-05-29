@@ -46,29 +46,29 @@ all_prompts = []
 for (participant_code, session_code), df_session in groups:
     # Sort trials by block then by trial number
     df_session = df_session.sort_values(by=["block", "trial"])
-    
+
     # Begin building the prompt text with the instructions
     prompt_text = instructions + "\n"
-    
+
     RTs_per_session = []
-    
+
     # Get the unique block numbers in the session
     blocks = sorted(df_session["block"].unique())
     for block in blocks:
         df_block = df_session[df_session["block"] == block]
-        
+
         # Label block: Block 1 is Practice; Blocks 2 and 3 are Incentivized (numbered 1 and 2)
         if block == 1:
             prompt_text += "Practice Block:\n\n"
         else:
             prompt_text += f"Incentivized Block {block - 1}:\n\n"
-        
+
         # Iterate through trials in the block
         for i, (_, row) in enumerate(df_block.iterrows()):
             trial_num = int(row["trial"])
             recorded_action = row["player.selection"]
             action = action_mapping.get(recorded_action, recorded_action)
-            
+
             # Build trial description based on the action chosen
             if action == "observe":
                 light_colour = row["player.light_colour"]
@@ -76,14 +76,14 @@ for (participant_code, session_code), df_session in groups:
             else:
                 trial_line = f"Trial {trial_num}: You chose to <<{action}>>.\n"
             prompt_text += trial_line
-            
+
             rt = row["player.submission_times"] * 1000
             RTs_per_session.append(rt)
-        
+
         prompt_text += "\n"
-    
+
     prompt_text += "End of session.\n"
-    
+
     prompt_dict = {
         "text": prompt_text,
         "experiment": "observe_or_bet",
