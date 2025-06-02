@@ -20,7 +20,7 @@ task_instructions = (
     "In the following, you will be presented with 16 short stories.\n"
     "Please read them very carefully, even if they appear to be repeated and you think that you remember them well enough.\n"
     "We ask you to rate statements about each short story.\n"
-    "Please indicate, using an adjustable slider, how likely it is that a statement is true based on what you've read.\n"
+    "Please indicate, using an adjustable slider, how likely (between 0 and 100 percent) it is that a statement is true based on what you've read.\n"
     "Notice that there will also be simple attention checking trials.\n"
     "You will recognize them immediately when you read the important text on each trial carefully - those trials contain instructions for you to move the slider in a certain way.\n"
     "Please follow those instructions.\n"
@@ -117,5 +117,3 @@ for participant in tqdm(df.submission_id.unique()):
 # Save output to JSONL file
 with jsonlines.open("prompts.jsonl", "w") as writer:
     writer.write_all(json_out)
-
-

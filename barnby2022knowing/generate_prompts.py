@@ -6,7 +6,7 @@ import pandas as pd
 data_path = "../Barnby_etal_2021_SVO/Data"
 
 
-p1_prompt = """You are matched with an anonymous partner. 
+p1_prompt = """You are matched with an anonymous partner.
 You will be presented with two options, each of which describes the number of points you and your partner will receive. You must choose the option that you prefer.
 In all trials, you must collect as many points as possible. You will be paid based on the number of points you collect at the end of the experiment.
 """
@@ -40,7 +40,7 @@ for id in ids:
     ICARrt = str(int(participant_subset_p1["ICARrt"].values[0]))
     for i, row in participant_subset_p1.iterrows():
         response = int(row['Response'])
-        text = f"{text}\nTrial {row['Trial']}:\nOption 1: Points for you: {row['Option1_PPT']}, Points for your partner: {row['Option1_Partner']}\nOption 2: Points for you: {row['Option2_PPT']}, Points for your partner: {row['Option2_Partner']}\n\n. You chose option <<{str(response)}>>. You received {int(row[f'Option{response}_PPT'])} points."
+        text = f"{text}\nTrial {row['Trial']}:\nOption 1: Points for you: {row['Option1_PPT']}, Points for your partner: {row['Option1_Partner']}\nOption 2: Points for you: {row['Option2_PPT']}, Points for your partner: {row['Option2_Partner']}\n\nYou chose option <<{str(response)}>>. You received {int(row[f'Option{response}_PPT'])} points.\n"
         reaction_times.append(float(row['Intentions_RT']))
     participant_subset_p2 = phase2[phase2["id"] == id]
     text = f"{text}\n\n{p2_prompt}\n"
@@ -48,13 +48,13 @@ for id in ids:
         response = int(row['Response'])
         correct_answer = int(row['Answer'])
         points = "1 point" if response == correct_answer else "0 points"
-        text = f"{text}\nTrial {row['Trial']}:\nOption 1: Points for you: {row['Option1_PPT']}, Points for your partner: {row['Option1_Partner']}\nOption 2: Points for you: {row['Option2_PPT']}, Points for your partner: {row['Option2_Partner']}\n\n. You chose option <<{str(response)}>>. Your partner chose option {str(correct_answer)}. You received {points}."
+        text = f"{text}\nTrial {row['Trial']}:\nOption 1: Points for you: {row['Option1_PPT']}, Points for your partner: {row['Option1_Partner']}\nOption 2: Points for you: {row['Option2_PPT']}, Points for your partner: {row['Option2_Partner']}\n\nYou chose option <<{str(response)}>>. Your partner chose option {str(correct_answer)}. You received {points}.\n"
         reaction_times.append(float(row['Intentions_RT']))
     if row['Final_Guess'] == "Please select an option": # participant 555 did not answer the final question. We will exclude them.
         continue
     else:
         rating = final_mc_question[str(row['Final_Guess'])]
-    text = f"{text}\n\nYou rated your partner's harmful intent as <<{int(participant_subset_p2['HI'].values[0])}>> and self-interest as <<{int(participant_subset_p2['SI'].values[0])}>> on separate scales from 0 to 100. When asked whether your partner was aiming to (1) share money equally, (2) trying to earn as much money as possible, or (3) trying to prevent you from earning money. You chose <<{rating}>>."
+    text = f"{text}\n\nOn separate scales from 0 to 100, you rated your partner's harmful intent as <<{int(participant_subset_p2['HI'].values[0])}>> and self-interest as <<{int(participant_subset_p2['SI'].values[0])}>>. When asked whether your partner was aiming to (1) share money equally, (2) trying to earn as much money as possible, or (3) trying to prevent you from earning money. You chose <<{rating}>>."
     reaction_times.extend(['NA'] * 3)
     assert len(reaction_times) == 18 + 36 + 3, "Incorrect number of reaction times. There should be 18 phase 1 trials, 36 phase 2 trials, and 3 final questions (all NAs)."
     output.append({"text" : text, "experiment" : "barnby2022knowing", "participant" : id, "RTs" : reaction_times, "age" : age, "nationality" : ethnicity, "ICARTot" : ICARTot, "ICAR_RT" : ICARrt})
