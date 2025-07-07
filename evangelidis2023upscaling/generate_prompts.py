@@ -8,7 +8,7 @@ def randomized_choice_options(num_choices):
 
 def generate_prompts(input_csv, output_jsonl):
     df = pd.read_csv(input_csv)
-    
+
     stimuli_prompts = {
         "BackTwo": {
             "prompt": "Imagine that you consider buying a backpack. You have the following options:",
@@ -111,12 +111,12 @@ def generate_prompts(input_csv, output_jsonl):
                         keys = randomized_choice_options(total_keys)
 
                         key_map = {i: keys[i] for i in range(len(config["options"]))}
-                        search_key = keys[-1] 
+                        search_key = keys[-1]
 
                         # Construct choice text
                         options_text = "\n".join([f"Option {key_map[i]}: {desc}" for i, desc in enumerate(config["options"])])
 
-                        instruction_line = f"What would you do? You can choose an option by pressing the corresponding key or decide to search for other options by pressing [{search_key}]."
+                        instruction_line = f"What would you do? You can choose an option by pressing the corresponding key or decide to search for other options by pressing {search_key}."
                         chosen_key = key_map[label_idx] if label_idx is not None else search_key
                         choice_line = f"You press <<{chosen_key}>>."
 
