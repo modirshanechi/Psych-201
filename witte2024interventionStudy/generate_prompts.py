@@ -3,12 +3,12 @@ import pandas as pd
 import jsonlines
 #from utils import randomized_choice_options
 
-data_path = "/Users/kristinwitte/Library/CloudStorage/OneDrive-Personal/CPI/hackathons/psych201/intervention_study.csv"
+data_path = "intervention_study.csv"
 data = pd.read_csv(data_path)
 
-intervention_data = pd.read_csv("/Users/kristinwitte/Library/CloudStorage/OneDrive-Personal/CPI/hackathons/psych201/intervention.csv")
-wantInfo_data = pd.read_csv("/Users/kristinwitte/Library/CloudStorage/OneDrive-Personal/CPI/hackathons/psych201/worry.csv")
-nervous_data = pd.read_csv("/Users/kristinwitte/Library/CloudStorage/OneDrive-Personal/CPI/hackathons/psych201/nervous.csv")
+intervention_data = pd.read_csv("intervention.csv")
+wantInfo_data = pd.read_csv("worry.csv")
+nervous_data = pd.read_csv("nervous.csv")
 
 print(len(data["x"].dropna()))
 IDs = set(data["ID"])
@@ -212,5 +212,5 @@ for ID in IDs:
                         "CASchange": data.loc[data["ID"] == ID, "CASchange"].unique().item(),
                         "PHQ": data.loc[data["ID"] == ID, "PHQ"].unique().item()})
 
-with jsonlines.open('witte2024interventionStudy/prompts.jsonl', 'w') as writer:
+with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)

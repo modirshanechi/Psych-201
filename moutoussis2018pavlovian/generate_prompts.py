@@ -4,7 +4,7 @@ import re
 import jsonlines
 import scipy.io
 
-data_path = "../moutoussis_2018"
+data_path = "data"
 
 
 gng_base_instr = """In this task, you will be presented with 4 stimuli, A, B, C, and D. Once the stimulus is presented, you must decide whether to press a button or not.
@@ -151,5 +151,7 @@ Data found for {len(data_files_six)} participants on 6-month follow-up. 61 repor
 Data for {count_follow_ups_eighteen} participants on 18-month follow-up. 542 good-quality and 557 total reported by authors. Unclear how to identify good-quality IDs.
 Data for {count_follow_ups_six_and_eighteen} participants who participated in 6- and 18-month follow-ups. 54 reported by authors.""")
 
-with jsonlines.open('moutoussis2018pavlovian/prompts.jsonl', 'w') as writer:
+print(output)
+
+with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(output)

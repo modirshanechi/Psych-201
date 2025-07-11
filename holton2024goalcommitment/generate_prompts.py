@@ -6,8 +6,8 @@ import os
 sys.path.append("..")
 
 # Define paths
-mri_datapath = "data/mri_study/behaviour/processed/"
-patient_datapath = "data/lesion_patient_study/behaviour/"
+mri_datapath = "data/mri_study/behaviour/processed"
+patient_datapath = "data/lesion_patient_study/behaviour"
 
 # Get all CSV files from post scan session
 post_scan_path = mri_datapath + "/post_scan_session"
@@ -30,6 +30,7 @@ patient_files = [f for f in os.listdir(patient_path) if f.endswith('.csv')]
 patient_datasets = [os.path.join(patient_path, f) for f in patient_files]
 
 # Read all datasets separately
+print(scan_datasets)
 scan_data = pd.concat([pd.read_csv(dataset) for dataset in scan_datasets], ignore_index=True)
 post_scan_data = pd.concat([pd.read_csv(dataset) for dataset in post_scan_datasets], ignore_index=True)
 control_data = pd.concat([pd.read_csv(dataset) for dataset in control_datasets], ignore_index=True)
@@ -83,7 +84,7 @@ for idx,participant in enumerate(participant_ids):
     group = df_participant["lesion-group"].unique().item()
     num_trials = df_participant['total_trial_number'].max() + 1
 
-    current_prompt = f'In this game, your aim is to fill as many fishing nets as possible with seafood. You will be given a net, and you have to fill it with seafood until it is full. You get a point every time you fill a net. You can fill your net with fish, octopus or crab. However, here is the key part: You can only collect one type of seafood in your net at a time. If you decide to choose a different type of seafood from the type currently in your net, you will have to throw out all the seafood you have already caught. The available quantities of fish, octopus and crab in your fishing patch will gradually change over time. Sometimes, one type of seafood might become more bountiful as a new population enters the fishing patch, or one type of seafood might become more scarce as a population leaves. You will have {num_trials-1} total to play. Try and fill as many nets as possible!'
+    current_prompt = f'In this game, your aim is to fill as many fishing nets as possible with seafood.\nYou will be given a net, and you have to fill it with seafood until it is full.\nYou get a point every time you fill a net.\nYou can fill your net with fish, octopus or crab.\nHowever, here is the key part: You can only collect one type of seafood in your net at a time.\nIf you decide to choose a different type of seafood from the type currently in your net, you will have to throw out all the seafood you have already caught.\nThe available quantities of fish, octopus and crab in your fishing patch will gradually change over time.\nSometimes, one type of seafood might become more bountiful as a new population enters the fishing patch, or one type of seafood might become more scarce as a population leaves.\nYou will have {num_trials-1} total to play.\nTry and fill as many nets as possible!\n\n'
     
     for trial in range(1,num_trials):
 
@@ -100,19 +101,19 @@ for idx,participant in enumerate(participant_ids):
 
         if df_trial['trial_number'].item() == 1:
 
-            trial_text = f"New block. Your current net size is {goal_size}. You have collected {net_contents}. The available  quantity of fish is {fish_offer}, the quantity of octopus offer is {octopus_offer} and the current crab offer is {crab_offer}. "
+            trial_text = f"\nNew block.\nYour current net size is {goal_size}.\nYou have collected {net_contents}.\nThe available quantity of fish is {fish_offer}, the quantity of octopus offer is {octopus_offer} and the current crab offer is {crab_offer}.\n"
 
-            current_prompt += f"{trial_text}. You choose to collect<<{choice}>>. {choice_amount} of {choice} is added to your net. "
+            current_prompt += f"{trial_text}You choose to collect <<{choice}>>. {choice_amount} of {choice} is added to your net.\n"
         else:
              
             goal_idx = df_participant.loc[df_participant['total_trial_number'] == trial-1, 'choice'].item()
             goal_item = ['fish','octopus','crab'][goal_idx-1]
 
-            trial_text = f"Your current net size is {goal_size}. You have collected {net_contents} of {goal_item} in your net. The current fish offer is {fish_offer}, the current octopus offer is {octopus_offer} and the current crab offer is {crab_offer}. "
-            current_prompt += f"{trial_text}. You choose to collect<<{choice}>>. {choice_amount} of {choice} is added to your net. "
+            trial_text = f"You have collected {net_contents} of {goal_item} in your net.\nThe current fish offer is {fish_offer}, the current octopus offer is {octopus_offer} and the current crab offer is {crab_offer}.\n"
+            current_prompt += f"{trial_text}You choose to collect <<{choice}>>. {choice_amount} of {choice} is added to your net.\n"
 
-
-    all_prompts.append({"text": current_prompt, "experiment": "holton2024goalcommitment", "participant": str(idx), "age":age, "diagnosis":group})
+    print(current_prompt)
+    all_prompts.append({"text": current_prompt, "experiment": "holton2024goalcommitment", "participant": str(idx), "age":age, "diagnosis": group})
 
 with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)

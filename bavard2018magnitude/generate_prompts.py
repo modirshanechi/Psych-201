@@ -14,7 +14,7 @@ import sys
 sys.path.append("..")
 from utils import randomized_choice_options
 
-datasets = ["../../Magnitude_Data_expe1.csv","../../Magnitude_Data_expe2.csv"]
+datasets = ["Magnitude_Data_expe1.csv","Magnitude_Data_expe2.csv"]
 all_prompts = []
 
 
@@ -37,9 +37,9 @@ for d in range(len(datasets)):
 
             # feedback = feedbacks[np.unique(df_phase.Experiment)[0]%4-1][phase_ix]
             if phase == 0:
-                if d == 2:
-                    prompt += '\nYou get feedback about the values of the chosen stimulus after each choice. On some trials, you will additionally receive information about the outcome of the other option\n'
-                elif d==1 :
+                if d == 1:
+                    prompt += '\nYou get feedback about the values of the chosen stimulus after each choice. On some trials, you will additionally receive information about the outcome of the other option.\n'
+                elif d == 0 :
                     prompt += '\nYou get feedback about the value of the chosen stimulus after each choice.\n'
 
                 prompt += '\nYou are now in a learning phase.\n'

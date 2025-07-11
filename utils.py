@@ -42,14 +42,18 @@ def standardize_degree(degree):
         "school (gcse or similar)": "High School",
         "no formal ed.": "No Formal Education",
         "none": "No Formal Education",
+        "high school graduate (high school diploma or equivalent including ged)": "High School",
         "rather not say": "N/A"
     }
     
-    return mapping.get(degree.lower(), "N/A")
+    if degree.lower() in mapping.keys():
+        return mapping[degree.lower()]
+    else:
+        return degree
 
 def standardize_nationalities(nationality):
     # Mapping redundant nationalities to a standard format
-    merge_map = {
+    mapping = {
         "USA": "United States",
         "Basel": "Switzerland",
         "Berlin": "Germany",
@@ -218,37 +222,37 @@ def standardize_nationalities(nationality):
         "VNM": "Vietnam",
         "YEM": "Yemen",
         "ZAF": "South Africa",
-        "ZWE": "Zimbabwe"
+        "ZWE": "Zimbabwe",
+        "DATA EXPIRED": "N/A",
+        "(please specify)": "N/A",
+        "Africa, Asia, Pacific": "N/A",
+        "North or South America": "N/A",
+        "Europe": "N/A",
+        "English/Welsh/Scottish/Northern Irish/British": "United Kingdom",
+        "Irish": "Ireland",      
+        "Gypsy or Irish Traveller": "N/A",
+        "White": "N/A",
+        "African": "N/A",
+        "Caribbean": "N/A",
+        "Arab": "N/A",
+        "Ethnic Group": "N/A",
+        "Mixed/ Multiple Ethnic Groups": "N/A",
+        "White and Black African": "N/A",
+        "White and Asian": "N/A",
+        "White and Black Caribbean": "N/A",
+        "Any other mixed/multiple ethnic background": "N/A",
+        "Any other white background": "N/A",
+        "Any other asian background": "N/A",
+        "Any other Black/African/Caribbean background": "N/A",
+        "Asian/Asian British": "N/A",
+        "Black / African / Caribbean / Black British": "N/A",
     }
+    
+    if nationality in mapping.keys():
+        return mapping[nationality]
+    else:
+        return nationality
 
-    # List of known nationalities (ISO country names as reference)
-    valid_nationalities = {
-        "Algeria", "Argentina", "Australia", "Austria", "Bangladesh", "Belgium",
-        "Bosnia and Herzegovina", "Brazil", "Bulgaria", "Canada", "Chile", "China",
-        "Croatia", "Cyprus", "Czechia", "Denmark", "Egypt", "Estonia", "Ethiopia",
-        "France", "Georgia", "Germany", "Ghana", "Greece", "Hungary", "India",
-        "Indonesia", "Iran", "Ireland", "Israel", "Italy", "Japan", "Jordan",
-        "Kazakhstan", "Kenya", "Korea", "Latvia", "Lebanon", "Libya", "Lithuania",
-        "Malaysia", "Mauritius", "Mexico", "Moldova", "Montenegro", "Morocco",
-        "Nepal", "Netherlands", "New Zealand", "Nigeria", "North Macedonia",
-        "Norway", "Pakistan", "Panama", "Paraguay", "Peru", "Philippines", "Poland",
-        "Portugal", "Puerto Rico", "Romania", "Russia", "Serbia", "Singapore",
-        "Slovakia", "Slovenia", "South Africa", "Spain", "Sri Lanka", "Sweden",
-        "Switzerland", "Turkey", "United States", "Uganda", "Ukraine",
-        "United Kingdom", "Uruguay", "Venezuela", "Vietnam", "Yemen", "Zimbabwe"
-    }
-
-    # Function to standardize a single nationality
-    def standardize(nat):
-        if nat in merge_map:
-            return merge_map[nat]
-        elif nat in valid_nationalities:
-            return nat
-        else:
-            return 'N/A'
-
-    # Apply transformation to the list
-    return standardize(nationality)
 
 
 def cast_age(value):

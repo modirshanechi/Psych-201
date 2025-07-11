@@ -3,7 +3,7 @@ import pandas as pd
 import math as math
 import jsonlines
 import sys
-sys.path.append(".")
+sys.path.append("..")
 from utils import randomized_choice_options
 
 all_prompts = []

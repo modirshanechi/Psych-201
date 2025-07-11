@@ -1,6 +1,6 @@
 import jsonlines
 
-with jsonlines.open('vantiel2022meaninguse/prompts.jsonl') as reader:
+with jsonlines.open('holton2024goalcommitment/prompts.jsonl') as reader:
 
     num_choices = 0
     max_choices = 0
@@ -11,6 +11,7 @@ with jsonlines.open('vantiel2022meaninguse/prompts.jsonl') as reader:
         num_choices += obj['text'].count('<<')
         if k == 10:
             print(obj['text'])
+            print(obj['experiment'])
 
         if len(obj['text']) > max_length:
             max_length = len(obj['text'])

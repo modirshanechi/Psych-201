@@ -1,39 +1,31 @@
 import numpy as np
 import pandas as pd
 import jsonlines
+import sys
+sys.path.append("..")
 from utils import randomized_choice_options
 
-data_path = "/Users/kristinwitte/Documents/GitHub/exploration-psychometrics/data"
+data_path = ""
 
 datasets = ["fullHorizon.csv", "full2AB.csv", 'fullRestless.csv']
 
-orders = pd.read_csv(data_path + '/orders.csv')
+orders = pd.read_csv(data_path + 'orders.csv')
 
-horizon = pd.read_csv(data_path + '/fullHorizon.csv')
+horizon = pd.read_csv(data_path + 'fullHorizon.csv')
 IDs = set(horizon["ID"])
 NblocksH = len(horizon["block"].unique())
 
-sam = pd.read_csv(data_path + '/full2AB.csv')
+sam = pd.read_csv(data_path + 'full2AB.csv')
 NblocksS = len(sam["block"].unique())
 
-restless = pd.read_csv(data_path + '/fullRestless.csv')
+restless = pd.read_csv(data_path + 'fullRestless.csv')
 
-horizon_instr = "In this game, you will choose between two slot machines that give different average rewards.\n" \
+def get_horizon_prompt(ID, session, choice_options):
+    horizon_str = "In this game, you will choose between two slot machines labeled " + choice_options[0] + " and " + choice_options[1] + " that give different average rewards.\n" \
     "The average rewards for each machine stay the same within a round, but some noise is added. This means that if you play a slot machine several times, you will get approximately the same reward each time.\n"\
     "At the start of each round, the computer will make 4 pre-determined choices for you. After these 4 intial pre-determined choices, you get to make either 1 or 6 free choices. " \
     "You will be told whether you are in a 'Short round' when you can only make one free choice or in a 'Long round' when you can make 6 free choices. \n"\
     "You will play " + str(NblocksH)+" rounds of this game. And as always, when a new round starts, you get new slot machines with new rewards that you need to learn again.\n"
-
-sam_instr = "In this game you will choose between two slot machines that give different average rewards. \n"\
-    "Sometimes, the average rewards for one or both of the machines changes over time. You can choose either machine at any time. Try to get as many points as possible.\n"\
-    "You will play "+ str(NblocksS)+ " rounds of this game consisting of 10 choices each.\n" \
-    "As always, when a new round starts, you get new slot machines and need to learn their rewards again.\n"
-
-restless_instr = "In this game you will choose between four slot machines that give different average rewards. Importantly, the average reward of each slot machine changes over time. \n"\
-    "Thus, a slot machine that gives low rewards at first can give high rewards later on and vice-versa. You can choose any machine at any time. In this game, you will only play one round consisting of 200 choices.\n" 
-
-def get_horizon_prompt(ID, session, choice_options):
-    horizon_str = horizon_instr
 
     dat = horizon.loc[(horizon["ID"] == ID) & (horizon["session"] == session)]
     for block in range(1, NblocksH+1):
@@ -50,13 +42,13 @@ def get_horizon_prompt(ID, session, choice_options):
 
         for trial in range(1,5):# fixed choices
             chosen = np.int64(block_dat.loc[block_dat["trial"] == trial, "chosen"].item())
-            horizon_str += "On trial " + str(trial) + " of "+ str(ntrials) + " the computer picked slot machine " + str(choice_options[chosen]) + " and you got " + str(np.int64(block_dat.loc[block_dat["trial"] == trial, "reward"].item())) + " points.\n"
+            horizon_str += "The computer picked machine " + str(choice_options[chosen]) + " and you got " + str(np.int64(block_dat.loc[block_dat["trial"] == trial, "reward"].item())) + " points.\n"
 
         horizon_str += "End of the predetermined choices. You can now make " + str(ntrials-4) + " free choice(s).\n"
 
         for trial in range(5,(ntrials+1)):# free choice(s)
             chosen = np.int64(block_dat.loc[block_dat["trial"] == trial, "chosen"].item())
-            horizon_str += "On trial " + str(trial) + " of "+ str(ntrials) + " you picked slot machine <<" + str(choice_options[chosen]) + ">> and got " + str(np.int64(block_dat.loc[block_dat["trial"] == trial, "reward"].item())) + " points.\n"
+            horizon_str += "You picked machine <<" + str(choice_options[chosen]) + ">> and got " + str(np.int64(block_dat.loc[block_dat["trial"] == trial, "reward"].item())) + " points.\n"
 
         horizon_str += "End of the round.\n"
 
@@ -66,7 +58,10 @@ def get_horizon_prompt(ID, session, choice_options):
 
 def get_sam_prompt(ID, session, choice_options):
     
-    sam_str = sam_instr
+    sam_str = "In this game you will choose between two slot machines labeled " + choice_options[0] + " and " + choice_options[1] + " that give different average rewards. \n"\
+    "Sometimes, the average rewards for one or both of the machines changes over time. You can choose either machine at any time. Try to get as many points as possible.\n"\
+    "You will play "+ str(NblocksS)+ " rounds of this game consisting of 10 choices each.\n" \
+    "As always, when a new round starts, you get new slot machines and need to learn their rewards again.\n"
 
     dat = sam.loc[(sam["ID"] == ID) & (sam["session"] == session)]
 
@@ -77,7 +72,7 @@ def get_sam_prompt(ID, session, choice_options):
 
         for trial in range(1,11):
             chosen = np.int64(block_dat.loc[block_dat["trial"] == trial, "chosen"].item())
-            sam_str += "On trial " + str(trial) + " of "+ str(10) + " you picked slot machine <<" + str(choice_options[chosen]) + ">> and got " + str(np.int64(block_dat.loc[block_dat["trial"] == trial, "reward"].item())) + " points.\n"
+            sam_str += "You picked machine <<" + str(choice_options[chosen]) + ">> and got " + str(np.int64(block_dat.loc[block_dat["trial"] == trial, "reward"].item())) + " points.\n"
 
         sam_str += "End of the round.\n"
 
@@ -87,13 +82,14 @@ def get_sam_prompt(ID, session, choice_options):
 
 def get_restless_prompt(ID, session, choice_options):
     
-    restless_str = restless_instr
+    restless_str = "In this game you will choose between four slot machines labeled " + choice_options[0] + ", " + choice_options[1] + ", " + choice_options[2] + " and " + choice_options[3] + " that give different average rewards. Importantly, the average reward of each slot machine changes over time. \n"\
+    "Thus, a slot machine that gives low rewards at first can give high rewards later on and vice-versa. You can choose any machine at any time. In this game, you will only play one round consisting of 200 choices.\n" 
 
     dat = restless.loc[(restless["ID"] == ID) & (restless["session"] == session)]
 
     for trial in range(1, 201):
         chosen = np.int64(dat.loc[dat["trial"] == trial, "chosen"].item())
-        restless_str += "On trial " + str(trial) + " of 200 you picked slot machine <<" + str(choice_options[chosen]) + ">> and got " + str(np.int64(dat.loc[dat["trial"] == trial, "reward"].item())) + " points.\n"
+        restless_str += "You picked machine <<" + str(choice_options[chosen]) + ">> and got " + str(np.int64(dat.loc[dat["trial"] == trial, "reward"].item())) + " points.\n"
 
     return restless_str
 
@@ -156,5 +152,5 @@ for ID in IDs:
     #print(prompt)
     all_prompts.append({'text': prompt, 'experiment': 'witte_thalmann2024exploration/', 'participant': ID})
 
-with jsonlines.open('witte_thalmann2024exploration/prompts.jsonl', 'w') as writer:
+with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)

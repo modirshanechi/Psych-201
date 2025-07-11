@@ -1,3 +1,4 @@
+#%%
 import numpy as np
 import pandas as pd
 import jsonlines
@@ -7,11 +8,20 @@ from utils import randomized_choice_options
 
 # set working directory to current directory
 import os
+
+
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 # check what the current working directory is
 print(os.getcwd())
 
+# add /haridi2024memory to the working directory
+if not os.getcwd().endswith('haridi2024memorySemanticContext'):
+    os.chdir(os.getcwd() + '/haridi2024memorySemanticContext')
+# check what the current working directory is
+print(os.getcwd())
+
+#%%
 
 datasets = ["ExperimentDataExp3.csv"] 
 all_prompts = []
@@ -128,6 +138,8 @@ for dataset in datasets:
                 df_trial = df_recall.iloc[trial]
                 cue = df_trial.cue
                 response = df_trial.response
+                Context = df_trial.Context
+                Context = Context.split('/')[-1].split('.')[0]
                 if not isinstance(response, str):
                     response = ''
                 correct = df_trial.correct
@@ -136,7 +148,7 @@ for dataset in datasets:
                 else:
                     correct_text = 'incorrect'
                 if Context == "NoneContext":
-                    prompt += 'You see the word pair ' + word1 + ' - ' + word2 + '.\n'
+                    prompt += 'You see the word ' + cue + '.\n'
                 else:
                     prompt += 'You see the word ' + cue + ' on top of the image of some ' + Context +'.\n'
                 prompt += 'You respond with <<'+ response +'>>.\n'
@@ -148,7 +160,7 @@ for dataset in datasets:
         #print(RTs)
 
         all_prompts.append({'text': prompt,
-            'experiment': 'haridi2024memory_1/' + dataset,
+            'experiment': 'haridi2024memory_3/' + dataset,
             'participant': str(participant),
             'RTs': RTs,
             "age": str(df_participant.Age.iloc[0]),
@@ -157,3 +169,4 @@ for dataset in datasets:
 
 with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)
+# %%

@@ -3,7 +3,7 @@ import pandas as pd
 import jsonlines
 #from utils import randomized_choice_options
 
-data_path = "/Users/kristinwitte/Library/CloudStorage/OneDrive-Personal/CPI/hackathons/psych201/safe_exploration.csv"
+data_path = "safe_exploration.csv"
 data = pd.read_csv(data_path)
 # remove all rows where blocknr = 6 (bonus round)
 data = data[data.blocknr != 6]
@@ -100,5 +100,5 @@ for ID in IDs:
                         'RRQ': data.loc[data["ID"] == ID, "RRQ"].unique().item(),
                         'PID5_negativeAffect': data.loc[data["ID"] == ID, "PID5_negativeAffect"].unique().item()})
 
-with jsonlines.open('witte2024safe_exploration/prompts.jsonl', 'w') as writer:
+with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(all_prompts)

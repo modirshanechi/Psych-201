@@ -1,10 +1,10 @@
 import pandas as pd
 import jsonlines # needed to run in console: pip install jsonlines
 import os
-print("Current working directory:", os.getcwd())
-nd = "/Users/camillephaneuf/Desktop/ANDL/CogEff/phaneuf-hadd_2025_cogeff_PrepSpace/attempt2"
-os.chdir(nd)
-print("New working directory:", os.getcwd())
+#print("Current working directory:", os.getcwd())
+#nd = "/Users/camillephaneuf/Desktop/ANDL/CogEff/phaneuf-hadd_2025_cogeff_PrepSpace/attempt2"
+#os.chdir(nd)
+#print("New working directory:", os.getcwd())
 
 # set all prompt shell
 all_prompts = []

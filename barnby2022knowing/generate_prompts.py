@@ -3,7 +3,7 @@ import os
 import jsonlines
 import pandas as pd
 
-data_path = "../Barnby_etal_2021_SVO/Data"
+data_path = "data"
 
 
 p1_prompt = """You are matched with an anonymous partner.
@@ -59,5 +59,5 @@ for id in ids:
     assert len(reaction_times) == 18 + 36 + 3, "Incorrect number of reaction times. There should be 18 phase 1 trials, 36 phase 2 trials, and 3 final questions (all NAs)."
     output.append({"text" : text, "experiment" : "barnby2022knowing", "participant" : id, "RTs" : reaction_times, "age" : age, "nationality" : ethnicity, "ICARTot" : ICARTot, "ICAR_RT" : ICARrt})
 
-with jsonlines.open('barnby2022knowing/prompts.jsonl', 'w') as writer:
+with jsonlines.open('prompts.jsonl', 'w') as writer:
     writer.write_all(output)

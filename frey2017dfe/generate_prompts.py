@@ -3,8 +3,8 @@ import os
 import json
 import numpy as np
 
-base_path = "/Volumes/Extreme SSD/MPI/mpi_tasks/basel_berlin_data"
-folders = ["main"]
+base_path = ""
+folders = [""]
 
 output_prompts = []
 
@@ -56,8 +56,10 @@ for folder in folders:
                     f"You observed an outcome of {format_number(trial.sample_out)} points."
                 )
                 trial_text.append(decision_text)
+                all_rts.append(None)
                 all_rts.append(int(trial.sample_rts) if not pd.isna(trial.sample_rts) else None)
 
+            all_rts.append(None)
             all_rts.append(None)
             final_decision = trial_data.iloc[-1]
             final_choice = "A" if final_decision.decision == "A" else "B"
@@ -80,6 +82,7 @@ for folder in folders:
             "text": participant_text,
             "RTs": all_rts,
         }
+        print(participant_text)
 
         if meta_info:
             prompt.update(meta_info)

@@ -25,7 +25,7 @@ expe_strings = ['Experiment1/passymetrieI_Suj{}.mat',
 subjects_per_expe = {1:range(1,25),2:range(1,25),3:range(1,30),
                      4:[1,2,3,4,5,8,9,10,11,12,13,14,15,16,17,18,19]}
 
-for experiment in range(1,5):
+for experiment in range(1,4):
     subjects = subjects_per_expe[experiment]#[k for k in range(1,subjects_per_expe[experiment-1])]
     for participant in subjects:
         dataset1 = spio.loadmat(datasets_path+expe_strings[experiment-1].format(participant))['M']

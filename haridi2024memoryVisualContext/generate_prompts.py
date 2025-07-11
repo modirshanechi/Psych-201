@@ -14,6 +14,14 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 print(os.getcwd())
 
 
+# add /haridi2024memory to the working directory
+if not os.getcwd().endswith('haridi2024memoryVisualContext'):
+    os.chdir(os.getcwd() + '/haridi2024memoryVisualContext')
+# check what the current working directory is
+print(os.getcwd())
+
+
+
 datasets = ["ExperimentDataExp2.csv"] 
 all_prompts = []
 
@@ -122,6 +130,8 @@ for dataset in datasets:
                 df_trial = df_recall.iloc[trial]
                 cue = df_trial.cue
                 response = df_trial.response
+                Context = df_trial.Context
+                Context = Context.split('/')[-1].split('.')[0]
                 if not isinstance(response, str):
                     response = ''
                 correct = df_trial.correct
@@ -130,7 +140,7 @@ for dataset in datasets:
                 else:
                     correct_text = 'incorrect'
                 if Context == "NoneContext":
-                    prompt += 'You see the word pair ' + word1 + ' - ' + word2 + '.\n'
+                    prompt += 'You see the word ' + cue + '.\n'
                 else:
                     prompt += 'You see the word ' + cue + ' on top of the image of a ' + Context +'.\n'
                 prompt += 'You respond with <<'+ response +'>>.\n'
@@ -142,7 +152,7 @@ for dataset in datasets:
         #print(RTs)
 
         all_prompts.append({'text': prompt,
-            'experiment': 'haridi2024memory_1/' + dataset,
+            'experiment': 'haridi2024memory_2/' + dataset,
             'participant': str(participant),
             'RTs': RTs,
             "age": str(df_participant.Age.iloc[0]),

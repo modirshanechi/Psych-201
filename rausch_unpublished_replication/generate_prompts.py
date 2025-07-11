@@ -5,7 +5,7 @@ import pandas as pd
 import jsonlines
 import os
 
-os.chdir('C:/Users/mru/KU2/Projekte/Psych-201')
+#os.chdir('C:/Users/mru/KU2/Projekte/Psych-201')
 dataset = 'ReplicationOfHoogeveenEtalByRausch.csv'
 all_prompts = []
 

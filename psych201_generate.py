@@ -1,10 +1,54 @@
 
 import jsonlines
+import json
 from glob import glob
 import numpy as np
 import pandas as pd
 from utils import * 
 import math
+
+def map_experiment_name(old_name, text):
+    remapping = {
+        'riskRatings': 'hussain2024risk/riskRatings',
+        'psychRatings': 'hussain2024risk/psychRatings',
+        'dezfouli//Users/elifkara/Desktop/Helmholtz/dezfouili/dezfouli2019/choices_diagno.csv': 'dezfouli2019/choices_diagno.csv',
+        'Adolescent': 'giron2023developmentalExploration/adolescent',
+        'sampling_paradigm': 'anvari2024sampling_paradigm/',
+        'Decisions From Experience': 'frey2017dfe/',
+        'Lotteries': 'frey2017lotteries/',
+        'exp2': 'cheung2025omissionyesnobias/exp2',
+        'alien_game': 'anvari2024alien/',
+        'MPL': 'frey2017mpl/',
+        'observe_or_bet': 'anvari2024observe_bet/',
+        'multi_armed_bandit': 'anvari2024armed_bandit/',
+        'exp4.csv': 'vantiel2021probabilisticpragmatics/exp4.csv',
+        'RAT/RAT.csv': 'sun2025rat/',
+        'exp3': 'cheung2025omissionyesnobias/exp3',
+    }
+
+    if 'online public goods game' in text:
+        return 'alsobay2025publicGoodsGame/'
+
+    if old_name in remapping.keys():
+        #print('renaming...')
+        return remapping[old_name]
+    else:
+        return old_name
+    
+def map_text(text, experiment):
+    if experiment in ['vantiel2020probabilistic_pragmatics/exp2a.csv', 'vantiel2022meaninguse/exp2', 'vantiel2021probabilisticpragmatics/exp4.csv', 'vantiel2020probabilistic_pragmatics/exp2b.csv', 'olschewski2025optimal/1', 'witte2024interventionStudy', 'hu2023lm-pragmatics', 'Ying2023NIPE']:
+      text = text.replace(">>\n", ">>.\n")
+    if experiment == 'pirrone_2018_dots/data_Pirrone2018_dots_Psych-201.csv':
+      text = text.replace(">>, t", ">>. T")
+      text = text.replace(">>, and", ">> and")
+    if experiment in ['heffner2022economicgames/prd_data.csv', 'heffner2022economicgames/pgg_data.csv']:
+      text = text.replace("$<<", "<<")
+      text = text.replace(">>", ">> dollars")
+    if experiment == 'holton2024goalcommitment':
+      text = text.replace("collect<<", "collect <<")
+
+    return text
+
 
 files = glob('*/*.jsonl')
 print(files)
@@ -13,19 +57,20 @@ print(len(files))
 l_symb = '<<'
 r_symb = '>>'
 
+all_keys = set()
+
 full_data = []
 number_participants = []
 total_experiments = 0
 total_choices = 0
 
-# TODO MERGE psych-201-analyses/old/clean_labels_201.py
 for file in files:
     
     total_experiments += 1
     exp_participants = 0
  
     if True:
-        with jsonlines.open(file) as reader:
+        with jsonlines.open(file, loads=json.loads) as reader:
             # study name 
             study_name = file.split('/')[0]
             print(study_name)
@@ -35,11 +80,12 @@ for file in files:
                 assert 'text' in obj.keys()
                 assert 'participant' in obj.keys()
                 assert 'experiment' in obj.keys()               
-                
+                all_keys.update(obj.keys())
+
                 # check that RTs match number of choices
                 if 'RTs' in obj.keys():
                     if len(obj['RTs']) > 0:
-                        assert len(obj['RTs']) == obj['text'].count(l_symb), (obj['experiment'], obj['participant'])
+                        assert len(obj['RTs']) == obj['text'].count(l_symb), (obj['experiment'], obj['participant'], len(obj['RTs']), obj['text'].count(l_symb))
 
                 # create dictionary
                 if study_name == 'psych101':
@@ -50,10 +96,11 @@ for file in files:
                         'participant': str(obj['participant']),
                     }
                 else:
+                    fixed_experiment_name = map_experiment_name(str(obj['experiment']), obj['text'])
                     dict_partcipants = {
-                        'text': obj['text'],
+                        'text': map_text(obj['text'], fixed_experiment_name),
                         'study': study_name,
-                        'experiment': str(obj['experiment']), 
+                        'experiment': fixed_experiment_name, 
                         'participant': str(obj['participant']),
                     }
 
@@ -70,6 +117,10 @@ for file in files:
                     obj["STAI-T"] = obj.pop("stai_total")
                 if "BIS" in obj.keys():
                     obj["bis"] = obj.pop("BIS")
+                if "audit_total" in obj.keys():
+                    obj["AUDIT"] = obj.pop("audit_total")
+                if "bis_total" in obj.keys():
+                    obj["BIS-10"] = obj.pop("bis_total")
                 if "sex" in obj.keys():
                     obj["gender"] = obj.pop("sex")
                 if "location" in obj.keys():
@@ -158,7 +209,7 @@ for file in files:
                     dict_partcipants['GAD-7'] = 'N/A'
 
                 if 'sds_total' in obj.keys():
-                    dict_partcipants['SDS'] = str(obj['sds_total'])
+                    dict_partcipants['SDS'] = str(int(obj['sds_total']))
                 else:
                     dict_partcipants['SDS'] = 'N/A'                
 
@@ -202,6 +253,12 @@ for file in files:
                 else:
                     dict_partcipants['BIS-11'] = 'N/A'
 
+                if 'BIS-10' in obj.keys():
+                    dict_partcipants['BIS-10'] = str(cast_int(obj['BIS-10']))
+                else:
+                    dict_partcipants['BIS-10'] = 'N/A'
+
+
                 full_data.append(dict_partcipants)
                 exp_participants += 1
                 total_choices += dict_partcipants['text'].count("<<")
@@ -211,7 +268,8 @@ for file in files:
 print('Number of participants:', len(full_data))
 print('Maximum number of participants', np.array(number_participants).max()) 
 print('Total choices:', total_choices)
-    
+
+print(all_keys)
 # save all data sets
 with jsonlines.open('psych201.jsonl', 'w') as writer:
     writer.write_all(full_data)

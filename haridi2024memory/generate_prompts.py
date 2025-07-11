@@ -12,6 +12,12 @@ os.chdir(os.path.dirname(os.path.abspath(__file__)))
 # check what the current working directory is
 print(os.getcwd())
 
+# add /haridi2024memory to the working directory
+if not os.getcwd().endswith('haridi2024memory'):
+    os.chdir(os.getcwd() + '/haridi2024memory')
+# check what the current working directory is
+print(os.getcwd())
+
 
 datasets = ["ExperimentDataExp1.csv"] 
 all_prompts = []
@@ -107,6 +113,7 @@ for dataset in datasets:
 
             #Recall phase
             prompt += "In the next part, you have to remeber the words from the first part of the block.\n\n"
+            "Specifically, you will see one word of a word pair and have to respond with the other.\n\n"
             "Please try your best to remember the word pairs and be as fast and accurate as possible.\n\n"
             "Providing only the first three letters of the target word is allowed.\n\n"
             "If you cant remember the target word, please respond with 0.\n\n"
@@ -127,7 +134,7 @@ for dataset in datasets:
                 else:
                     correct_text = 'incorrect'
 
-                prompt += 'You see the word pair ' + word1 + ' - ' + word2 + '.\n'
+                prompt += 'You see the word ' + cue + '.\n'
                 prompt += 'You respond with <<'+ response +'>>.\n'
                 RTs.append(df_recall_cue.iloc[trial].rt)
 

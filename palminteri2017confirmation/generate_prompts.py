@@ -15,7 +15,7 @@ sys.path.append("..")
 from utils import randomized_choice_options
 import scipy.io as spio
 
-datasets_path = "../../DataSharing_base/Online Scripts/data/"
+datasets_path = "data/"
 all_prompts = []
 
 expe1 = [k for k in range(1,21)]
@@ -29,7 +29,8 @@ for participant in subjects:
     df_participant = pd.DataFrame(data=np.concatenate([dataset1, dataset2]))
     # rts = df_participant[6].astype(float)
     rts = []
-    df_participant[7][df_participant[7]==0]=-1 #negative outcomes have value -1
+    
+    #df_participant[7][df_participant[7]==0]=-1 #negative outcomes have value -1
     
     # df.Stimuli = [[int(x[0]), int(x[1])] for x in df.Stimuli.str.split(';')]
     # df.Outcomes = [[float(x[0]), float(x[1])] for x in df.Outcomes.str.split(';')]

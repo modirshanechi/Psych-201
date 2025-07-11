@@ -10,6 +10,9 @@ dataset = load_dataset('json', data_files='psych201.jsonl')['train'].to_pandas()
 #dataset = load_dataset('json', data_files='psych101/psych101_with_side_information.jsonl')['train'].to_pandas()
 print(dataset)
 print(dataset['clinical diagnosis'].unique())
+print(dataset['education'].unique())
+print(dataset['nationality'].unique())
+
 plt.style.use(['nature'])
 
 plt.rcParams.update({
@@ -27,13 +30,14 @@ questionaires = [
     'BDI-II',
     'PHQ-8',
     'PHQ-9',
+    'BIS-10',
     'BIS-11',
     'BAS Drive',
     'BAS Fun Seeking',
     'BAS Reward Responsiveness',
+    'AUDIT',
     'OCI',
     'DAST',
-    'AUDIT',
     'IUS',
     'RRQ',
 ]
@@ -61,6 +65,7 @@ questionnaire_lookup = {
     'BAS Fun Seeking': 'C2',
     'BAS Reward Responsiveness': 'C2',
     'BIS-11': 'C2',
+    'BIS-10': 'C2',
     'IUS': 'C3',
     'RRQ': 'C3',
     'OCI': 'C3',

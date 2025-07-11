@@ -3,11 +3,11 @@ import pandas as pd
 import math as math
 import jsonlines
 import sys
-sys.path.append(".")
+sys.path.append("..")
 from utils import randomized_choice_options
 
 all_prompts = []
-df = pd.read_csv('data/decker_twostep.csv')
+df = pd.read_csv('decker_twostep.csv')
 
 #count number of unique participants
 num_participants = df.subject_id.max()

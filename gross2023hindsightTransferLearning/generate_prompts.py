@@ -5,7 +5,7 @@ import jsonlines
 
 
 all_prompts = []
-data = pd.read_csv("gross2023hindsightTransferLearning/data/gross2023exp_psych201.csv")
+data = pd.read_csv("gross2023exp_psych201.csv")
 
 instr_control = "This experiment consists of five different phases.\n"\
 "In Phase 1, you should provide an estimate of the population size of 46 different countries.\n"\

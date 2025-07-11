@@ -3,6 +3,7 @@ import sys
 import os
 utils_dir = os.path.dirname(os.path.abspath("utils.py"))
 sys.path.append(utils_dir)
+sys.path.append("..")
 
 from utils import randomized_choice_options
 import pandas as pd
